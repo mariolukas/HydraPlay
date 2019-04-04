@@ -7,15 +7,17 @@ I found some of the Authors (Ryan Detzel) code on [GitLab](https://gitlab.com/ry
 I used the html and css parts of the original code form the project. The rest of the code is new. It is Angular and 
 TypeScript based.
 
+<center>
 
 <div float: center'>
-  <img style="width: 250px" width="300px" src="doc/images/changestream.gif"></img>
+  <img style="width: 400px" width="400px" src="doc/images/changestream.gif"></img>
 </div>
 
 <div float: center'>
-  <img style="width: 250px" width="300px" src="doc/images/library.png"></img>
+  <img style="width: 400px" width="400px" src="doc/images/library.png"></img>
 </div>
 
+</center>
 
 I decided to use JSONRPC as protocl, cause both mopidy and snapcast speak JSONRPC by default.
 The original project used some MQTT parts. But i never figured out how the snapcast communication
