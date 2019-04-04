@@ -1,14 +1,46 @@
 # MultiPlay
-<div style='float: center'>
-  <img style='width: 600px' src="doc/images/players.png"></img>
-</div>
-
-<div style='float: center'>
-  <img style='width: 600px' src="doc/images/library.png"></img>
-</div>
-
 MultiPlay is a multiroom audio player which can control multiple mopidy instances controlled by a snapcast installation.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+
+The project is inspired by a project i have seen on [Youtube](https://www.youtube.com/watch?v=Lmr58F8gSs8&t=100s)
+I found some of the Authors (Ryan Detzel) code on [GitLab](https://gitlab.com/ryandetzel/music-all/tree/master/src).
+I used the html and css parts of the original code form the project. The rest of the code is new. It is Angular and 
+TypeScript based.
+
+<div style='float: center'>
+  <img style='width: 300px' src="doc/images/players.png"></img>
+</div>
+
+<div style='float: center'>
+  <img style='width: 300px' src="doc/images/library.png"></img>
+</div>
+
+
+I decided to use JSONRPC as protocl, cause both mopidy and snapcast speak JSONRPC by default.
+The original project used some MQTT parts. But i never figured out how the snapcast communication
+was established.
+
+The general setup (in my case) consists of:
+
+Hardware: 
+- 1 Raspberry Pi as [SnapCast Server](https://github.com/badaix/snapcast)
+- N Raspberry Pi as [SnapCast Client](https://github.com/badaix/snapcast)
+
+Software on Server: 
+- Pulseaudio
+- Snapcast Server
+- N SnapCast instances
+- SnapProxy
+
+[SnapProxy](https://github.com/mariolukas/SnapProxy) is a small proxy server written by my own to connect to snapcast server
+API over websockets and http requests. Cause the [snapcast API](https://github.com/badaix/snapcast/tree/master/doc/json_rpc_api) speaks over raw TCP/IP
+sockets only by now.
+
+Software on Clients: 
+- Snapcast Client
+
+ 
+A smple configuration of the whole system will follow soon... (maybe also a docker container for the sever setup)
 
 ## Development server
 
