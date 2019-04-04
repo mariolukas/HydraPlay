@@ -9,12 +9,12 @@ TypeScript based.
 
 
 <div style='text-align:center; float: center'>
-  <img style='width: 300px' src="doc/images/changestream.gif"></img>
+  <img style='width: 250px' src="doc/images/changestream.gif"></img>
   <span>Change Stream</span>
 </div>
 
 <div style='text-align:center; float: center'>
-  <img style='width: 300px' src="doc/images/library.png"></img>
+  <img style='width: 250px' src="doc/images/library.png"></img>
   <span>Search for Tracks and Media</span>
 </div>
 
