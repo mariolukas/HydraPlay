@@ -1,5 +1,5 @@
-# MultiPlay
-MultiPlay is a multiroom audio player which can control multiple mopidy instances controlled by a snapcast installation.
+# HydraPlay
+HydraPlay is a multiroom audio player which can control multiple mopidy instances controlled by a snapcast installation.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
 
 The project is inspired by a project i have seen on [Youtube](https://www.youtube.com/watch?v=Lmr58F8gSs8&t=100s)
@@ -8,11 +8,11 @@ I used the html and css parts of the original code form the project. The rest of
 TypeScript based.
 
 <div style='float: center'>
-  <img style='width: 300px' src="doc/images/players.png"></img>
+  <img style='width: 300px' src="doc/images/changestream.gif"></img>
 </div>
 
 <div style='float: center'>
-  <img style='width: 300px' src="doc/images/library.png"></img>
+  <img style='width: 300px' src="doc/images/search.gif"></img>
 </div>
 
 
