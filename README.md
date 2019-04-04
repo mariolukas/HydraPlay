@@ -8,14 +8,12 @@ I used the html and css parts of the original code form the project. The rest of
 TypeScript based.
 
 
-<div style='text-align:center; float: center'>
-  <img style='width: 250px' src="doc/images/changestream.gif"></img>
-  <span>Change Stream</span>
+<div float: center'>
+  <img style="width: 250px" src="doc/images/changestream.gif"></img>
 </div>
 
-<div style='text-align:center; float: center'>
-  <img style='width: 250px' src="doc/images/library.png"></img>
-  <span>Search for Tracks and Media</span>
+<div float: center'>
+  <img style="width: 250px" src="doc/images/library.png"></img>
 </div>
 
 
