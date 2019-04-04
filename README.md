@@ -7,12 +7,15 @@ I found some of the Authors (Ryan Detzel) code on [GitLab](https://gitlab.com/ry
 I used the html and css parts of the original code form the project. The rest of the code is new. It is Angular and 
 TypeScript based.
 
-<div style='float: center'>
+
+<div style='text-align:center; float: center'>
   <img style='width: 300px' src="doc/images/changestream.gif"></img>
+  <span>Change Stream</span>
 </div>
 
-<div style='float: center'>
-  <img style='width: 300px' src="doc/images/search.gif"></img>
+<div style='text-align:center; float: center'>
+  <img style='width: 300px' src="doc/images/library.png"></img>
+  <span>Search for Tracks and Media</span>
 </div>
 
 
