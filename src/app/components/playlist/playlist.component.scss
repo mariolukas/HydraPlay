@@ -1,0 +1,25 @@
+.streamModal .playlist {
+  cursor: pointer;
+  display:inline-block;
+  z-index:15;
+  padding: 3px;
+}
+
+.streamModal .playlist .trackImage {
+  width:120px;
+  height:120px;
+  display:inline-block;
+  margin:5px;
+}
+
+.streamModal .playlist .trackInformation {
+  color:#717171;
+  width: 150px;
+}
+
+.truncate {
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

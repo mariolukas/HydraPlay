@@ -1,0 +1,4 @@
+<div (click)="selectStream()" class="streamInfo">
+  <img class="trackImage" src="{{ cover }}" alt="track art" />
+  <div *ngIf="!cover" class="trackInformation"> {{ name }} </div>
+</div>

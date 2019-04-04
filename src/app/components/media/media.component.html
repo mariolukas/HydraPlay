@@ -1,0 +1,19 @@
+
+<div *ngIf="visible" class="streamModal" (click)="close()">
+  <!--<button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn" class="cancel">Close</button>-->
+  <h3>Join Stream</h3>
+
+    <div class="stream" *ngFor="let stream of streams">
+      <app-stream [group]="group" [stream]="stream"></app-stream>
+    </div>
+
+  <div style="margin-top:2em; margin-bottom:2em;">
+  <input (click)="$event.stopPropagation();" (keyup.enter)="search(searchBox.value)" type="text" name="search" #searchBox placeholder="Search..">
+  </div>
+  <h3>New Stream</h3>
+  <div class="playlist">
+    <ng-container *ngFor="let pTrack of playlist">
+      <app-playlist class="playlist-item" [group]="group" [pTrack]="pTrack"></app-playlist>
+    </ng-container>
+  </div>
+</div>
