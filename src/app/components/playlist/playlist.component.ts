@@ -12,12 +12,13 @@ export class PlaylistComponent implements OnInit {
   @Input() group: any;
 
   private mopidy: any;
-  constructor(private mopidyService:MopidyService) { }
+  constructor(private mopidyService: MopidyService) { }
 
   ngOnInit() {
   }
 
   public selectTrack(track) {
+    console.log(track);
     this.mopidy = this.mopidyService.getStreamById(this.group.stream_id);
     this.mopidy.playTrack(track);
   }

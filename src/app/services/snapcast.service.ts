@@ -76,7 +76,6 @@ export class SnapcastService {
   public setStream(streamId: string, grouId: string) {
     return this.sendAsync('Group.SetStream', {id: grouId, stream_id: streamId}).pipe(
       map((data: any) => {
-
         return data.result;
       })
     );

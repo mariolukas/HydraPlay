@@ -24,11 +24,13 @@ export class PlayerComponent implements OnInit {
   private currentAlbumCover: string;
   private  currentArtist: string;
   private currentTitle: string;
+  private isLoading: boolean;
 
   constructor(private messageService: MessageService, private mopidyService: MopidyService, private snapcastService: SnapcastService, private media: MediaComponent) {
     this.currentAlbumCover = '../../assets/images/cover_placeholder.jpg';
     this.currentTitle = '-';
     this.currentArtist = '-';
+    this.isLoading = true;
   }
 
   ngOnInit() {
@@ -36,12 +38,12 @@ export class PlayerComponent implements OnInit {
     this.messageService.on<string>('Mopidy')
       .subscribe(event => {
 
-        let instace = event.split('#')[0];
+        //console.log(event);
 
-        if (instace === this.group.stream_id) {
-          switch (event.split('#')[1]) {
+        if (event.streamId === this.group.stream_id) {
+          switch (event.label) {
             case 'event:online':
-              this.mopidy = this.mopidyService.getStreamById(instace);
+              this.mopidy = this.mopidyService.getStreamById(event.streamId);
               this.updateCurrentState();
               this.updateTrackInfo();
               break;
@@ -89,11 +91,17 @@ export class PlayerComponent implements OnInit {
   }
 
   public pause() {
-    if (this.isPlaying) this.mopidy.pause();
+    if (this.isPlaying) {
+        this.mopidy.pause();
+        this.isPlaying = false;
+    }
   }
 
   public play() {
-    if (!this.isPlaying) this.mopidy.play();
+    if (!this.isPlaying) {
+        this.mopidy.play();
+        this.isPlaying = true;
+    }
   }
 
   public nextTrack() {
