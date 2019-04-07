@@ -28,16 +28,12 @@
   padding: 3px;
 }
 
-.playlist{
-
-
-}
 
 .playlist {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
 }
 /* Column Gap */
 .playlist > * {

@@ -1,4 +1,4 @@
-import { Injectable, Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { ElementRef, ViewChild, Injectable, Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { trigger, style, animate, transition} from '@angular/animations';
 import {SnapcastService} from '../../services/snapcast.service';
 import {forEach} from '@angular/router/src/utils/collection';
@@ -27,6 +27,7 @@ export class MediaComponent implements OnInit {
   @Input() searchValue: string;
   @Input() playlist: any[];
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @ViewChild('searchBox') searchBox: ElementRef;
 
   private selectedGroup: any;
   private mopidy: any;
@@ -64,6 +65,20 @@ export class MediaComponent implements OnInit {
           }
         });
       });
+
+      this.hideKeyboard();
+  }
+
+  private hideKeyboard() {
+      this.searchBox.nativeElement.setAttribute('readonly', 'readonly'); // Force keyboard to hide on input field.
+      this.searchBox.nativeElement.setAttribute('disabled', 'true'); // Force keyboard to hide on textarea field.
+      let that = this;
+      setTimeout(function() {
+          that.searchBox.nativeElement.blur();  //actually close the keyboard
+          // Remove readonly attribute after keyboard is hidden.
+          that.searchBox.nativeElement.removeAttribute('readonly');
+          that.searchBox.nativeElement.removeAttribute('disabled');
+      }, 100);
   }
 
   private filterPlaylistByURI(uri) {

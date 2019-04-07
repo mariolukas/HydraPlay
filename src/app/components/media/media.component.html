@@ -8,10 +8,10 @@
     </div>
 
   <div style="margin-top:2em; margin-bottom:2em;">
-  <input (click)="$event.stopPropagation();" (keyup.enter)="search(searchBox.value)" type="text" name="search" #searchBox placeholder="Search..">
+  <input autocomplete="off" (click)="$event.stopPropagation();" (keyup.enter)="search(searchBox.value)"  type="text" name="search" #searchBox placeholder="Search..">
   </div>
   <h3>New Stream</h3>
-  <div class="playlist">
+  <div class="playlist" style="">
     <ng-container *ngFor="let pTrack of playlist">
       <app-playlist class="playlist-item" [group]="group" [pTrack]="pTrack"></app-playlist>
     </ng-container>

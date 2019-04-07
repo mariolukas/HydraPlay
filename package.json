@@ -23,6 +23,7 @@
     "@angular/router": "~7.2.0",
     "core-js": "^2.5.4",
     "crypto": "^1.0.1",
+    "hide-virtual-keyboard": "^1.0.1",
     "http": "0.0.0",
     "https": "^1.0.0",
     "json-rpc2": "^1.0.2",

@@ -82,7 +82,9 @@ class MopidyPlayer {
     let tracklist = [];
     tracklist.push(track.uri);
     this.socket.tracklist.add({uris: tracklist}).then(tltracks => {
-      this.socket.playback.play(tltracks);
+      this.socket.playback.play(tltracks => {
+        this.isPlaying = true;
+      });
     });
 
   }
