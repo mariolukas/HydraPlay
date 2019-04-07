@@ -21,9 +21,9 @@ export class PlayerComponent implements OnInit {
   @Input() showDialog: boolean;
   @Output() onCallMediaModal = new EventEmitter();
 
-  private currentAlbumCover: string;
-  private  currentArtist: string;
-  private currentTitle: string;
+  @Input() currentAlbumCover: string;
+  @Input()  currentArtist: string;
+  @Input() currentTitle: string;
   private isLoading: boolean;
 
   constructor(private messageService: MessageService, private mopidyService: MopidyService, private snapcastService: SnapcastService, private media: MediaComponent) {
@@ -38,9 +38,10 @@ export class PlayerComponent implements OnInit {
     this.messageService.on<string>('Mopidy')
       .subscribe(event => {
 
-        //console.log(event);
+        console.log(event);
 
-        if (event.streamId === this.group.stream_id) {
+        if (event.streamId == this.group.stream_id) {
+          console.log(event.label);
           switch (event.label) {
             case 'event:online':
               this.mopidy = this.mopidyService.getStreamById(event.streamId);
@@ -113,7 +114,7 @@ export class PlayerComponent implements OnInit {
   }
 
   public updateTrackInfo() {
-   this.mopidy.getCurrentTrack().then(track => {
+   return this.mopidy.getCurrentTrack().then(track => {
         this.currentAlbumCover = track.album.images[0];
         this.currentArtist = track.album.name;
         this.currentTitle = track.name;

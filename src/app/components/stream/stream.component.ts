@@ -10,6 +10,7 @@ import {MopidyService} from '../../services/mopidy.service';
 export class StreamComponent implements OnInit {
   @Input() group: any;
   @Input() stream: any;
+
   private cover: string;
   private name: string;
   constructor(private mopidyService: MopidyService, private snapcastservice: SnapcastService) {
@@ -24,6 +25,11 @@ export class StreamComponent implements OnInit {
       this.name = track.album.name;
     });
 
+    console.log(`${this.stream.id} is current Stream: ${this.isSelectedStream()}`);
+  }
+
+  isSelectedStream() {
+    return this.stream.id == this.group.stream_id;
   }
 
   selectStream() {
