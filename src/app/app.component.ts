@@ -14,7 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public groups: any = [];
   subscription: Subscription;
 
-  constructor( private messageService: MessageService, private snapcastService: SnapcastService) {
+  constructor( private messageService: MessageService, private snapcastService:SnapcastService) {
 
   }
 
@@ -30,24 +30,15 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
 
-    /*
-    this.messageService.on<string>('Event')
-      .subscribe(msg => {
-        console.log(msg);
-        /*
-        this.snapcastService.socket.next(JSON.stringify({id: 'Server.GetStatus', jsonrpc: '2.0', method:  'Server.GetStatus'}));
-          this.groups = value.result.server.groups;
-        });
-      });
-    */
-
-    this.snapcastService.getServer()
-      .subscribe(server => {
-          this.groups = server.groups;
-          this.streams = server.streams;
-          console.log(this.streams);
-        }
-      );
+      let that = this;
+      this.messageService.on<string>('Snapcast')
+          .subscribe(jsonrpc => {
+              console.log(jsonrpc);
+              if ('server' in jsonrpc.server) {
+                  that.groups = jsonrpc.server.groups;
+                  that.streams = jsonrpc.server.streams;
+              }
+          });
   }
 
   title = 'multiroom-snapcast-ui';

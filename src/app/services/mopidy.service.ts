@@ -79,12 +79,12 @@ class MopidyPlayer {
   }
 
   public playTrack(track) {
+    console.log(track)
     let tracklist = [];
     tracklist.push(track.uri);
     this.socket.tracklist.add({uris: tracklist}).then(tltracks => {
       this.socket.playback.play(tltracks => {
           let event = new MopidyEvent(this.id, 'event:streamTitleChanged', {});
-
           this.messageService.broadcast('Mopidy', {label:'event:streamTitleChanged', data:{}, })
         this.isPlaying = true;
       });

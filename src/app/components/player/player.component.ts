@@ -38,10 +38,10 @@ export class PlayerComponent implements OnInit {
     this.messageService.on<string>('Mopidy')
       .subscribe(event => {
 
-        console.log(event);
+        //console.log(event);
 
         if (event.streamId == this.group.stream_id) {
-          console.log(event.label);
+          //console.log(event.label);
           switch (event.label) {
             case 'event:online':
               this.mopidy = this.mopidyService.getStreamById(event.streamId);

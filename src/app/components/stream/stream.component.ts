@@ -34,11 +34,7 @@ export class StreamComponent implements OnInit {
 
   selectStream() {
     console.log(this.stream.id);
-    this.snapcastservice.setStream(this.stream.id, this.group.id)
-      .subscribe(stream => {
-        console.log(stream);
-      }
-    );
+    this.snapcastservice.setStream(this.stream.id, this.group.id);
   }
 
 
