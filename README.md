@@ -32,7 +32,7 @@ Hardware:
 Software on Server: 
 - Pulseaudio
 - Snapcast Server
-- N SnapCast instances
+- N Mopidy instances
 - SnapProxy
 
 [SnapProxy](https://github.com/mariolukas/SnapProxy) is a small proxy server written by my own to connect to snapcast server
