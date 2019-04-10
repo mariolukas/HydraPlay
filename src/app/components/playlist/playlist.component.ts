@@ -18,7 +18,6 @@ export class PlaylistComponent implements OnInit {
   }
 
   public selectTrack(track) {
-    //console.log(track);
     this.mopidy = this.mopidyService.getStreamById(this.group.stream_id);
     this.mopidy.playTrack(track);
   }

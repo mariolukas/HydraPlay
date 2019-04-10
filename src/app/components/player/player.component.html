@@ -2,8 +2,8 @@
     <div>
       <div class="top"  [ngStyle]="{'background-image': 'url(' + currentAlbumCover + ')'}" (click)="onClickShowStreamModal();">
       <div class="trackInfo" >
-        <!--<div *ngIf="!mopidy || this.mopidy.isLoading" class="lds-ripple"><div></div><div></div></div>-->
-        <h1 *ngIf="client.config.name else notShow">{{client.config.name}}</h1>
+
+          <h1 *ngIf="client.config.name else notShow">{{client.config.name}}</h1>
         <ng-template #notShow>
           <h1>{{client.host.name}}</h1>
         </ng-template>
@@ -11,23 +11,22 @@
           <h3>{{ currentArtist }}</h3>
           <h4>{{ currentTitle }}</h4>
         </div>
-
       </div>
     </div>
 
     <div class="controls">
       <button (click)="previousTrack()" class="previousButton" ></button>
 
-     <span *ngIf="isPlaying"> <button (click)="pause()" class="pauseButton"></button></span>
-     <span *ngIf="!isPlaying"> <button (click)="play()" class="playButton"></button></span>
+     <span *ngIf="isPlaying"> <button type="button"  (click)="pause()" class="pauseButton"></button></span>
+     <span *ngIf="!isPlaying"> <button type="button" (click)="play()" class="playButton"></button></span>
 
       <button (click)="nextTrack()" class="nextButton" ></button>
     </div>
 
     <div>
-      <button (click)="changeVolume('down')" class="volumeDownButton" ></button>
-      <button (click)="changeVolume('mute')" class="muteButton" [ngClass]="{muted: client.config.volume.muted}" ></button>
-      <button (click)="changeVolume('up')" class="volumeUpButton" ></button>
+      <button type="button"  (click)="changeVolume('down')" class="volumeDownButton" ></button>
+      <button type="button" (click)="changeVolume('mute')" class="muteButton" [ngClass]="{muted: client.config.volume.muted}" ></button>
+      <button type="button" (click)="changeVolume('up')" class="volumeUpButton" ></button>
     </div>
   </div>
   <div>
@@ -35,5 +34,4 @@
     <div class="volume">{{client.config.volume.percent}}</div>
   </div>
   <app-media [group]="group" [(visible)]="showDialog"></app-media>
-
-
+</div>

@@ -21,60 +21,57 @@ export class PlayerComponent implements OnInit {
   @Input() showDialog: boolean;
   @Output() onCallMediaModal = new EventEmitter();
 
-  @Input() currentAlbumCover: string;
-  @Input()  currentArtist: string;
-  @Input() currentTitle: string;
-  private isLoading: boolean;
+  private currentAlbumCover: string;
+  private  currentArtist: string;
+  private currentTitle: string;
 
   constructor(private messageService: MessageService, private mopidyService: MopidyService, private snapcastService: SnapcastService, private media: MediaComponent) {
     this.currentAlbumCover = '../../assets/images/cover_placeholder.jpg';
     this.currentTitle = '-';
     this.currentArtist = '-';
-    this.isLoading = true;
   }
 
   ngOnInit() {
 
-    this.messageService.on<string>('Mopidy')
-      .subscribe(event => {
 
-        //console.log(event);
+      this.messageService.on<string>('Mopidy')
+          .subscribe(event => {
+              if (event.streamId == this.group.stream_id) {
+                  this.mopidy = this.mopidyService.getStreamById(event.streamId);
+                  switch (event.label) {
+                      case 'event:online':
+                          this.updateCurrentState();
+                          this.updateTrackInfo();
+                          break;
+                      case 'event:playbackStateChanged':
+                          this.updateCurrentState();
+                          break;
+                      case 'event:streamTitleChanged':
+                          this.updateTrackInfo();
+                          break;
+                  }
+              }
+          });
 
-        if (event.streamId == this.group.stream_id) {
-          //console.log(event.label);
-          switch (event.label) {
-            case 'event:online':
-              this.mopidy = this.mopidyService.getStreamById(event.streamId);
-              this.updateCurrentState();
-              this.updateTrackInfo();
-              break;
-            case 'event:playbackStateChanged':
-              this.updateCurrentState();
-              break;
-            case 'event:streamTitleChanged':
-              this.updateTrackInfo();
-              break;
-          }
-        }
-      });
-
-    this.messageService.on<string>('Snapcast')
-      .subscribe(jsonrpc => {
-         switch (jsonrpc.method) {
-           case 'Client.OnVolumeChanged':
-             if (jsonrpc.params.id === this.client.id) {
-               this.updateVolume(jsonrpc.params.volume);
-             }
-             break;
-           case 'Group.OnStreamChanged':
-             if (jsonrpc.params.id === this.group.id) {
-               this.group.stream_id = jsonrpc.params.stream_id;
-               this.mopidy = this.mopidyService.getStreamById(this.group.stream_id);
-               this.updateTrackInfo();
-             }
-             break;
-         }
-      });
+      this.messageService.on<string>('Snapcast')
+          .subscribe(jsonrpc => {
+            if (jsonrpc) {
+                switch (jsonrpc.method) {
+                    case 'Client.OnVolumeChanged':
+                        if (jsonrpc.params.id === this.client.id) {
+                            this.updateVolume(jsonrpc.params.volume);
+                        }
+                        break;
+                    case 'Group.OnStreamChanged':
+                        if (jsonrpc.params.id === this.group.id) {
+                            this.group.stream_id = jsonrpc.params.stream_id;
+                            this.mopidy = this.mopidyService.getStreamById(this.group.stream_id);
+                            this.updateTrackInfo();
+                        }
+                        break;
+                }
+            }
+          });
   }
 
   /**
@@ -82,13 +79,15 @@ export class PlayerComponent implements OnInit {
    */
 
   private updateCurrentState() {
-    this.mopidy.getCurrentState().then(state => {
-        if (state == 'playing') {
-          this.isPlaying = true;
-        } else {
-          this.isPlaying = false;
-        }
-    });
+    if (this.mopidy) {
+      this.mopidy.getCurrentState().then(state => {
+          if (state === 'playing') {
+            this.isPlaying = true;
+          } else {
+            this.isPlaying = false;
+          }
+      });
+    }
   }
 
   public pause() {
@@ -114,11 +113,15 @@ export class PlayerComponent implements OnInit {
   }
 
   public updateTrackInfo() {
-   return this.mopidy.getCurrentTrack().then(track => {
-        this.currentAlbumCover = track.album.images[0];
-        this.currentArtist = track.album.name;
-        this.currentTitle = track.name;
-    });
+        return this.mopidy.getCurrentTrack().then(track => {
+
+                this.currentAlbumCover = track.album.images[0];
+                this.currentArtist = track.album.name;
+                this.currentTitle = track.name;
+
+        }).catch(err => {
+            console.error(err);
+        });
   }
 
 
@@ -127,19 +130,17 @@ export class PlayerComponent implements OnInit {
    */
 
   public changeVolume(value) {
-
-    let volume = { percent: this.client.config.volume.percent, muted:  this.client.config.volume.muted }
-
+    let volume = { percent: this.client.config.volume.percent, muted:  this.client.config.volume.muted };
     switch (value) {
       case 'up':
         if (volume.percent < 100) {
-          volume.percent += 5;
+          volume.percent += 1;
         }
         break;
 
       case 'down':
         if (volume.percent > 0) {
-          volume.percent -= 5;
+          volume.percent -= 1;
         }
         break;
 

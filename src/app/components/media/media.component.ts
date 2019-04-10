@@ -84,7 +84,6 @@ export class MediaComponent implements OnInit {
   private filterPlaylistByURI(uri) {
     if (this.playlist) {
       this.playlist = this.playlist.filter((item) => {
-        console.log(item);
         return item.uri == uri;
       });
     }

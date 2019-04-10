@@ -28,45 +28,24 @@ export class SnapcastService {
     this.socket = new WebSocket('ws://192.168.178.56:8080', 'binary');
     this.socket.binaryType = 'arraybuffer';
 
-    let that = this
+    let that = this;
     this.socket.onopen = function() {
-        console.log('open');
         that.send('{"id":"1","jsonrpc":"2.0","method":"Server.GetStatus"}}\n');
     }
 
     this.socket.onmessage = function(buf) {
-        console.log(buf);
         let recv = String.fromCharCode.apply(null, new Uint8Array(buf.data));
         let jsonrpc = JSON.parse(recv);
-        that.messageService.broadcast('Snapcast', jsonrpc.result);
-    }
-/*
-    this.socket = webSocket({url: this.snapcastURL, binaryType: 'blob', openObserver:  {
-      next: () => {
-        this.messageService.broadcast('Event','ready' );
-        this.send('{"id":"Server.ReturnStatus","jsonrpc":"2.0","method":"Server.GetStatus"}}\n');
-      }
-    }});
 
+        if (!jsonrpc.hasOwnProperty('error')) {
 
-    // Socket handler when a message comes in, send a broadcast to the
-    // application to subscribers for the received method.
-    // We are Receiving a method like Client.OnVolumeChanged, here we
-    // are only interested in the prefix Client. The rest is dispatched
-    // at the subscribing function.
-
-    this.socket.subscribe(
-      (data) => {
-        console.log(data);
-        let jsonrpc = String.fromCharCode.apply(null, new Uint8Array(data));
-        if(!jsonrpc.hasOwnProperty('id')) {
-          this.messageService.broadcast('Snapcast', jsonrpc);
+            if (!jsonrpc.hasOwnProperty('method') && jsonrpc.result.hasOwnProperty('server')) {
+                that.streams = jsonrpc.result.server.streams;
+            }
+            that.messageService.broadcast('Snapcast', jsonrpc);
         }
-      },
-      (err) => console.log(err),
-      () => console.log('complete')
-    );
-  */
+    }
+
     this.clients = [];
 
   }
@@ -77,9 +56,12 @@ export class SnapcastService {
       for (let i=0, strLen = jsonrpc.length; i < strLen; i++) {
           bufView[i] = jsonrpc.charCodeAt(i);
       }
+      // Use this for debug.
+      /*
       console.log(buf);
       let recv = String.fromCharCode.apply(null, new Uint8Array(buf));
       console.log(recv);
+      */
       this.socket.send(buf);
   }
 
@@ -94,9 +76,10 @@ export class SnapcastService {
     return this.streams;
   }
 
+  public setStream(streamId: string, groupId: string) {
+      let message = '{"id":"'+this.uuidv4()+'","jsonrpc":"2.0","method":"Group.SetStream","params":{"id":"'+groupId+'","stream_id":"'+streamId+'"}}}\n';
 
-  public setStream(streamId: string, grouId: string) {
-      let message = this.toJsonRPC('Group.SetStream', {id: grouId, stream_id: streamId});
+      //let message = this.toJsonRPC('Group.SetStream', {id: grouId, stream_id: streamId});
       this.send(message);
   }
 
@@ -106,17 +89,21 @@ export class SnapcastService {
   }
 
   public clientSetVolume(clientId, volume) {
-    let message = this.toJsonRPC('Client.SetVolume', {id: clientId, volume: {muted: volume.muted, percent: volume.percent}})
+    //let message = this.toJsonRPC('Client.SetVolume', {id: clientId, volume: {muted: volume.muted, percent: volume.percent}})
+    let message = '{"id":"'+this.uuidv4()+'","jsonrpc":"2.0","method":"Client.SetVolume","params":{"id":"'+clientId+'","volume":{"muted":'+volume.muted+',"percent":'+volume.percent+'}}}}\n'
     this.send(message);
   }
 
   public toJsonRPC(method, params): string {
     let message: string;
     if (params != null) {
-      message = JSON.stringify({id: this.uuidv4(), jsonrpc: '2.0', method: method, params: params});
+      let paramsString = JSON.stringify(params);
+            //     {"id":8,"jsonrpc":"2.0","method":"Client.SetVolume","params":{"id":"'+id+'","volume":{"muted":'+mute+',"percent":'+percent+'}}}}\n'
+      message = `{"id":"1","jsonrpc":"2.0","method":"Client.SetVolume","params":${JSON.stringify(params)}}\n`;
     } else {
       message = JSON.stringify({id: this.uuidv4(), jsonrpc: '2.0', method: method});
     }
+    console.log(message);
     return message;
   }
 

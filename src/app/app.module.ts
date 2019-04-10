@@ -8,7 +8,6 @@ import { PlayerComponent } from './components/player/player.component';
 import { StreamComponent } from './components/stream/stream.component';
 import { MediaComponent } from './components/media/media.component';
 import { NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MessageService} from './services/message.service';
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -28,7 +27,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FlexLayoutModule
   ],
   providers: [
-    MessageService
+
   ],
   bootstrap: [AppComponent]
 })

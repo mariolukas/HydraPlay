@@ -31,13 +31,14 @@ class MopidyPlayer {
             this.triggerEvent(event);
         });
 
-        this.socket.on('event', (_event) => {
-            event.label = `${_event}`;
+        this.socket.on('event', (label) => {
+            event.label = `${label}`;
             this.triggerEvent(event);
         });
     });
 
     this.socket.on('websocket:close', () =>{
+      console.log('socket closed');
       this.socket.off();
     });
   }
@@ -56,6 +57,7 @@ class MopidyPlayer {
 
   public getCurrentTrack(): any {
     return this.socket.playback.getCurrentTrack().then(track => {
+
         return track;
     });
   }
@@ -79,15 +81,14 @@ class MopidyPlayer {
   }
 
   public playTrack(track) {
-    console.log(track)
     let tracklist = [];
     tracklist.push(track.uri);
-    this.socket.tracklist.add({uris: tracklist}).then(tltracks => {
-      this.socket.playback.play(tltracks => {
-          let event = new MopidyEvent(this.id, 'event:streamTitleChanged', {});
-          this.messageService.broadcast('Mopidy', {label:'event:streamTitleChanged', data:{}, })
-        this.isPlaying = true;
-      });
+    this.socket.tracklist.clear().then(()=>{
+        this.socket.tracklist.add({uris: tracklist}).then(tltracks => {
+            this.socket.playback.play(tltracks => {
+                this.isPlaying = true;
+            });
+        });
     });
 
   }
@@ -139,7 +140,6 @@ export class MopidyService {
 
   constructor(private messageService: MessageService) {
     this.mopidies = [];
-
     environment.mopidy.forEach(mpInstance => {
         let _mopidy = new MopidyPlayer(mpInstance, this.messageService)
         this.mopidies.push(_mopidy);

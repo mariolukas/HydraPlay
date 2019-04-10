@@ -11,7 +11,9 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  public groups: any = [];
+  @Input() groups: any = [];
+  //@Input() streams: any = [];
+
   subscription: Subscription;
 
   constructor( private messageService: MessageService, private snapcastService:SnapcastService) {
@@ -29,17 +31,13 @@ export class AppComponent implements OnInit, OnDestroy {
    * Initialize available Players
    */
   ngOnInit() {
-
-      let that = this;
       this.messageService.on<string>('Snapcast')
           .subscribe(jsonrpc => {
-              console.log(jsonrpc);
-              if ('server' in jsonrpc.server) {
-                  that.groups = jsonrpc.server.groups;
-                  that.streams = jsonrpc.server.streams;
+              if (jsonrpc && !jsonrpc.hasOwnProperty('method') &&  jsonrpc.result.hasOwnProperty('server') && this.groups.length == 0) {
+                  this.groups = jsonrpc.result.server.groups;
               }
           });
   }
 
-  title = 'multiroom-snapcast-ui';
+  title = 'HydraPlay';
 }
