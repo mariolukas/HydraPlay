@@ -32,8 +32,9 @@ Hardware:
 Software on Server: 
 - Pulseaudio
 - Snapcast Server
-- N SnapCast instances
-- SnapProxy
+- N Mopidy instances
+- ~~SnapProxy~~
+- websockify
 
 [SnapProxy](https://github.com/mariolukas/SnapProxy) is a small proxy server written by my own to connect to snapcast server
 API over websockets and http requests. Cause the [snapcast API](https://github.com/badaix/snapcast/tree/master/doc/json_rpc_api) speaks over raw TCP/IP
