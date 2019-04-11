@@ -1,0 +1,61 @@
+FROM ubuntu:latest
+
+RUN apt-get -qq update &&\
+    apt-get -qq install build-essential git avahi-daemon avahi-utils dbus shairport-sync \
+    supervisor bzip2 portaudio19-dev libvorbisfile3 curl libprotoc-dev cargo mopidy, pulseaudio &&\
+    curl -L -o /root/out.deb 'https://github.com/badaix/snapcast/releases/download/v0.15.0/snapserver_0.15.0_amd64.deb' &&\
+    dpkg -i --force-all /root/out.deb &&\
+    apt-get -y -f install &&\
+    mkdir -p /root/.config/snapcast/ &&\
+    rm -rf /var/run/* &&\
+    mkdir -p /var/run/dbus &&\
+    chown messagebus:messagebus /var/run/dbus &&\
+    dbus-uuidgen --ensure 
+
+RUN mkdir -p /home/snapcast/scripts
+
+#install mopidy
+#RUN wget -q -O - https://apt.mopidy.com/mopidy.gpg | apt-key add - \
+# && wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/stretch.list \
+
+
+
+#configure mopidy
+COPY config/mopidy/*.conf /etc/mopidy/	
+COPY config/systemd/*.conf /etc/systemd/system/
+COPY config/snapcast/snapserver /etc/default/
+copy config/pulseaudio/* /etc/pulse/
+COPY scripts/startup.sh /home/snapcast/scripts/startup.sh
+
+RUN chmod a+x /home/snapcast/scripts/startup.sh
+
+# install snapcast server
+ARG SNAPCASTVERSION=0.15.0
+RUN wget 'https://github.com/badaix/snapcast/releases/download/v'$SNAPCASTVERSION'/snapserver_'$SNAPCASTVERSION'_amd64.deb'
+
+RUN dpkg -i --force-all 'snapserver_'$SNAPCASTVERSION'_amd64.deb'
+RUN apt-get -f install -y
+
+RUN mkdir -p /root/.config/snapcast/
+
+# mounting dbus on host so avahi can work.
+VOLUME /var/run/dbus
+
+# Snapcast Ports
+EXPOSE 1704-1704
+
+# Snapcast Ports
+EXPOSE 1704-1704
+
+# AirPlay ports.
+#EXPOSE 3689/tcp
+#EXPOSE 5000-5005/tcp
+#EXPOSE 6000-6005/udp
+
+# Avahi port
+EXPOSE 5353
+
+# Avahi port
+EXPOSE 5353
+
+ENTRYPOINT ["/home/snapcast/scripts/startup.sh"]

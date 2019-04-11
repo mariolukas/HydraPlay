@@ -1,0 +1,24 @@
+FROM ubuntu:latest
+
+apt-get -qq install build-essential git avahi-daemon avahi-utils dbus shairport-sync \
+        supervisor bzip2 portaudio19-dev libvorbisfile3 curl libprotoc-dev cargo mopidy, pulseaudio &&\
+    curl -L -o /root/out.deb 'https://github.com/badaix/snapcast/releases/download/v0.15.0/snapclient_0.15.0_amd64.deb' &&\
+    dpkg -i --force-all /root/out.deb &&\
+    apt-get -y -f install &&\
+    mkdir -p /root/.config/snapcast/ &&\
+    rm -rf /var/run/* &&\
+    mkdir -p /var/run/dbus &&\
+    chown messagebus:messagebus /var/run/dbus &&\
+    dbus-uuidgen --ensure 
+
+
+RUN dpkg -i --force-all 'snapclient_'$SNAPCASTVERSION'_amd64.deb'
+RUN apt-get -f install -y
+
+# mounting dbus on host so avahi can work.
+VOLUME /var/run/dbus
+
+# Snapcast Ports
+EXPOSE 1704-1704
+
+ENTRYPOINT ["snapclient"]

@@ -1,0 +1,20 @@
+version: '3'
+services:
+  snapserver:
+    build:
+      context: server
+      dockerfile: Dockerfile.server
+      args:
+        SNAPCASTVERSION: 0.15.0
+
+  snapclient:
+    build:
+      context: client
+      dockerfile: Dockerfile.client
+      args:
+        SNAPCASTVERSION: 0.15.0
+    links:
+     - snapserver:snapserverhost
+    #devices:
+    # - "/dev/snd/:/dev/snd/"
+    command: "/home/snapcast/scripts/startup.sh"

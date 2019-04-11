@@ -1,0 +1,16 @@
+[Unit]
+Description=PA
+After=network.target sound.target
+
+[Service]
+ExecStart=/usr/bin/pulseaudio --system
+
+# allow MPD to use real-time priority 50
+LimitRTPRIO=50
+LimitRTTIME=infinity
+
+# disallow writing to /usr, /bin, /sbin, ...
+ProtectSystem=yes
+
+[Install]
+WantedBy=multi-user.target
