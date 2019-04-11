@@ -44,7 +44,13 @@ Software on Clients:
 - Snapcast Client
 
  
-A smple configuration of the whole system will follow soon... (maybe also a docker container for the sever setup)
+A simple configuration of the whole system will follow soon... (maybe also a docker container for the sever setup)
+
+## How the setup works
+
+<div float: center'>
+  <img style="width: 400px" width="400px" src="doc/images/hydra_setup.png"></img>
+</div>
 
 ## Development server
 

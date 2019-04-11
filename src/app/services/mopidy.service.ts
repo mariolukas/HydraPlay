@@ -75,7 +75,9 @@ class MopidyPlayer {
     });
 
     return this.socket.library.search({'any': `${queryElements}`}).then(result => {
-        return result;
+      console.log(result);
+      return result;
+
     });
 
   }
