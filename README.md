@@ -60,6 +60,7 @@ Downlaod the latest Snapcast Server Package from GitHub.
 Install the Package and it dependencies. 
 
  ```$ sudo dpkg -i snapclient_0.15.0_armhf.deb ```
+ 
  ```$ sudo apt-get -f install```
 
 Configuration of Snapcast server for the streams. In this case we will have 3 Mopidiy instances. If you need more streams, simply add them. Open the Snapserver configuraiton with 
@@ -76,7 +77,7 @@ Afterwards restart Snapserver. Snapserver is now configured and ready. Additiona
 
 Install the Pulseaudio package by 
 
-  ```$ sudo apt-get install pulse audio```
+  ```$ sudo apt-get install pulseaudio```
 
 .. furhter steps folliwing soon ... 
 
