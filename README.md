@@ -45,6 +45,43 @@ Software on Clients:
  
 A simple configuration of the whole system will follow soon... (maybe also a docker container for the sever setup)
 
+## Getting started
+
+### Server Setup
+
+The following guide assumes that you have a Raspberry Pi 3 with a fresh installation of Raspbian. 
+
+#### Installing Snapserver
+
+Downlaod the latest Snapcast Server Package from GitHub. 
+  
+ $ wget https://github.com/badaix/snapcast/releases/download/v0.15.0/snapserver_0.15.0_armhf.deb 
+  
+Install the Package and it dependencies. 
+
+ $ sudo dpkg -i snapclient_0.15.0_armhf.deb 
+ $ sudo apt-get -f install
+
+Configuration of Snapcast server for the streams. In this case we will have 3 Mopidiy instances. If you need more streams, simply add them. Open the Snapserver configuraiton with 
+
+  $ sudo nano /etc/default/snapserver
+  
+and modify the sollowing line 
+
+  SNAPSERVER_OPTS="-d -s pipe:///tmp/mopidy2.fifo?name=mopidy2&mode=create -s pipe:///tmp/mopidy1.fifo?name=mopidy1&mode=create"
+
+Afterwards restart Snapserver. Snapserver is now configured and ready. Additionally you can add it so systemd auto start.
+
+#### Installing Pulseaudio
+
+Install the Pulseaudio package by 
+
+  $ sudo apt-get install pulse audio
+
+.. furhter steps folliwing soon ... 
+
+  
+
 ## How the setup works
 
 <div float: center'>
