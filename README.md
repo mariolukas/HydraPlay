@@ -55,12 +55,12 @@ The following guide assumes that you have a Raspberry Pi 3 with a fresh installa
 
 Downlaod the latest Snapcast Server Package from GitHub. 
   
- $ wget https://github.com/badaix/snapcast/releases/download/v0.15.0/snapserver_0.15.0_armhf.deb 
+ ```$ wget https://github.com/badaix/snapcast/releases/download/v0.15.0/snapserver_0.15.0_armhf.deb ```
   
 Install the Package and it dependencies. 
 
- $ sudo dpkg -i snapclient_0.15.0_armhf.deb 
- $ sudo apt-get -f install
+ ```$ sudo dpkg -i snapclient_0.15.0_armhf.deb ```
+ ```$ sudo apt-get -f install
 
 Configuration of Snapcast server for the streams. In this case we will have 3 Mopidiy instances. If you need more streams, simply add them. Open the Snapserver configuraiton with 
 
