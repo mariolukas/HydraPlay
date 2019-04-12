@@ -60,15 +60,15 @@ Downlaod the latest Snapcast Server Package from GitHub.
 Install the Package and it dependencies. 
 
  ```$ sudo dpkg -i snapclient_0.15.0_armhf.deb ```
- ```$ sudo apt-get -f install
+ ```$ sudo apt-get -f install```
 
 Configuration of Snapcast server for the streams. In this case we will have 3 Mopidiy instances. If you need more streams, simply add them. Open the Snapserver configuraiton with 
 
-  $ sudo nano /etc/default/snapserver
+ ``` $ sudo nano /etc/default/snapserver```
   
 and modify the sollowing line 
 
-  SNAPSERVER_OPTS="-d -s pipe:///tmp/mopidy2.fifo?name=mopidy2&mode=create -s pipe:///tmp/mopidy1.fifo?name=mopidy1&mode=create"
+  ```SNAPSERVER_OPTS="-d -s pipe:///tmp/mopidy2.fifo?name=mopidy2&mode=create -s pipe:///tmp/mopidy1.fifo?name=mopidy1&mode=create"```
 
 Afterwards restart Snapserver. Snapserver is now configured and ready. Additionally you can add it so systemd auto start.
 
@@ -76,7 +76,7 @@ Afterwards restart Snapserver. Snapserver is now configured and ready. Additiona
 
 Install the Pulseaudio package by 
 
-  $ sudo apt-get install pulse audio
+  ```$ sudo apt-get install pulse audio
 
 .. furhter steps folliwing soon ... 
 
