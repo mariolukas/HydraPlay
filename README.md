@@ -76,7 +76,7 @@ Afterwards restart Snapserver. Snapserver is now configured and ready. Additiona
 
 Install the Pulseaudio package by 
 
-  ```$ sudo apt-get install pulse audio
+  ```$ sudo apt-get install pulse audio```
 
 .. furhter steps folliwing soon ... 
 
