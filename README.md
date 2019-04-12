@@ -45,6 +45,13 @@ Software on Clients:
  
 A simple configuration of the whole system will follow soon... (maybe also a docker container for the sever setup)
 
+## How the setup works
+
+<div float: center'>
+  <img src="doc/images/hydra_setup.png"></img>
+</div>
+
+
 ## Getting started
 
 ### Server Setup
@@ -82,13 +89,6 @@ Install the Pulseaudio package by
 .. furhter steps folliwing soon ... 
 
   
-
-## How the setup works
-
-<div float: center'>
-  <img src="doc/images/hydra_setup.png"></img>
-</div>
-
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
