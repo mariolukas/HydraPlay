@@ -60,7 +60,10 @@ export class MediaComponent implements OnInit {
           if (result[index].tracks) {
             let _tracks = result[index].tracks;
             _tracks.forEach(track => {
-              this.playlist.push(track);
+                this.mopidy.getCover(track.uri).then(imageUri => {
+                    track['coverArt'] = imageUri;
+                    this.playlist.push(track);
+                });
             });
           }
         });

@@ -21,8 +21,12 @@ export class StreamComponent implements OnInit {
     let mopidy = this.mopidyService.getStreamById(this.stream.id);
 
     mopidy.getCurrentTrack().then(track => {
-      this.cover = track.album.images[0];
-      this.name = track.album.name;
+
+        mopidy.getCover(track.uri).then(imageUri => {
+          this.cover = imageUri;
+          this.name = track.album.name;
+        });
+
     });
 
     console.log(`${this.stream.id} is current Stream: ${this.isSelectedStream()}`);

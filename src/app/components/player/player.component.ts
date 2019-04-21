@@ -37,6 +37,7 @@ export class PlayerComponent implements OnInit {
       this.messageService.on<string>('Mopidy')
           .subscribe(event => {
               if (event.streamId == this.group.stream_id) {
+                  console.log(event.label);
                   this.mopidy = this.mopidyService.getStreamById(event.streamId);
                   switch (event.label) {
                       case 'event:online':
@@ -47,6 +48,7 @@ export class PlayerComponent implements OnInit {
                           this.updateCurrentState();
                           break;
                       case 'event:streamTitleChanged':
+                      case 'event:tracklistChanged':
                           this.updateTrackInfo();
                           break;
                   }
@@ -114,11 +116,11 @@ export class PlayerComponent implements OnInit {
 
   public updateTrackInfo() {
         return this.mopidy.getCurrentTrack().then(track => {
-
-                this.currentAlbumCover = track.album.images[0];
+            this.mopidy.getCover(track.uri).then(imageUri => {
+                this.currentAlbumCover = imageUri;
                 this.currentArtist = track.album.name;
                 this.currentTitle = track.name;
-
+            });
         }).catch(err => {
             console.error(err);
         });

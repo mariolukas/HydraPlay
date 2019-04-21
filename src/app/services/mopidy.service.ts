@@ -57,7 +57,7 @@ class MopidyPlayer {
 
   public getCurrentTrack(): any {
     return this.socket.playback.getCurrentTrack().then(track => {
-
+        console.log(track);
         return track;
     });
   }
@@ -68,16 +68,25 @@ class MopidyPlayer {
     });
   }
 
+  public getCover(_image):any {
+      let uris = [];
+      let image = [];
+      image.push(_image);
+      uris.push(image);
+      return this.socket.library.getImages(uris).then(res => {
+         return res[Object.keys(res)[0]][0].uri;
+      });
+  }
+
   public search(query): any {
+
     var queryElements = query.match(/(".*?"|[^"\s]+)+(?=\s*|\s*$)/g);
     queryElements = queryElements.map(function (el) {
       return el.replace(/"/g, '');
     });
 
     return this.socket.library.search({'any': `${queryElements}`}).then(result => {
-      console.log(result);
       return result;
-
     });
 
   }
@@ -88,6 +97,9 @@ class MopidyPlayer {
     this.socket.tracklist.clear().then(()=>{
         this.socket.tracklist.add({uris: tracklist}).then(tltracks => {
             this.socket.playback.play(tltracks => {
+              console.log(tltracks);
+
+                //this.socket.library.get_images()
                 this.isPlaying = true;
             });
         });
