@@ -75,7 +75,7 @@ Configuration of Snapcast server for the streams. In this case we will have 3 Mo
 
  ``` $ sudo nano /etc/default/snapserver```
   
-and modify the sollowing line 
+and modify the following line 
 
   ```SNAPSERVER_OPTS="-d -s pipe:///tmp/mopidy2.fifo?name=mopidy2&mode=create -s pipe:///tmp/mopidy1.fifo?name=mopidy1&mode=create"```
 
