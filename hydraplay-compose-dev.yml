@@ -1,0 +1,41 @@
+version: '3'
+services:
+  snapserver:
+    build:
+      context: docker
+      dockerfile: x86/snapserver.dockerfile
+      args:
+        SNAPCASTVERSION: 0.16.0
+    environment:
+      - NUMBER_OF_STREAMS=3
+      - SPOTIFY_USERNAME=foo
+      - SPOTIFY_PASSWORD=bar    
+    ports:
+      - "80:8080"
+      - "443:443"
+      - 1704:1704
+      - "6681:6681"
+      - "6682:6682"
+      - "6683:6683"
+    volumes:
+      - ./docker/config/scripts/:/scripts
+      - ./docker/config/templates/:/templates
+    command: /scripts/startup_server.sh
+
+  snapclient:
+    build:
+      context: docker
+      dockerfile: x86/snapclient.dockerfile
+      args:
+        SNAPCASTVERSION: 0.16.0
+    links:
+     - snapserver
+    #devices:
+    # - "/dev/snd/:/dev/snd/"
+    #command: "-h snapserverhost"
+    command: /scripts/startup_client.sh
+    environment: 
+      - PULSE_SERVER=docker.for.mac.localhost
+    volumes:
+      - ~/.config/pulse:/home/pulseaudio/.config/pulse
+      - ./docker/config/scripts/:/scripts

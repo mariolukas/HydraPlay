@@ -5,20 +5,21 @@
 export const environment = {
   production: false,
   snapcast: {
-    ip: '192.168.178.56',
+    ip: '172.20.0.1',
     port: 8080
   },
   mopidy: [
     {
-      ip: '192.168.178.56',
+      ip: '172.20.0.1',
       port: 6681,
       id: 'mopidy1'
     },
     {
-      ip: '192.168.178.56',
+      ip: '172.20.0.1',
       port: 6682,
       id: 'mopidy2'
     }
+
   ]
 };
 

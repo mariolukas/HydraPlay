@@ -301,6 +301,8 @@ WantedBy=multi-user.targe
 So we are able to start/stop/restart/enable/disable the service as already described
 for the other services. 
 
+
+
 #### Configure HydraPlay
 Finally we need to tell HydraPlay where it can find all the configured stuff. 
 Simply open the file ```environments/environment.ts``` in your HydraPlayer folder. 
@@ -309,6 +311,21 @@ Change the ports and ip addressed to your needs. Thats all.
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+
+### MacOS
+It can be helpful if you run a docker container with snapclient locally for development. 
+For this you need to run pulseaudio tcp stream to tansmit the adio to/from the container.
+This will describe how to setup pulseaudio on MacOS.
+
+#### install pulseaudio
+brew install pulseaudio
+
+#### Start daemon
+pulseaudio --load=module-native-protocol-tcp --exit-idle-time=-1 --daemon
+
+#### Check if daemon is running.
+pulseaudio --check -v
 
 ## Code scaffolding
 

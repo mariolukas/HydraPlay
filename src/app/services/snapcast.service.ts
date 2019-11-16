@@ -21,16 +21,17 @@ export class SnapcastService {
 
   public streams: any;
 
-  public snapcastURL = `ws://${environment.snapcast.ip}:${environment.snapcast.port}`;
+  public snapcastURL = `ws://172.20.0.1:${environment.snapcast.port}`;
+
 
   constructor(private http: HttpClient, private messageService: MessageService) {
 
-    this.socket = new WebSocket('ws://192.168.178.56:8080', 'binary');
+    this.socket = new WebSocket(this.snapcastURL, 'binary');
     this.socket.binaryType = 'arraybuffer';
 
     let that = this;
     this.socket.onopen = function() {
-        that.send('{"id":"1","jsonrpc":"2.0","method":"Server.GetStatus"}}\n');
+        that.send('{"id":"1","jsonrpc":"2.0","method":"Server.GetStatus"}\n');
     }
 
     this.socket.onmessage = function(buf) {

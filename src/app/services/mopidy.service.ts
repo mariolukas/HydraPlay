@@ -12,14 +12,18 @@ class MopidyPlayer {
   private id: string;
   private tracks: any[];
   private isPlaying: boolean;
+  private protocol: string;
 
   public mopidyOnline$: EventEmitter<MopidyPlayer>;
 
 
   constructor(instance: any, private messageService: MessageService) {
+
+    this.setWebsocketProtocol();
     this.id = instance.id;
-    this.socket = new Mopidy({webSocketUrl: `ws://${instance.ip}:${instance.port}/mopidy/ws/`});
+    this.socket = new Mopidy({webSocketUrl: `${this.protocol}://${location.origin}:${instance.port}/mopidy/ws/`});
     this.isPlaying = false;
+
 
     this.socket.on('websocket:open', () => {
         let event = new MopidyEvent(instance.id, 'event', {});
@@ -41,6 +45,14 @@ class MopidyPlayer {
       console.log('socket closed');
       this.socket.off();
     });
+  }
+
+  public setWebsocketProtocol() {
+      if (location.protocol !== 'https:') {
+          this.protocol = 'ws';
+      } else {
+          this.protocol = 'wss';
+      }
   }
 
   public triggerEvent(event: MopidyEvent) {
