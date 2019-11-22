@@ -1,0 +1,24 @@
+{
+  "__symbolic": "module",
+  "version": 3,
+  "metadata": {},
+  "exports": [
+    {
+      "from": "./core"
+    },
+    {
+      "from": "./flex"
+    },
+    {
+      "from": "./grid"
+    },
+    {
+      "from": "./extended"
+    },
+    {
+      "from": "./typings/index"
+    }
+  ],
+  "flatModuleIndexRedirect": true,
+  "importAs": "@angular/flex-layout"
+}

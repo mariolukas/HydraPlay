@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const packageJson = require('../package.json')
+
+const banner = `
+/**
+ * ${packageJson.name} - ${packageJson.description}
+ *
+ * @version ${packageJson.version}
+ * @link ${packageJson.homepage}
+ * @author ${packageJson.author}
+ * @license ${packageJson.license}
+ */
+`
+
+const distSrc = fs.readFileSync(
+  'dist/hide-virtual-keyboard.js',
+  {
+    encoding: 'utf8'
+  }
+)
+
+fs.appendFileSync(
+  'dist/hide-virtual-keyboard.js',
+  `${banner}${distSrc}`,
+  {
+    flag: 'w',
+    encoding: 'utf8'
+  }
+)

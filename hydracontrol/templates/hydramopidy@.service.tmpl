@@ -1,0 +1,6 @@
+[Unit]
+Description="Mopidy instance for Stream  #%i"
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/mopidy --quiet --config /etc/mopidy/mopidy_stream_%i.conf

@@ -1,0 +1,5 @@
+import { MergeStrategies } from "./custom-webpack-builder-config";
+import { Configuration } from "webpack";
+export declare class WebpackConfigMerger {
+    static merge(webpackConfig1: Configuration, webpackConfig2: Configuration, mergeStrategies?: MergeStrategies, replacePlugins?: boolean): Configuration;
+}

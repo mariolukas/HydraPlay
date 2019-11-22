@@ -1,0 +1,47 @@
+[core]
+cache_dir = /var/cache/mopidy
+config_dir = /etc/mopidy
+data_dir = /var/lib/mopidy
+
+[logging]
+config_file = /etc/mopidy/logging.conf
+debug_file = /var/log/mopidy/mopidy-debug.log
+
+[local]
+media_dir = /var/lib/mopidy/media
+
+[m3u]
+playlists_dir = /var/lib/mopidy/playlists
+
+[audio]
+output = audioresample ! audioconvert ! audio/x-raw,rate=48000,channels=2,format=S16LE ! wavenc ! filesink location=/tmp/${STREAM_FIFO}
+
+[mpd]
+enabled = true
+hostname = 0.0.0.0
+port=${MPD_PORT}
+
+[soundcloud]
+enabled = false
+
+[spotify]
+enabled = false
+#username = <your spotify user>
+#password = <your spotify secret>
+#client_id = <your spotify cliend id>
+#client_secret = <your spotify client secret>
+
+[http]
+enabled = true
+hostname =  0.0.0.0
+port=${HTTP_PORT}
+zeroconf = Mopidy 1
+csrf_protection = false
+allowed_origins = *
+
+[musicbox_webclient]
+enabled = true
+musicbox = true
+
+[tunein]
+timeout = 5000
