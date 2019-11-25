@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   snapcast: {
     ip: '192.168.178.56',
-    port: 8080
+    port: 80
   },
   mopidy: [
     {
@@ -18,11 +18,6 @@ export const environment = {
       ip: '192.168.178.56',
       port: 6682,
       id: 'STREAM2'
-    },
-    {
-      ip: '192.168.178.56',
-      port: 6683,
-      id: 'STREAM3'
     }
   ]
 };

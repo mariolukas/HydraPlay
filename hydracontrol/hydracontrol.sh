@@ -58,6 +58,7 @@ create_mopidy_snapserver_config(){
   rm /etc/mopidy/mopidy_stream_*.conf
   rm /tmp/stream_*.fifo
 
+  IP_ADDRESS=$(ip route get 1 | awk '{print $NF;exit}')
 
   SNAP_OPTS_CONFIG="-d"
 
@@ -67,6 +68,7 @@ create_mopidy_snapserver_config(){
       export MPD_PORT=$(( 6600 + $i ))
       export HTTP_PORT=$(( 6680 + $i ))
       export STREAM_FIFO="stream_"$i".fifo"
+      export HTTP_IP=$IP_ADDRESS
 
       touch /tmp/${STREAM_FIFO}
 

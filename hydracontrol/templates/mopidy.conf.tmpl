@@ -33,11 +33,11 @@ enabled = false
 
 [http]
 enabled = true
-hostname =  0.0.0.0
+hostname = ${HTTP_IP}
 port=${HTTP_PORT}
-zeroconf = Mopidy 1
+zeroconf = Mopidy ${HTTP_PORT}
 csrf_protection = false
-allowed_origins = "*"
+allowed_origins = ${HTTP_IP}
 
 [musicbox_webclient]
 enabled = true

@@ -116,11 +116,13 @@ export class PlayerComponent implements OnInit {
 
   public updateTrackInfo() {
         return this.mopidy.getCurrentTrack().then(track => {
+            /*
             this.mopidy.getCover(track.uri).then(imageUri => {
                 this.currentAlbumCover = imageUri;
                 this.currentArtist = track.album.name;
                 this.currentTitle = track.name;
             });
+             */
         }).catch(err => {
             console.error(err);
         });

@@ -58,11 +58,9 @@ export class SnapcastService {
           bufView[i] = jsonrpc.charCodeAt(i);
       }
       // Use this for debug.
-      /*
       console.log(buf);
       let recv = String.fromCharCode.apply(null, new Uint8Array(buf));
       console.log(recv);
-      */
       this.socket.send(buf);
   }
 
@@ -91,7 +89,7 @@ export class SnapcastService {
 
   public clientSetVolume(clientId, volume) {
     //let message = this.toJsonRPC('Client.SetVolume', {id: clientId, volume: {muted: volume.muted, percent: volume.percent}})
-    let message = '{"id":"'+this.uuidv4()+'","jsonrpc":"2.0","method":"Client.SetVolume","params":{"id":"'+clientId+'","volume":{"muted":'+volume.muted+',"percent":'+volume.percent+'}}\n'
+    let message = '{"id":"'+this.uuidv4()+'","jsonrpc":"2.0","method":"Client.SetVolume","params":{"id":"'+clientId+'","volume":{"muted":"'+volume.muted+'","percent": "'+volume.percent+'"}}}\n'
     this.send(message);
   }
 

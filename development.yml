@@ -19,7 +19,7 @@ services:
       - "6683:6683"
     volumes:
       - ./docker/config/scripts/:/scripts
-      - ./hydraplay/dist/multiroom-snapcast-ui/:/hydraplay
+      - ./hydraplay/dist/:/hydraplay
       - ./docker/config/templates/:/templates
     command: /scripts/startup_server.sh
 
