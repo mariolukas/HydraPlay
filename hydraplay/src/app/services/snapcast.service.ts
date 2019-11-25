@@ -78,7 +78,7 @@ export class SnapcastService {
   }
 
   public setStream(streamId: string, groupId: string) {
-      let message = '{"id":"'+this.uuidv4()+'","jsonrpc":"2.0","method":"Group.SetStream","params":{"id":"'+groupId+'","stream_id":"'+streamId+'"}}}\n';
+      let message = '{"id":"'+this.uuidv4()+'","jsonrpc":"2.0","method":"Group.SetStream","params":{"id":"'+groupId+'","stream_id":"'+streamId+'"}}\n';
 
       //let message = this.toJsonRPC('Group.SetStream', {id: grouId, stream_id: streamId});
       this.send(message);
@@ -91,7 +91,7 @@ export class SnapcastService {
 
   public clientSetVolume(clientId, volume) {
     //let message = this.toJsonRPC('Client.SetVolume', {id: clientId, volume: {muted: volume.muted, percent: volume.percent}})
-    let message = '{"id":"'+this.uuidv4()+'","jsonrpc":"2.0","method":"Client.SetVolume","params":{"id":"'+clientId+'","volume":{"muted":'+volume.muted+',"percent":'+volume.percent+'}}}}\n'
+    let message = '{"id":"'+this.uuidv4()+'","jsonrpc":"2.0","method":"Client.SetVolume","params":{"id":"'+clientId+'","volume":{"muted":'+volume.muted+',"percent":'+volume.percent+'}}\n'
     this.send(message);
   }
 
