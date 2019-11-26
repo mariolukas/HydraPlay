@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import Mopidy from 'mopidy';
 import { environment } from './../../environments/environment';
 import {MessageService} from './message.service';
+import {AppConfig} from './config.service';
 
 class MopidyEvent {
     constructor(public streamId: string, public label: string, public data: any) {}
@@ -19,7 +20,9 @@ class MopidyPlayer {
 
   constructor(instance: any, private messageService: MessageService) {
 
+
     this.setWebsocketProtocol();
+
     this.id = instance.id;
     this.socket = new Mopidy({webSocketUrl: `ws://${instance.ip}:${instance.port}/mopidy/ws/`});
     this.isPlaying = false;
@@ -164,10 +167,13 @@ class MopidyPlayer {
 export class MopidyService {
 
   public mopidies: MopidyPlayer[];
+  private mopidyConfig: any;
 
-  constructor(private messageService: MessageService) {
+  constructor(private messageService: MessageService, private config: AppConfig) {
     this.mopidies = [];
-    environment.mopidy.forEach(mpInstance => {
+    this.mopidyConfig = this.config.getConfig('mopidy');
+
+    this.mopidyConfig.forEach(mpInstance => {
         let _mopidy = new MopidyPlayer(mpInstance, this.messageService)
         this.mopidies.push(_mopidy);
     });

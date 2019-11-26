@@ -21,9 +21,9 @@ export class PlayerComponent implements OnInit {
   @Input() showDialog: boolean;
   @Output() onCallMediaModal = new EventEmitter();
 
-  private currentAlbumCover: string;
-  private  currentArtist: string;
-  private currentTitle: string;
+  public currentAlbumCover: string;
+  public  currentArtist: string;
+  public currentTitle: string;
 
   constructor(private messageService: MessageService, private mopidyService: MopidyService, private snapcastService: SnapcastService, private media: MediaComponent) {
     this.currentAlbumCover = '../../assets/images/cover_placeholder.jpg';
@@ -116,13 +116,12 @@ export class PlayerComponent implements OnInit {
 
   public updateTrackInfo() {
         return this.mopidy.getCurrentTrack().then(track => {
-            /*
             this.mopidy.getCover(track.uri).then(imageUri => {
                 this.currentAlbumCover = imageUri;
                 this.currentArtist = track.album.name;
                 this.currentTitle = track.name;
             });
-             */
+
         }).catch(err => {
             console.error(err);
         });

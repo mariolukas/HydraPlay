@@ -11,8 +11,8 @@ export class StreamComponent implements OnInit {
   @Input() group: any;
   @Input() stream: any;
 
-  private cover: string;
-  private name: string;
+  public cover: string;
+  public name: string;
   constructor(private mopidyService: MopidyService, private snapcastservice: SnapcastService) {
 
   }

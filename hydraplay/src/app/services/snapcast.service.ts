@@ -1,10 +1,11 @@
 import { ErrorHandler, Injectable, EventEmitter } from '@angular/core';
 import { Observable, Subject, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import {  map, tap, catchError } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 import {MessageService} from './message.service';
-//import { webSocket } from 'rxjs/webSocket'; // for RxJS 6, for v5 use Observable.webSocket
+
+import {AppConfig} from './config.service';
+import {logger} from "codelyzer/util/logger";
 
 export interface Message {
   method: string;
@@ -20,14 +21,15 @@ export class SnapcastService {
   public socket: any;
 
   public streams: any;
+  public snapcastConfig: any;
 
-  public snapcastURL = `ws://${environment.snapcast.ip}:${environment.snapcast.port}/jsonrpc`;
+
+  constructor(private http: HttpClient, private messageService: MessageService, private config: AppConfig) {
 
 
-  constructor(private http: HttpClient, private messageService: MessageService) {
+    this.snapcastConfig = this.config.getConfig('snapcast');
+    this.socket = new WebSocket(`ws://${this.snapcastConfig.ip}:${this.snapcastConfig.port}/jsonrpc`);
 
-    this.socket = new WebSocket(this.snapcastURL);
-    //this.socket.binaryType = 'arraybuffer';
 
     let that = this;
     this.socket.onopen = function() {
@@ -35,11 +37,7 @@ export class SnapcastService {
     }
 
     this.socket.onmessage = function(buf) {
-      console.log(buf.data);
-        //let recv = String.fromCharCode.apply(null, new Uint8Array(buf.data));
         let jsonrpc = JSON.parse(buf.data);
-
-
         if (!jsonrpc.hasOwnProperty('error')) {
 
             if (!jsonrpc.hasOwnProperty('method') && jsonrpc.result.hasOwnProperty('server')) {
@@ -90,7 +88,6 @@ export class SnapcastService {
     } else {
       message = JSON.stringify({id: this.uuidv4(), jsonrpc: '2.0', method: method});
     }
-    console.log(message);
     return message;
   }
 
@@ -103,7 +100,7 @@ export class SnapcastService {
 
   public sendAsync(method, params): Observable<any> {
     let message = this.toJsonRPC(method, params);
-    return this.http.post(`http://${environment.snapcast.ip}:${environment.snapcast.port}/jsonrpc`, message);
+    return this.http.post(`http://${this.snapcastConfig.ip}:${this.snapcastConfig.port}/jsonrpc`, message);
   }
 
   handleError(error) {

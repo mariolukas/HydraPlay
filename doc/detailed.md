@@ -231,7 +231,7 @@ $ sudo systemctl restart mopidy_1
 
 #### Configure HydraPlay
 Finally we need to tell HydraPlay where it can find all the configured stuff. 
-Simply open the file ```environments/environment.ts``` in your HydraPlayer folder. 
+Simply open the file ```assets/config/config.production.ts``` in your HydraPlayer folder. 
 Change the ports and ip addressed to your needs. Thats all. 
 
 HydraPlay needs to be build from source. 

@@ -11,6 +11,14 @@ import { NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { APP_INITIALIZER } from '@angular/core';
+import {AppConfig} from './services/config.service';
+import {HttpModule} from '@angular/http';
+
+export function initConfig(config: AppConfig) {
+  return () => config.load();
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,10 +32,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HttpClientModule,
     AppRoutingModule,
     NoopAnimationsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpModule
   ],
   providers: [
-
+    AppConfig,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initConfig,
+      deps: [AppConfig],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
