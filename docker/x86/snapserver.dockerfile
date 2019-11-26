@@ -4,7 +4,7 @@ FROM ubuntu:latest
 
 RUN apt-get update && apt-get install apt-utils wget locales gettext-base git -y
 
-ARG SNAPCASTVERSION=0.16.0
+ARG SNAPCASTVERSION=0.17.0
 
 #======================================= MOPIDY INSTALLATION ====================================================#
 
@@ -52,12 +52,6 @@ RUN mkdir -p /root/.config/snapcast/
 
 WORKDIR /tmp
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
-    apt-get install nodejs && \
-    npm install -g @angular/cli &&\
-    git clone https://github.com/mariolukas/HydraPlay.git &&\
-    cd HydraPlay && npm install && ng build && \
-    cp -R /tmp/HydraPlay/dist/multiroom-snapcast-ui/* /hydraplay/.
 
 #======================================= General Docker configs ===================================================#
 

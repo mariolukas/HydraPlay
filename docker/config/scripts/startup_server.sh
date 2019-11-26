@@ -24,19 +24,15 @@ do
    
 done;
 
+# start mopidy intances...
+for ((i=1;i<=$NUMBER_OF_STREAMS;i++));
+do
+ /usr/bin/mopidy --quiet --config /etc/mopidy/mopidy_stream_$i.conf &
+done;
 
 # generate Snapcast server config from template
 export SNAPCAST_STREAMS=$SNAP_STREAM_CONFIG
 envsubst < /templates/snapserver.conf.tmpl > /etc/snapserver.conf
 
 # start snapserver ( before mopidy because it creates the pipes)
-snapserver &
-
-# start mopidy intances... 
-for ((i=1;i<=$NUMBER_OF_STREAMS;i++));
-do 
- /usr/bin/mopidy --quiet --config /etc/mopidy/mopidy_stream_$i.conf &
-done;
-
-# start websockify
-websockify 8080 --wrap-mode=respawn 127.0.0.1:1705 --web=/hydraplay 
+snapserver --config=/etc/snapserver.conf

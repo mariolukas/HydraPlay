@@ -11,7 +11,7 @@ services:
       - SPOTIFY_USERNAME=foo
       - SPOTIFY_PASSWORD=bar    
     ports:
-      - "80:8080"
+      - "1780:1780"
       - "443:443"
       - "1704:1704"
       - "6681:6681"
@@ -19,7 +19,7 @@ services:
       - "6683:6683"
     volumes:
       - ./docker/config/scripts/:/scripts
-      - ./hydraplay/dist/:/hydraplay
+      - ./hydraplay/:/hydraplay
       - ./docker/config/templates/:/templates
     command: /scripts/startup_server.sh
 

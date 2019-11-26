@@ -19,7 +19,7 @@
 #
 [http]
 # enable HTTP Json RPC (HTTP POST and websockets)
-#enabled = true
+enabled = true
 
 # address to listen on, can be specified multiple times
 # use "0.0.0.0" to bind to any IPv4 address or :: to bind to any IPv6 address
@@ -29,10 +29,10 @@
 #bind_to_address = 0.0.0.0
 
 # which port the server should listen to
-#port = 1780
+port = 1780
 
 # serve a website from the doc_root location
-# doc_root =
+doc_root = /hydraplay/dist
 #
 ###############################################################################
 
@@ -41,17 +41,17 @@
 #
 [tcp]
 # enable TCP Json RPC
-#enabled = true
+enabled = true
 
 # address to listen on, can be specified multiple times
 # use "0.0.0.0" to bind to any IPv4 address or :: to bind to any IPv6 address
 # or "127.0.0.1" or "::1" to bind to localhost IPv4 or IPv6, respectively
 # use the address of a specific network interface to just listen to and accept
 # connections from that interface
-#bind_to_address = 0.0.0.0
+bind_to_address = 0.0.0.0
 
 # which port the server should listen to
-#port = 1705
+port = 1705
 #
 ###############################################################################
 

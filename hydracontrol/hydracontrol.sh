@@ -7,7 +7,7 @@ NUMBER_OF_STREAMS=3
 ##
 install_requirements(){
   apt-get update
-  apt-get insteall mopidy mopidy-soundcloud mopidy-spotify pulseaudio websockify wget
+  apt-get insteall mopidy mopidy-soundcloud mopidy-spotify pulseaudio wget
   wget 'https://github.com/badaix/snapcast/releases/download/v'$SNAPCASTVERSION'/snapserver_'$SNAPCASTVERSION'_armhf.deb'
   dpkg -i --force-all 'snapserver_'$SNAPCASTVERSION'_armhf.deb'
   apt-get -f install -y
@@ -29,14 +29,6 @@ systemctl-is-running(){
 create_hydramopidy_service() {
  echo "Creating HydraMopidy Service..." 
  envsubst < templates/hydramopidy@.service.tmpl > /etc/systemd/system/hydramopidy@.service
-}
-
-####
-# Creates websockify service
-##
-create_hydraplay_service(){
- echo "Creating HydraPlay (websockify) Service..."   	
- envsubst < templates/hydraplay.service.tmpl > /etc/systemd/system/hydraplay.service
 }
 
 ####
@@ -133,10 +125,10 @@ stop_services(){
   fi;
 
   # stops and disables default websockify if exists...
-  if systemctl-exists websockify.service ;then
-     systemctl stop websockify
-     systemctl disable websockify
-  fi;
+  #if systemctl-exists websockify.service ;then
+  #   systemctl stop websockify
+  #   systemctl disable websockify
+  #fi;
 
 
   if systemctl-exists hydramopidy@.service ;then
@@ -149,11 +141,6 @@ stop_services(){
     create_hydramopidy_service
   fi;
 
-  if systemctl-exists hydraplay.service ;then
-     systemctl stop hydraplay
-  else
-     create_hydraplay_service
-  fi;
 
 }
 
@@ -178,9 +165,6 @@ start_services(){
   done;
 
   systemctl start snapserver
-
-  echo " -- Starting hydraplay.service ..."
-  systemctl start hydraplay
 
 
 }
