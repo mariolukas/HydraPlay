@@ -13,7 +13,7 @@ Software on Clients:
 - Snapcast Client
 
  
-A simple configuration of the whole system will follow soon... (maybe also a docker container for the sever setup)
+A simple configuration of the whole system will follow soon... (maybe also a docker container for the server setup)
 
 ## How the setup works
 
@@ -31,7 +31,7 @@ two mopidy instances (streams) with one snapcast server and multiple clients.
 
 #### Installing Snapserver
 
-Downlaod the latest Snapcast Server Package from GitHub. 
+Download the latest Snapcast Server Package from GitHub. 
   
  ```$ wget https://github.com/badaix/snapcast/releases/download/v0.17.0/snapserver_0.15.0_armhf.deb ```
   
@@ -41,7 +41,7 @@ Install the Package and it dependencies.
  
  ```$ sudo apt-get -f install```
 
-Configuration of Snapcast server for the streams. In this case we will have 3 Mopidiy instances. If you need more streams, simply add them. Open the Snapserver configuraiton with 
+Configuration of Snapcast server for the streams. In this case we will have 2 Mopidiy instances. If you need more streams, simply add them. Open the Snapserver configuraiton with 
 
  ``` $ sudo nano /etc/default/snapserver```
   
@@ -108,7 +108,7 @@ instance. You can easily add more instances by increasing the instance number
 or renaming the instance. Keep in mind that you need to add new instances to the pulseaudio
 and snapserver config as well. 
 
-It is nessesary to add a new souce for having all mopidy packages. First add the key to 
+It is nessesary to add a new source for having all mopidy packages. First add the key to 
 apt key manager. 
 
 ```
@@ -130,7 +130,7 @@ sudo apt-get update
 Finally mopidy can be installed by using the pacakge manager. We also install 
 the tunein and spotify plugin. 
 
-``` apt-get install mopidy mopidy-tunein mopidy-spotify```
+```sudo apt-get install mopidy mopidy-tunein mopidy-spotify```
 
 Now we need to create a new configuration for a stream we will call the stream mopidy1. 
 Where 1 ist the mentioned stream number in the descripton above. Just create a new file 
@@ -283,4 +283,4 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## Credits
-- Ryan Detzel ( For inspireing the project and his work on css and html on GitLab)
+- Ryan Detzel ( For inspiring the project and his work on css and html on GitLab)
