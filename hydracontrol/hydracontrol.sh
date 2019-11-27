@@ -7,7 +7,7 @@ NUMBER_OF_STREAMS=3
 ##
 install_requirements(){
   apt-get update
-  apt-get insteall mopidy mopidy-soundcloud mopidy-spotify pulseaudio wget
+  apt-get insteall mopidy mopidy-soundcloud mopidy-spotify pulseaudio wget unzip
   wget 'https://github.com/badaix/snapcast/releases/download/v'$SNAPCASTVERSION'/snapserver_'$SNAPCASTVERSION'_armhf.deb'
   dpkg -i --force-all 'snapserver_'$SNAPCASTVERSION'_armhf.deb'
   apt-get -f install -y
@@ -78,6 +78,7 @@ stream = pipe:///tmp/${STREAM_FIFO}?name=STREAM${i}&mode=read"
       # generate mopidy configs from mopidy config template
       envsubst < templates/mopidy.conf.tmpl > /etc/mopidy/mopidy_stream_${i}.conf  
   done;
+
 
   echo " -- Writing /etc/snapserver.conf"
   # generate Snapcast server config from template
@@ -169,6 +170,18 @@ start_services(){
 
 }
 
+####
+# Install latest HydraRelease
+##
+install_hydra_release(){
+   wget https://github.com/mariolukas/HydraPlay/releases/latest/download/hydraplay.zip
+   rm -R hydraplay
+   unzip hydraplay.zip -d /home/pi/hydraplay
+   rm hydraplay.zip
+
+   create_mopidy_snapserver_config
+}
+
 pause(){
   read -n 1 -s -r -p "Press any key to continue"
 }
@@ -196,25 +209,28 @@ show_menus() {
   echo " "
   echo " "
   echo "0. Install requierements"
-  echo "1. Stop"
-  echo "2. Start"
-  echo "3. Configure"
-  echo "4. Exit"
+  echo "1. Install latest hydraplay release"
+  echo "2. Stop complete config"
+  echo "3. Start complete config"
+  echo "4. Full reconfigure"
+  echo "5. Exit"
 }
 
 read_options(){
   local choice
-  read -p "Enter choice [ 1 - 3] " choice
+  read -p "Enter choice [ 1 - 5] " choice
   case $choice in
     0) install_requirements
        pause ;;
-    1) stop_services
+    1) install_hydra_release
+       pause;;
+    2) stop_services
        pause ;;
-    2) start_services
+    3) start_services
        pause ;;
-    3) create_mopidy_snapserver_config
+    4) create_mopidy_snapserver_config
        pause ;;
-    4) exit 0;;
+    5) exit 0;;
     *) echo -e "${RED}Error...${STD}" && sleep 2
   esac
 }
