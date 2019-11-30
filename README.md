@@ -23,7 +23,7 @@ I decided to use JSONRPC as protocl, cause both mopidy and snapcast speak JSONRP
 The original project used some MQTT parts. But i never figured out how the snapcast communication
 was established.
 
-## Getting Stated
+## Getting Started
 
 The fastest way for getting this setup running is to use the `hydracontrol` bash script
 in the `hydracontrol` folder. This script provides some options for automatic config file
