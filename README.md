@@ -4,7 +4,7 @@ components. A server which is written in Python. The server generates all the ne
 
 HydraPlay was inspired by a project i have seen on [Youtube](https://www.youtube.com/watch?v=Lmr58F8gSs8&t=100s) by Ryan Detzel. 
 
-*This project is still under development, some things might not work are unstable*
+*This project is still under development, some things might be unstable*
 
 ## Screenshots
 
