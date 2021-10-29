@@ -73,7 +73,7 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 - [ ] change client names
 
 ### Credits
-This project would not have been possible without all the work on [Snapcast](https://github.com/badaix/snapcast) and [Mopidy](https://mopidy.com/)!
+This project would not have been possible without all the work on [Snapcast](https://github.com/badaix/snapcast) and [Mopidy](https://mopidy.com/)! Special thanks to Ryan Detzel for the inspiration.
 
 ### Donations
 
