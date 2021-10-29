@@ -29,9 +29,9 @@ The easiest way to get it running is by using docker. Just checkout the source c
 docker-compose build
 ```
 
-Make a copy of the file `hydraplay.example.json` and rename it to `hydraplay.private.json`. This file will contain all you configurations for the setup. 
+Make a copy of the file `hydraplay.example.json` and rename it to `hydraplay.private.json`. This file contains all needed configurations for the setup. 
 
-Open the file in an editor and make the changes you need. If you want to enable Spotify you will need a client_id and client_secret. Just follow the instructions of the [Mopidy Spotify extension](https://mopidy.com/ext/spotify/). Add the cliendId, client secret and your Spotify login credentials to the config. Set the enabled attribute in the config true.
+Open the file in an editor and make your changes. If you want to enable Spotify you need a client_id and client_secret. Just follow the instructions of the [Mopidy Spotify extension](https://mopidy.com/ext/spotify/). Add the cliendId, client secret and your Spotify login credentials to the config. Enable Spotify and  save all changes.
 
 Now you are able to start the server with:
 
@@ -43,6 +43,12 @@ Connect your SnapClients to the server by running
 
 ```
 snapclient -h <server_ip>
+```
+
+Open a Browser and goto:
+
+```
+http://<your_server_ip>:<port_in_configuration>
 ```
 
 
@@ -63,6 +69,9 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 - [ ] change tracklist order
 - [ ] save tracklist as playlist
 - [ ] load playlists
+- [ ] add message wehn no client is connected (until now only a black screen appears)
+- [ ] fix mdns/avahi docker issue
+- [ ] fix client namming/editing names
 
 ### Donations
 
