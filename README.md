@@ -66,8 +66,9 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 
 ### Donations
 
-If you want to support my work, feel free to leave a donation.
+If you like my work and want to support it, feel free to leave a donation.
 
+*PAYPAL*
 <center>
 <a href="https://www.paypal.com/donate?hosted_button_id=FHPTBZ43KZGSU">
   <img width="200" src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" alt="Donate with PayPal" />
