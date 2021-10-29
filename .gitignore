@@ -8,4 +8,4 @@ __pycache__/
 *.pyc
 
 .idea/
-.github/act/my.secrets
+.github/act/my.secrets.DS_Store

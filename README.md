@@ -51,6 +51,26 @@ Open a Browser and goto:
 http://<your_server_ip>:<port_in_configuration>
 ```
 
+## Running on a Raspberry Pi
+*Docker*
+
+You are also able to run HydraPlay by using docker on a Rasperry Pi. You need to change
+the following line in docker-compose.yaml from 
+
+```
+dockerfile: Dockerfile
+```
+
+to 
+
+```
+dockerfile: Dockerfile.armhf
+```
+
+afterwards follow the steps in *Getting Started*.
+
+*Native*
+TODO
 
 ## Configuration
 TODO
