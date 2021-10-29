@@ -70,8 +70,8 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 - [ ] save tracklist as playlist
 - [ ] load playlists
 - [ ] add message wehn no client is connected (until now only a black screen appears)
-- [ ] fix mdns/avahi docker issue
-- [ ] fix client namming/editing names
+- [ ] change client names
+
 
 ### Donations
 
