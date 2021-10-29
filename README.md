@@ -68,21 +68,9 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 
 If you want to support my work, feel free to leave a donation.
 
-<div id="donate-button-container">
-<div id="donate-button"></div>
-<script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
-<script>
-PayPal.Donation.Button({
-env:'production',
-hosted_button_id:'FHPTBZ43KZGSU',
-image: {
-src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
-alt:'Donate with PayPal button',
-title:'PayPal - The safer, easier way to pay online!',
-}
-}).render('#donate-button');
-</script>
-</div>
+<a href="https://www.paypal.com/donate?hosted_button_id=FHPTBZ43KZGSU">
+  <img width="100" src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" alt="Donate with PayPal" />
+</a>
 
 
 
