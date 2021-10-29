@@ -1,6 +1,6 @@
 # About HydraPlay
 HydraPlay is a multiroom audio server with web client which can control multiple Mopidy instances controlled by a Snapcast installation. Hydraplay consists of two
-components. A server whichi written in Python. The server generates all the needed configs and starts all Mopidy and Snapcast instances.
+components. A server which is written in Python. The server generates all the needed configs and starts the [Mopidy](https://mopidy.com/) and [Snapcast](https://github.com/badaix/snapcast) instance(s).
 
 HydraPlay was inspired by a project i have seen on [Youtube](https://www.youtube.com/watch?v=Lmr58F8gSs8&t=100s) by Ryan Detzel. 
 
@@ -72,6 +72,8 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 - [ ] add message wehn no client is connected (until now only a black screen appears)
 - [ ] change client names
 
+### Credits
+This project would not have been possible without all the work on [Snapcast](https://github.com/badaix/snapcast) and [Mopidy](https://mopidy.com/)!
 
 ### Donations
 
