@@ -66,7 +66,7 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 
 ### Donations
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](info@mariolukas.de)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?hosted_button_id=FHPTBZ43KZGSU)
 
 
 
