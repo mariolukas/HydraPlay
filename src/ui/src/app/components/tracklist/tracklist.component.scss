@@ -1,0 +1,60 @@
+.disable-text-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mat-list-item {
+  height: 50px; /* default is 72px */
+}
+
+.tracklist-item p{
+  margin:0px;
+}
+
+.tracklist-options-menu{
+  margin-left:20px;
+}
+
+.parent {
+   width: 130px; /* I took the width from your post and placed it in css */
+   height: 130px;
+}
+
+/* This will style any <img> element in .parent div */
+.parent img {
+   height: 100%;
+   width: 100%;
+}
+
+.playlist .card{
+  width: 130px;
+  height: 140px;
+  background-color:green;
+}
+
+.streamModal .playlist {
+  cursor: pointer;
+  display:inline-block;
+  z-index:15;
+  padding: 3px;
+}
+
+.playlist .trackCover {
+  width: 130px;
+  display:inline-block;
+  margin:5px;
+}
+
+.streamModal .playlist .trackInformation {
+  color:#717171;
+}
+
+.truncate {
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

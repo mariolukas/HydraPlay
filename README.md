@@ -1,37 +1,61 @@
-# HydraPlay
-HydraPlay is a multiroom audio player which can control multiple mopidy instances controlled by a snapcast installation.
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+#About HydraPlay
+HydraPlay is a multiroom audio server with web client which can control multiple Mopidy instances controlled by a Snapcast installation. Hydraplay consists of two
+components. A server whichi written in Python. The server generates all the needed configs and starts all Mopidy and Snapcast instances.
 
-The project is inspired by a project i have seen on [Youtube](https://www.youtube.com/watch?v=Lmr58F8gSs8&t=100s)
-I found some of the Authors (Ryan Detzel) code on [GitLab](https://gitlab.com/ryandetzel/music-all/tree/master/src).
-I used the html and css parts of the original code form the project. The rest of the code is new. It is Angular and 
-TypeScript based.
+HydraPlay was inspired by a project i have seen on [Youtube](https://www.youtube.com/watch?v=Lmr58F8gSs8&t=100s) by Ryan Detzel. 
+
+*This project is still under development, some things might not work are unstable*
+
+##Screenshots
 
 <center>
-
 <div float: center'>
-  <img style="width: 400px" width="400px" src="doc/images/changestream.gif"></img>
+  <img style="width: 400px" width="400px" src="doc/images/hydra.gif"></img>
 </div>
 
-<div float: center'>
-  <img style="width: 400px" width="400px" src="doc/images/library.png"></img>
-</div>
 
+<div float: center'>
+  <img style="width: 200px" width="400px" src="doc/images/sc1.png"></img>
+  <img style="width: 200px" width="400px" src="doc/images/sc4.png"></img>
+</div>
 </center>
 
-I decided to use JSONRPC as protocl, cause both mopidy and snapcast speak JSONRPC by default.
-The original project used some MQTT parts. But i never figured out how the snapcast communication
-was established.
 
 ## Getting Started
 
-The fastest way for getting this setup running is to use the `hydracontrol` bash script
-in the `hydracontrol` folder. This script provides some options for automatic config file
-generation. 
+The easiest way to get it running is by using docker. Just checkout the source code from GitHub and change into the folder. Be sure that you have docker and docker-compose installed. Build the docker image by calling:
 
-Note: The part for building the application by `hydracontrol` is not ready yet. You need to 
-build the Application by yourself until it is part of the script.
-Read the [Details](doc/detailed.md) section for a detailed configuration overview.
+```
+docker-compose build
+```
 
-[Further information on how it works.](https://www.mariolukas.de/2019/07/hydraplay-open-source-multiroom-audio/)
+Make a copy of the file `hydraplay.example.json` and rename it to `hydraplay.private.json`. This file will contain all you configurations for the setup. 
+
+Open the file in an editor and make the changes you need. If you want to enable Spotify you will need a client_id and client_secret. Just follow the instructions of the [Mopidy Spotify extension](https://mopidy.com/ext/spotify/). Add the cliendId, client secret and your Spotify login credentials to the config. Set the enabled attribute in the config true.
+
+Now you are able to start the server with:
+
+```
+docker-compose up
+```
+
+## Configuration
+TODO
+
+## Details 
+You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-source-multiroom-audio/) which i wrote a couple of years ago when i started the project. A lot of things changed since the first setup. But it will give you and idea on how it works under the hood.
+
+
+### Known Issues
+* mdns/avahi does not work within docker. You need to start your clients with  the -h <ip_address_of_server> parameter.
+
+### Not Implemented yet
+
+- [ ] remove track from tracklist
+- [ ] change tracklist order
+- [ ] save tracklist as playlist
+- [ ] load playlists
+
+
+
 

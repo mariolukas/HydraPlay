@@ -1,0 +1,32 @@
+.streamModal .stream {
+  cursor: pointer;
+  display:inline-block;
+  z-index:15;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.streamModal .selectedStream{
+  border: 2px solid purple;
+}
+
+.streamModal .streamImage {
+  width:100px;
+  height:100px;
+  display:inline-block;
+}
+
+.streamModal .trackInformation {
+  /* display: inline-block; */
+  /* vertical-align: top; */
+}
+
+.activeStream{
+  border: 2px solid purple;
+}
+

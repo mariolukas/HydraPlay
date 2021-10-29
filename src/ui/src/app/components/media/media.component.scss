@@ -1,0 +1,92 @@
+
+/*
+mat-list {
+  max-height: 300px;
+  overflow: auto;
+}
+*/
+.full-width-field {
+   width: 100%;
+}
+/*
+.streamModal {
+  z-index:11;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,19,0.9);
+  padding: 50;
+  color:white;
+  overflow-y: auto;
+}
+.streamModal .show{
+  display:block;
+}
+
+.streamModal h3 {
+  font-weight:normal;
+}
+.streamModal .cancel {
+  background: white;
+}
+*/
+/*
+.stream {
+  cursor: pointer;
+  display:inline-block;
+  z-index:15;
+  padding: 3px;
+}
+
+
+.playlist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.playlist > * {
+  box-sizing: border-box;
+}
+.playlist > *:not(:last-child) {
+  margin-right: 12px;
+}
+
+.playlist-item {
+  flex: 0 1 calc(10% - 12px);
+  margin-bottom: 12px;
+}
+
+*/
+
+/*
+input[type=text] {
+  width: 130px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  width: 50%;
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+ // background-image: url('http://localhost:4200/assets/images/search.png');
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  -webkit-transition: width .4s ease-in-out;
+  transition: width .4s ease-in-out;
+}
+*/
+/* When the input field gets focus, change its width to 100% */
+/*
+input[type=text]:focus {
+  width: 50%;
+
+}
+*/
+

@@ -135,7 +135,7 @@ the tunein and spotify plugin.
 Now we need to create a new configuration for a stream we will call the stream mopidy1. 
 Where 1 ist the mentioned stream number in the descripton above. Just create a new file 
 with the following command. For each mopidy instance two port are used. One for the daemon
-itself. The other port is used for http connections and websockets. You need to increase
+itself. The other port is used for http connections and webmopidys. You need to increase
 the port numbers! The daemon port starts with 6601. The http port with 6681. If you need
 to run more than 80 mopidy instances ( why? ) keep in mind to shift the http ports to 
 a higer starting port. 

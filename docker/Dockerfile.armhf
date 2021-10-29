@@ -1,0 +1,23 @@
+# syntax=docker/dockerfile:1
+FROM python:3.9-buster
+RUN apt-get update && apt-get install wget mopidy -y
+
+# install snapcast server
+ARG SNAPCASTVERSION
+
+RUN wget https://github.com/badaix/snapcast/releases/download/v${SNAPCASTVERSION}/snapserver_${SNAPCASTVERSION}_armhf.deb
+
+RUN dpkg -i --force-all snapserver_${SNAPCASTVERSION}_armhf.deb
+RUN apt-get -f install -y
+
+RUN mkdir -p /root/.config/snapcast/ && \
+	mkdir -p /hydraplay
+
+# install python requirements
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+EXPOSE 1704
+
+
+ENTRYPOINT ["snapserver"]

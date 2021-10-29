@@ -1,0 +1,15 @@
+<div>
+  <mat-form-field class="full-width-field" appearance="fill" style="overflow-y:hidden;">
+    <mat-label>Discover Mopidy</mat-label>
+    <input matInput #searchBox (change)="search(searchBox.value)"  type="text" >
+  </mat-form-field>
+</div>
+<div>
+
+  <mat-list  *ngFor="let pTrack of searchResult" >
+      <tracklist type="searchlist" [group]="group" [pTrack]="pTrack"></tracklist>
+  </mat-list>
+</div>
+<div>
+  <mat-spinner *ngIf="waitingForResults" style="margin:0 auto;"  [diameter]="50"></mat-spinner>
+</div>

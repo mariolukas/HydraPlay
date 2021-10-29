@@ -1,0 +1,22 @@
+version: "3.5"
+services:
+  hydraplay:
+    privileged: true
+    build:
+      context: docker/
+      dockerfile: Dockerfile
+      args:
+        SNAPCASTVERSION: 0.25.0
+    container_name: hydraplay
+    ports:
+    - 8080:8080
+    - 1780:1780
+    - 1704:1704
+    - 1705:1705
+    - 6600-6679:6600-6679
+    - 6680-6690:6680-6690
+    volumes:
+       - ./src/hydraplay:/hydraplay
+       - ./hydra.private.json:/hydraplay/config/hydra.config.json
+    environment:
+      - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_mopidy

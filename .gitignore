@@ -1,5 +1,11 @@
-.idea
-.DS_Store
-hydraplay/dist/*
-hydraplay/node_modules/*
+hydra.private.json
+src/ui/node_modules
 
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+.idea/
+.github/act/my.secrets

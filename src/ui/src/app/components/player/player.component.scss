@@ -1,0 +1,302 @@
+.mat-tab-body-content { overflow: unset;}
+
+
+mat-tab-group {
+  height: 500px;
+}
+
+.tablabel{
+  margin:1em;
+}
+
+.playlist{
+    position: absolute;
+    bottom: 65px;
+    width: 337px;
+    height:0px;
+    background: #424242;
+    margin: -16px;
+    z-index: 100;
+    overflow: hidden;
+}
+
+
+mat-card-title{
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+.card-container-right mat-icon{
+    font-size: 30px;
+    margin-left: 20px;
+    right: 10px;
+    bottom: 5px;
+}
+
+.track-title{
+    text-align: center;
+    position: relative;
+    bottom: 88px;
+    background-color: #383838c7;
+    overflow: overlay;
+    /* border-radius: 20px; */
+    color: white;
+    padding: 0.4em;
+    margin: -16px;
+}
+
+.card-container {
+
+  /* needed styles below */
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+}
+
+.track-wrapper {
+   position: relative;
+}
+
+.track-info{
+  position: absolute;
+  bottom: 1em;
+  left: 0;
+}
+
+.player-card {
+  max-width: 400px;
+  width: 305px;
+  height: 600px;
+  margin:10px 5px;
+}
+.fill-space {
+  // This fills the remaining space, by using flexbox.
+  // Every toolbar row uses a flexbox row layout.
+  flex: 1 1 auto;
+}
+
+
+.player-crontrols {
+  text-align:center;
+}
+
+.player-crontrols mat-slider{
+  width: 190px;
+}
+
+.player-controls .volume-controls{
+  margin-top: 15px;
+}
+
+.volume-icon mat-icon{
+  top:10px
+}
+
+.player-crontrols
+.track-contol mat-icon{
+    margin: 0px 30px;
+    top: 8px;
+}
+
+.volume-mute
+.volume-icon{
+  margin-left:10px;
+}
+
+.volume-up
+.volume-icon {
+  margin-left: 10px;
+}
+
+
+.volume-icon
+.speaker-group{
+  right:10px;
+}
+
+
+
+.controllers {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/*
+* {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+  Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+ */
+
+.player {
+  background-color: transparent;
+  margin:10px 5px;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+.controller{
+  vertical-align: top;
+}
+
+.controller .top{
+  height:300px;
+  background-size:     contain;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: top center;
+  position: relative;
+}
+.controller .controls {
+  margin:5px 0;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+.controller .top h1{
+  margin:0;
+  padding:0;
+  color:white;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.controller .trackInfo {
+  vertical-align: text-bottom;
+  background-color: #313131;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width:100%;
+  opacity: 0.90;
+  color:white;
+  padding:0 5px;
+  box-sizing: border-box;
+
+}
+.controller .trackInfo input{
+   border:none;
+   outline:none;
+   background:transparent;
+   font-weight: bold;
+   color: #fff;
+   display: block;
+   font-size: 2em;
+   text-align: center;
+   width: 100%;
+  /*
+   margin-block-start: 0.67em;
+   margin-block-end: 0.67em;
+   margin-inline-start: 0px;
+   margin-inline-end: 0px;
+
+   */
+}
+
+.controller .trackInfo h1,
+.controller .trackInfo h3,
+.controller .trackInfo h4
+{
+  margin:3px 0;
+  padding:0;
+  overflow:hidden;
+  font-weight:normal;
+}
+.controller .trackInfo h1 {
+  font-weight: bold;
+}
+
+.controller .playButton,
+.controller .pauseButton,
+.controller .nextButton,
+.controller .previousButton,
+.controller .muteButton,
+.controller .volumeDownButton,
+.controller .volumeUpButton,
+.controller .offButton {
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  color:white;
+  border:0;
+  margin:auto;
+}
+button:focus {outline:0;}
+button:active {
+  background-color:#585858 !important;
+}
+
+.controller .playButton {
+  background: #383838 url('https://s3.amazonaws.com/detz-public/images/playButton.svg') no-repeat center center;
+  background-size: 40px 40px;
+}
+.controller .pauseButton {
+  background: #383838 url('https://s3.amazonaws.com/detz-public/images/pauseButton.svg') no-repeat center center;
+  background-size: 40px 40px;
+}
+.controller .nextButton,
+.controller .previousButton {
+  width: 80px;
+  height: 80px;
+  background: #383838;
+}
+.controller .nextButton {
+  background: #383838 url('https://s3.amazonaws.com/detz-public/images/nextButton.svg') no-repeat center center;
+}
+.controller .previousButton {
+  background: #383838 url('https://s3.amazonaws.com/detz-public/images/previousButton.svg') no-repeat center center;
+}
+.controller .muteButton {
+  width: 80px;
+  height: 80px;
+  background: #383838 url('https://s3.amazonaws.com/detz-public/images/muteButton.svg') no-repeat center center;
+  background-size: 30px 30px;
+}
+.muted {
+  background-color:#585858 !important;
+}
+
+.controller .volumeDownButton,
+.controller .volumeUpButton {
+  width: 80px;
+  height: 80px;
+  background: #383838;
+}
+
+.controller .volumeDownButton {
+  background: #383838 url('https://s3.amazonaws.com/detz-public/images/volumeDownButton.svg') no-repeat center center;
+  background-size: 30px 30px;
+}
+.controller .volumeUpButton {
+  background: #383838 url('https://s3.amazonaws.com/detz-public/images/volumeUpButton.svg') no-repeat center center;
+  background-size: 30px 30px;
+}
+
+.controller .playListButton{
+  background-size: 30px 30px;
+}
+
+.controller .volume {
+  color:#616161;
+  font-size:24px;
+  position:absolute;
+  font-weight:bold;
+  left:0;
+  right:0;
+  margin: 20px 0;
+  z-index:1;
+}
+
+.controller .offButton {
+  width: 50px;
+  height: 50px;
+  /* background: #313131 url('https://s3.amazonaws.com/detz-public/images/offButton.svg') no-repeat center center;*/
+  margin:10px 10px;
+  float:right;
+  z-index:10;
+  position: relative;
+}
+
