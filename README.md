@@ -64,6 +64,10 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 - [ ] save tracklist as playlist
 - [ ] load playlists
 
+### Donations
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](info@mariolukas.de)
+
 
 
 
