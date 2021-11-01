@@ -85,11 +85,11 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 
 ### Not Implemented yet
 
-- [ ] remove track from tracklist
+- [ x ] remove track from tracklist
 - [ ] change tracklist order
 - [ ] save tracklist as playlist
 - [ ] load playlists
-- [ ] add message wehn no client is connected (until now only a black screen appears)
+- [ ] add message when no client is connected (until now only a black screen appears)
 - [ ] change client names
 
 ### Credits
