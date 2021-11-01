@@ -226,12 +226,12 @@ export class MopidyPlayer {
      }
   }
 
-  public nextTrack(): void {
-        this.mopidy$.playback.next();
+  public async nextTrack() {
+        await this.mopidy$.playback.next();
   }
 
-  public previousTrack(): void {
-        this.mopidy$.playback.previous();
+  public async previousTrack() {
+       await this.mopidy$.playback.previous();
   }
 }
 

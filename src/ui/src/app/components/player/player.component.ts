@@ -232,10 +232,11 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   public nextTrack() {
+      this.mopidy.nextTrack();
   }
 
   public previousTrack() {
-
+      this.mopidy.previousTrack();
   }
 
   /**

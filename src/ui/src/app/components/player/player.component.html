@@ -22,14 +22,14 @@
     </div>
 
     <div class="player-crontrols" style="margin-top: -40px;margin-bottom: 25px; font-size:20px;">
-        <mat-icon style="margin: 0px 30px; top: 8px;" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" class="previous-track-button">skip_previous</mat-icon>
+        <mat-icon (click)="previousTrack()" style="margin: 0px 30px; top: 8px;" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" class="previous-track-button">skip_previous</mat-icon>
         <button (click)="play()" class="control-element" mat-fab color="primary" aria-label="Example icon button with a delete icon">
 
             <mat-icon *ngIf="currentState.playbackState != 'playing'" aria-hidden="false" aria-label="Select Clients" class="play-button">play_arrow</mat-icon>
             <mat-icon *ngIf="currentState.playbackState == 'playing'" aria-hidden="false" aria-label="Select Clients" class="play-button">pause</mat-icon>
 
         </button>
-         <mat-icon style="margin: 0px 30px; top: 8px;" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" class="next-track-button">skip_next</mat-icon>
+         <mat-icon (click)="nextTrack()" style="margin: 0px 30px; top: 8px;" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" class="next-track-button">skip_next</mat-icon>
     </div>
 
     <div class="player-crontrols volume-icon volume-controls">
