@@ -85,7 +85,7 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 
 ### Not Implemented yet
 
-- [ x ] remove track from tracklist
+- [x] remove track from tracklist
 - [ ] change tracklist order
 - [ ] save tracklist as playlist
 - [ ] load playlists
