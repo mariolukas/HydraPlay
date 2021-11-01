@@ -1,6 +1,5 @@
 import { Input, Component, Attribute, OnInit } from '@angular/core';
 import {MopidyPoolService} from '../../services/mopidy.service';
-import { Directive } from '@angular/core';
 
 @Component({
   selector: 'tracklist',
@@ -12,6 +11,7 @@ export class TracklistComponent implements OnInit {
   @Input() pTrack: any;
   @Input() group: any;
   @Input() cover: string;
+  isActiveTrack: boolean = false;
 
   private mopidy$: any;
   constructor(@Attribute('type') public type: string, private mopidyPoolService: MopidyPoolService) {
@@ -20,14 +20,23 @@ export class TracklistComponent implements OnInit {
 
   ngOnInit() {
      this.mopidy$ = this.mopidyPoolService.getMopidyInstanceById(this.group.stream_id);
-     this.mopidy$.getCover(this.pTrack.uri).then((cover)=>{
-          this.cover = cover[this.pTrack.uri][0].uri;
+     let trackURI = this.pTrack.track?this.pTrack.track.uri:this.pTrack.uri
+
+     this.mopidy$.getCover(trackURI).then((cover)=>{
+          this.cover = cover[trackURI][0].uri;
      })
+     this.mopidy$.getCurrentTlTrack().then(currentTrack =>{
+        if(this.pTrack.track && (currentTrack.tlid == this.pTrack.tlid)){
+             this.isActiveTrack = true;
+        }
+     });
+
+
   }
 
-  public selectTrack(track) {
+  public selectTrack(track, clear:boolean) {
      delete track['image'];
-     this.mopidy$.playTrack(track);
+     this.mopidy$.playTrack(track, clear);
   }
 
   public addToTracklist(event, track){

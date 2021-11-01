@@ -84,6 +84,10 @@ export class MopidyPlayer {
       })
   }
 
+  public async getCurrentTlTrack(){
+      return await this.mopidy$.playback.getCurrentTlTrack();
+  }
+
   public getCurrentState():IStreamState{
       if (this.isConnected) {
           this.updateCurrentState$.next(this.currentState);
@@ -133,7 +137,8 @@ export class MopidyPlayer {
   }
 
   public async updateCurrentTrackList(){
-      this.currentTrackList = await this.mopidy$.tracklist.getTracks();
+      this.currentTrackList = await this.mopidy$.tracklist.getTlTracks();
+      console.log(this.currentTrackList);
       if(this.currentTrackList) {
           this.updateCurrentTrackList$.next(this.currentTrackList);
       }
@@ -169,10 +174,23 @@ export class MopidyPlayer {
       return await this.mopidy$.tracklist.add({tracks: [track]});
   }
 
-  public async playTrack(track):Promise<void> {
-      await this.clearTrackList()
-           .then(() => this.addTrackToTrackList(track))
-           .then((trackList) => this.mopidy$.playback.play(trackList));
+
+  public async playTrack(pTrack, clear:boolean):Promise<void> {
+      if (clear) {
+          await this.clearTrackList();
+      }
+
+      if( pTrack.track){
+          console.log(pTrack);
+
+         await this.mopidy$.playback.play({tlid: pTrack.tlid}) //  play(pTrack);
+      } else {
+         const tlTrack = await this.addTrackToTrackList(pTrack);
+         console.log(tlTrack);
+         await this.mopidy$.playback.play(tlTrack);
+      }
+
+      this.updateCurrentTrackList();
   }
 
   public addTrackToTracklist(track){
@@ -182,8 +200,9 @@ export class MopidyPlayer {
 
   }
 
-  public removeTrackFromlist(track){
-
+  public async removeTrackFromlist(track){
+       let result = await this.mopidy$.tracklist.remove({criteria:{"tlid":[track.tlid]}});
+       this.updateCurrentTrackList();
   }
 
   public async getCover(uri):Promise<object> {
@@ -199,20 +218,20 @@ export class MopidyPlayer {
       this.mopidy$.playback.pause();
   }
 
-  public async play(){
-     let track = await this.mopidy$.playback.getCurrentTrack();
+  public async play(clear:boolean){
+     let track = await this.mopidy$.playback.getCurrentTlTrack();
 
      if (track) {
-         this.playTrack(track);
+         this.playTrack(track, clear);
      }
   }
 
   public nextTrack(): void {
-
+        this.mopidy$.playback.next();
   }
 
   public previousTrack(): void {
-
+        this.mopidy$.playback.previous();
   }
 }
 

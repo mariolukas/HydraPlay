@@ -226,7 +226,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
               this.mopidy.resume();
               break;
           case "stopped":
-              this.mopidy.play();
+              this.mopidy.play(false);
               break;
       }
   }

@@ -1,12 +1,12 @@
-<mat-list-item class="tracklist">
+<mat-list-item class="tracklist" >
   <img matListAvatar src="{{cover}}">
-     <div class="tracklist-item" matRipple [matRippleRadius]="30" matLine (click)="selectTrack(pTrack)">
-      <p style="font-weight:bold; font-size:18px;" class="disable-text-select" (dblclick)="selectTrack(pTrack)" matLine> {{pTrack.artists[0].name}} </p>
+     <div [ngClass]="{'isCurrentTrack':isActiveTrack}" class="tracklist-item" matRipple [matRippleRadius]="30" matLine (dblclick)="selectTrack(pTrack, false)">
+      <p style="font-weight:bold; font-size:18px;" class="disable-text-select" (dblclick)="selectTrack(pTrack, false)" matLine> {{pTrack.track?pTrack.track.artists[0].name:pTrack.artists[0].name}} </p>
       <p>
-        <span class="disable-text-select"> {{pTrack.name}}  </span>
+        <span class="disable-text-select"> {{pTrack.track?pTrack.track.name:pTrack.name}}  </span>
       </p>
       <p matLine>
-        <span class="disable-text-select">{{pTrack.album.name}} </span>
+        <span class="disable-text-select">{{pTrack.track?pTrack.track.album.name:pTrack.album.name}} </span>
       </p>
      </div>
   <div>
