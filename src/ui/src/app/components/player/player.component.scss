@@ -61,14 +61,22 @@ mat-card-title{
    position: relative;
 }
 
-.track-info{
+.track-info {
   position: absolute;
   bottom: 1em;
   left: 0;
 }
 
+mat-card h5 {
+  font-size: 20px;
+}
+
+mat-card h4 {
+  font-size: 30px;
+}
+
 .player-card {
-  max-width: 400px;
+
   width: 305px;
   height: 600px;
   margin:10px 5px;

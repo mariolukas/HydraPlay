@@ -1,5 +1,8 @@
 <div style="display: flex">
-  <span *ngFor="let group of groups">
-    <app-player [group]="group" ></app-player>
-  </span>
+
+
+    <ng-container *ngFor="let group of groups">
+        <app-player [group]="group" ></app-player>
+    </ng-container>
+
 </div>

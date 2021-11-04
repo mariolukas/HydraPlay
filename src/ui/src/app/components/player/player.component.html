@@ -1,11 +1,10 @@
 <mat-card class="player-card">
      <mat-card-header style="margin-bottom:15px;" color="primary">
+              <mat-icon (click)="toggleGroupControlPanel(1)" *ngIf="selectedClients.length == 1" mat-card-avatar>speaker</mat-icon>
+              <mat-icon (click)="toggleGroupControlPanel(1)" *ngIf="selectedClients.length > 1" mat-card-avatar>speaker_group</mat-icon>
 
-              <mat-icon (click)="toggleGroupControlPanel(1)" *ngIf="selectedClients.length == 1"  mat-card-avatar matBadge="15" matBadgeColor="warn">speaker</mat-icon>
-              <mat-icon (click)="toggleGroupControlPanel(1)" *ngIf="selectedClients.length > 1" mat-card-avatar matBadge="15" matBadgeColor="warn">speaker_group</mat-icon>
-
-               <mat-card-title><span>{{connectedClientList}}</span></mat-card-title>
-               <mat-card-subtitle><span>{{group.stream_id}}</span></mat-card-subtitle>
+              <mat-card-title><span>{{connectedClientList}}</span></mat-card-title>
+              <mat-card-subtitle><span>{{group.stream_id}}</span></mat-card-subtitle>
 
               <mat-icon style="font-size: 30px;position:absolute; left:305px;" *ngIf="showHideIcons()" class="playlist-icon" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="closePanel()">expand_more</mat-icon>
 
@@ -17,6 +16,7 @@
             <div>
               <h4>{{ currentState.artist }}</h4>
               <h5>{{ currentState.title }}</h5>
+              <!--<h5>{{ currentState.album }}</h5>-->
             </div>
           </div>
     </div>
@@ -94,7 +94,7 @@
           <mat-tab  style="overflow: unset;">
             <ng-template mat-tab-label>
                 <mat-icon >queue_music</mat-icon>
-               <span class="tablabel">Tracklist</span>
+               <span class="tablabel" matBadgeOverlap="false" matBadgeColor="accent">Tracklist</span>
             </ng-template>
             <mat-list>
               <div>

@@ -626,6 +626,9 @@ Apache-2.0
    limitations under the License.
 
 
+ngx-owl-carousel-o
+MIT
+
 regenerator-runtime
 MIT
 MIT License

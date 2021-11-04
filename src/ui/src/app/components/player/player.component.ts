@@ -1,4 +1,5 @@
 import {Component, ViewChild, OnInit, Input,  OnDestroy} from '@angular/core';
+import {MatBadge} from "@angular/material/badge";
 import {SnapcastService} from '../../services/snapcast.service';
 import {MopidyPoolService, IStreamState,MopidyPlayer } from '../../services/mopidy.service';
 import { trigger,state,style,transition,animate } from '@angular/animations';
@@ -38,7 +39,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   public streams = [];
   public groupVolume: number;
   @Input() public groupVolumeSliderValue: any;
-  public currentTrackList:any;
+  public currentTrackList:any = [];
 
   public connectedClientList: string[] = [];
   @Input() public currentState:any = MopidyPlayer.newStreamState();

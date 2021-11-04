@@ -2,13 +2,23 @@ ENTRYPOINT ["snapserver"]
 
 
 FROM ubuntu:latest
-RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install wget avahi-daemon avahi-utils dbus libnss-mdns haproxy supervisor iputils-ping apt-utils wget git -y
+RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install wget haproxy supervisor iputils-ping apt-utils wget git -y
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y ssl-cert \
     curl gcc gnupg python3 python3-pip python3-crypto python3-pykka coreutils \
     python3-gst-1.0 \
     gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools
+
+
+RUN set -ex \
+ && apt-get update && apt-get install -y --no-install-recommends avahi-daemon libnss-mdns \
+ # allow hostnames with more labels to be resolved. so that we can
+ # resolve node1.mycluster.local.
+ # (https://github.com/lathiat/nss-mdns#etcmdnsallow)
+ && echo '*' > /etc/mdns.allow \
+ # Configure NSSwitch to use the mdns4 plugin so mdns.allow is respected
+ && sed -i "s/hosts:.*/hosts:          files mdns4 dns/g" /etc/nsswitch.conf
 
 RUN curl -L https://apt.mopidy.com/mopidy.gpg | apt-key add - \
  && curl -L https://apt.mopidy.com/mopidy.list -o /etc/apt/sources.list.d/mopidy.list \
