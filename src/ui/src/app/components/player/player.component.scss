@@ -47,6 +47,14 @@ mat-card-title{
     color: white;
     padding: 0.4em;
     margin: -16px;
+
+
+}
+
+.trackinfo{
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-container {
