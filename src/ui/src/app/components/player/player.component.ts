@@ -60,6 +60,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
      this.registerPlayerToSnapService(this.group);
      this.groupVolumeSliderValue = this.getGroupVolume(this.group,true);
 
+
      this.mopidy.updateCurrentTrackList$.subscribe((trackList)=>{
          this.currentTrackList = trackList;
      })
@@ -129,6 +130,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   private registerToMopidyConnection(stream_id:string) {
       this.mopidy = this.mopidyPoolService.getMopidyInstanceById(stream_id);
       this.mopidy.updateCurrentState$.subscribe(state =>{
+         console.log("New State: ", state);
          this.currentState = state;
       });
   }

@@ -21,16 +21,6 @@ enabled = true
 hostname = 0.0.0.0
 port= {{ mpd_port }}
 
-[soundcloud]
-enabled = false
-
-[spotify]
-enabled = {{ hydraplay_config.mopidy.extensions.spotify.enabled }}
-username = {{ hydraplay_config.mopidy.extensions.spotify.username }}
-password = {{ hydraplay_config.mopidy.extensions.spotify.password }}
-client_id = {{  hydraplay_config.mopidy.extensions.spotify.client_id }}
-client_secret = {{  hydraplay_config.mopidy.extensions.spotify.client_secret }}
-
 [http]
 enabled = true
 hostname = ::
@@ -39,10 +29,13 @@ zeroconf = mopidy_{{ stream_id }}
 csrf_protection = false
 allowed_origins = 0.0.0.0:8080
 
-[musicbox_webclient]
-enabled = true
-musicbox = true
+#[musicbox_webclient]
+#enabled = true
+#musicbox = true
 
-[tunein]
-enabled = {{ hydraplay_config.mopidy.extensions.tunein.enabled }}
-timeout = 5000
+{% for extension, attributes in hydraplay_config.mopidy.extensions.items() %}
+[{{ extension }}]
+{% for attribute, value in attributes.items() %}
+{{ attribute }}={{ value }}
+{%- endfor %}
+{%- endfor %}
