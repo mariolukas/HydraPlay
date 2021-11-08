@@ -1,0 +1,4 @@
+RELEASE=buster
+IMG_NAME='hydraplay-server'
+STAGE_LIST="stage0 stage1 stage2 stage-hydraplay-server"
+ENABLE_SSH=1

@@ -39,7 +39,7 @@ def main():
                         help="Specify the port on which to bind the server")
 
     parser.add_argument("-c", "--config", action="store", required=False, dest="config",
-                        help="Specify the config file to use. HydraPlay needs to have write access for the config dialog to work. Defaults to /etc/hydraplay/config.json")
+                        help="Specify the config file to use. HydraPlay needs to have write access for the config dialog to work. Defaults to /etc/hydraplay/hydra.config.json")
 
     parser.add_argument("--logfile", action="store", dest="logConf", default=None,
                         help="Define the log file and path for logging. Defaults to /var/log/hydraplay/hydraplay.log")

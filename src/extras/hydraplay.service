@@ -1,0 +1,17 @@
+[Unit]
+Description=A multiroom audio player based on Mopidy and Snapcast
+After=network.target
+
+[Service]
+User=root
+Environment=DAEMON=/usr/local/hydraplay/venv/bin/hydraplay
+Environment=CONFIGFILE=/etc/hydraplay/hydraplay.private.json
+Environment=LOGFILE=/var/log/hydraplay/hydraplay.log
+EnvironmentFile=-/etc/default/hydraplay
+ExecStart=/bin/sh -c "${DAEMON} --config ${CONFIGFILE}  --logfile ${LOGFILE}"
+ExecStopPost=rm -f ${SOCKET} ${PIDFILE}
+PIDFile=/var/run/hydraplay.pid
+Type=forking
+
+[Install]
+WantedBy=multi-user.target

@@ -12,7 +12,6 @@ class SnapCastService(threading.Thread):
         self.daemon = True
         self.config = config
         self.logger = logging.getLogger(__name__)
-        self.config_desitnation = "/etc/"
         self.command = ["/usr/bin/snapserver", '-c', '/snapserver.conf']
         self.shutodown_flag = threading.Event()
         self.executor = None

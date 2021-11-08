@@ -1,0 +1,13 @@
+# Configuration for /etc/systemd/system/netconnectd.service
+
+# Path to the netconnectd executable, use this to override the default setting
+#DAEMON='/usr/local/netconnectd/venv/bin/netconnectd'
+
+# Path to netconnectd configuration file
+#CONFIGFILE=/etc/hydraplay.private.json
+
+# Path to log file
+#LOGFILE=/var/log/hydraplay/hydraplay.log
+
+# Extra options to pass to hydraplay
+#EXTRA_OPTS=
