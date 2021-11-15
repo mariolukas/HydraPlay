@@ -2,7 +2,7 @@ import logging
 import threading
 import time
 from pathlib import Path
-from server.Executor import Executor
+from hydraplay.server.Executor import Executor
 from jinja2 import Environment, FileSystemLoader
 
 class MopidyPoolService(threading.Thread):
@@ -22,7 +22,7 @@ class MopidyPoolService(threading.Thread):
             Executor("FIFO Task".format(instance), command).start()
 
             command = ['mopidy', '--config']
-            command.append("/mopidy_{0}.conf".format(instance))
+            command.append("/tmp/mopidy_{0}.conf".format(instance))
             self.executor_pool.append(Executor("Mopidy_{0}".format(instance), command))
             self.generate_mopidy_config(instance)
             self.executor_pool[instance].start()
@@ -55,7 +55,7 @@ class MopidyPoolService(threading.Thread):
                                            mpd_port=mpd_port,
                                            web_port=web_port,
                                            )
-        with open("mopidy_{0}.conf".format(instance), "w") as fh:
+        with open(self.config['mopidy']['config_path'] + "mopidy_{0}.conf".format(instance), "w") as fh:
             fh.write(renedered_config)
 
 

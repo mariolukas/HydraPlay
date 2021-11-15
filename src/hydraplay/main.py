@@ -1,5 +1,5 @@
-from version import __version__
-from server.HydraServer import HydraServer
+from hydraplay.version import __version__
+from hydraplay.server.HydraServer import HydraServer
 import logging
 import logging.handlers
 import sys
@@ -12,12 +12,44 @@ class ServiceExit(Exception):
     """
     pass
 
-
 def service_shutdown(signum, frame):
     raise ServiceExit
 
 
+def checkForExecutable(program):
+    import os
+    def is_exe(fpath):
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+    fpath, fname = os.path.split(program)
+    if fpath:
+        if is_exe(program):
+            return program
+    else:
+        for path in os.environ["PATH"].split(os.pathsep):
+            exe_file = os.path.join(path, program)
+            if is_exe(exe_file):
+                return exe_file
+
+    return None
+
+def checkDependencies():
+
+   valid = True
+   if not checkForExecutable('snapserver'):
+       valid = False
+       print("Snapcast Server is not installed.")
+
+   if not checkForExecutable('mopidy'):
+       valid = False
+       print("Mopidy is not installed.")
+
+   if (not valid):
+       sys.exit(0)
+
 def main():
+
+    checkDependencies()
 
     signal.signal(signal.SIGTERM, service_shutdown)
     signal.signal(signal.SIGINT, service_shutdown)
@@ -88,6 +120,7 @@ def main():
         server.shutdown()
         # Terminate the running threads.
         # Set the shutdown flag on each thread to trigger a clean shutdown of each thread.
+
 
 if __name__ == "__main__":
     main()

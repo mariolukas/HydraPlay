@@ -2,7 +2,7 @@ import logging
 import threading
 import time
 from pathlib import Path
-from server.Executor import Executor
+from hydraplay.server.Executor import Executor
 from jinja2 import Environment, FileSystemLoader
 
 
@@ -12,7 +12,7 @@ class SnapCastService(threading.Thread):
         self.daemon = True
         self.config = config
         self.logger = logging.getLogger(__name__)
-        self.command = ["/usr/bin/snapserver", '-c', '/snapserver.conf']
+        self.command = ['snapserver', '-c', '/tmp/snapserver.conf']
         self.shutodown_flag = threading.Event()
         self.executor = None
 
@@ -47,6 +47,6 @@ class SnapCastService(threading.Thread):
         templateEnvironment = Environment(loader=templateLoader)
         template = templateEnvironment.get_template("snapserver.conf.j2")
         renedered_config = template.render(hydraplay_config=self.config)
-        with open("snapserver.conf", "w") as fh:
+        with open(self.config['snapcast_server']['config_path'] + "snapserver.conf", "w") as fh:
             fh.write(renedered_config)
 

@@ -1,7 +1,7 @@
 import tornado.web
 import logging
 import json
-from server.handler.BaseHandler import BaseHandler
+from hydraplay.server.handler.BaseHandler import BaseHandler
 
 class MopidySettingsHandler(BaseHandler):
     def initialize(self, *args, **kwargs):

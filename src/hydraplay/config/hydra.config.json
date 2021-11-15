@@ -6,23 +6,23 @@
 		"mpd_base_port": 6600,
 		"web_base_port": 6680,
 		"instances": 2,
-		"config_path": "/etc/mopidy/",
+		"config_path": "/tmp/",
 		"extensions":{
 			"spotify":{
-				"enable": false,
+				"enabled": false,
 				"username": "<username>",
 				"password": "<password>",
 				"client_id": "<client_id>",
 				"client_secret": "<client_secret>"
 			},
 			"tunein":{
-				"enable": true,
+				"enabled": true,
 				"timeout": 5000
 			}
 		}
 	},
 	"snapcast_server":{
-		"config_path": "/etc/snapcast/",
+		"config_path": "/tmp/",
 		"server_port": 1704,
 		"remote_port": 1705,
 		"additional_fifos":[]

@@ -1,8 +1,8 @@
-from server.handler.StaticFileHandler import StaticFileHandler
-from server.handler.MopidySettingsHandler import MopidySettingsHandler
-from server.SnapCastService import SnapCastService
-from server.MopidyPoolService import MopidyPoolService
-from config import Config
+from hydraplay.server.handler.StaticFileHandler import StaticFileHandler
+from hydraplay.server.handler.MopidySettingsHandler import MopidySettingsHandler
+from hydraplay.server.SnapCastService import SnapCastService
+from hydraplay.server.MopidyPoolService import MopidyPoolService
+from hydraplay.config import Config
 from pathlib import Path
 import tornado
 import logging

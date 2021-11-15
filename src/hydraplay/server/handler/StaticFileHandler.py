@@ -6,7 +6,7 @@ import mimetypes
 import stat
 import logging
 from tornado.web import HTTPError
-from server.handler.BaseHandler import BaseHandler
+from hydraplay.server.handler.BaseHandler import BaseHandler
 
 class StaticFileHandler(BaseHandler):
     """A simple handler that can serve static content from a directory.

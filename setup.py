@@ -1,12 +1,12 @@
 # coding=utf-8
 #!/usr/bin/env python
 
-from setuptools import setup, Command
+from setuptools import setup, Command, find_packages
+
+#import versioneer
 
 DESCRIPTION = "A multiroom audio server based on Mopidy and Snapcast"
-LONG_DESCRIPTION = """
-
-"""
+LONG_DESCRIPTION = ""
 
 EXTRAS_FOLDERS = [
     ("/etc/hydraplay.conf.d", 0o755)
@@ -177,14 +177,6 @@ class UninstallExtrasCommand(Command):
                 )
 
 
-def get_cmdclass():
-    cmdclass={
-        'uninstall': UninstallExtrasCommand,
-        'install': InstallExtrasCommand
-    },
-    return cmdclass
-
-
 def params():
     name = "hydraplay"
     version = "0.2.0"
@@ -194,17 +186,26 @@ def params():
     author_email = "info@mariolukas.de"
     url = "http://github.com/mariolukas/hydraplay"
     license = "GPLV3"
-    cmdclass = get_cmdclass()
 
-    packages = ["hydraplay"]
+    #packages = ["hydraplay"]
     zip_safe = False
+
+    packages = find_packages(where="src")
+    package_dir = {
+        "": "src",
+    }
+
+    cmdclass = {
+            "install_extras": InstallExtrasCommand,
+            "uninstall_extras": UninstallExtrasCommand,
+    }
 
     install_requires = ["tornado", "jinja2"]
 
-    package_data = {
-        'hydraplay.server.static': ['*', '*/*', '*/*/*']
-    }
+    package_data = {'hydraplay': ['config/*json', 'config/templates/*.j2', 'server/static/*', 'server/static/assets/images/*']}
+    include_package_data = True
 
+    #include_package_data = True
     entry_points = {
         "console_scripts": {
             "hydraplay = hydraplay.main:main"
@@ -212,6 +213,5 @@ def params():
     }
 
     return locals()
-
 
 setup(**params())

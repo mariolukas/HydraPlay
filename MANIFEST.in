@@ -1,0 +1,6 @@
+recursive-include hydraplay/config/ *.json
+recursive-include hydraplay/templates/ *.j2
+recursive-include hydraplay/server/static *
+recursive-include hydraplay/server/static/assets/images *
+include README.md
+include requirements.txt

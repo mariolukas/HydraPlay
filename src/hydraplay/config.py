@@ -1,7 +1,7 @@
 import json
 import logging
 
-from util.YAMLObject import YAMLobj
+from hydraplay.util.YAMLObject import YAMLobj
 
 class Config:
     def __init__(self, file_name):
