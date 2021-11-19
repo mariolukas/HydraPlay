@@ -95,6 +95,10 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 ### Credits
 This project would not have been possible without all the work on [Snapcast](https://github.com/badaix/snapcast) and [Mopidy](https://mopidy.com/)! Special thanks to Ryan Detzel for the inspiration.
 
+### Community and Support 
+
+[Join](https://discord.gg/dPvYsXDw) us at Discord (https://discord.gg/dPvYsXDw).
+
 ### Donations
 
 If you like my work and want to support it, feel free to leave a donation.
