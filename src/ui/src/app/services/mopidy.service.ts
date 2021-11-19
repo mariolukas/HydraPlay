@@ -159,10 +159,15 @@ export class MopidyPlayer {
                     combinedSearch.push(track);
                 })
               })
+              this.mopidy$.playlists.asList().then((result)=>{
+         console.log(result);
+      });
               console.log(searchResult);
               return combinedSearch;
           })
       );
+
+
 
   }
 

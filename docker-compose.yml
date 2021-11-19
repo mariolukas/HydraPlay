@@ -18,5 +18,3 @@ services:
     volumes:
        - ./src/:/hydraplay
        - ./hydra.private.json:/etc/hydraplay/hydra.config.json
-    #environment:
-      #- DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_mopidy

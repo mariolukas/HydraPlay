@@ -20,7 +20,8 @@
 				"timeout": 5000
 			},
 			"soundcloud": {
-				"enabled": false
+				"enabled": false,
+				"auth_token": "<auth_token_here>"
 			}
 		}
 	},

@@ -20,6 +20,10 @@
 				"timeout": 5000
 			},
 			"soundcloud": {
+				"enabled": false,
+				"auth_token": "<auth_token_here>"
+			},
+			"youtube": {
 				"enabled": false
 			}
 		}
