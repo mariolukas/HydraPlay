@@ -1,4 +1,4 @@
 RELEASE=buster
-IMG_NAME='hydraplay-server'
-STAGE_LIST="stage0 stage1 stage2 stage-hydraplay-client"
+IMG_NAME='hydraplay-client'
+STAGE_LIST="stage0 stage1 stage2 stage-hydraplay"
 ENABLE_SSH=1

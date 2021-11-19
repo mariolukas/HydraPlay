@@ -8,4 +8,6 @@ __pycache__/
 *.pyc
 
 .idea/
-.github/act/my.secrets.DS_Store
+.github/act/my.secrets
+.DS_Store
+.github/scripts/build-rpi-os/pi-gen

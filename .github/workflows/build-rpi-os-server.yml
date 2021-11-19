@@ -1,37 +1,25 @@
 name: build raspberry pi os server image
-on: [push]
+on:
+  push:
+    tags:
+      - '*'
 jobs:
-  build-debian-package:
+  build-pi-os-server-image:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Install build dependencies
         run: sudo apt-get -qq update
-      - run: sudo apt-get -y install python3.8 python3.8-dev python3-pip libcurl4 build-essential python3-tornado python3-setuptools debhelper dh-systemd cdbs dh-python fakeroot python3-pip rsync locales
-      - run: pip3 install virtualenv
-      - name: 🏗 Create virtual python env
-        run: virtualenv -p /usr/bin/python3.8 hotspot-env
-      - name: 🏗 Activate virtual python env
-        run: source hotspot-env/bin/activate
+      - run: sudo apt-get -y install --no-install-recommends nodejs git vim parted binfmt-support ca-certificates qemu-utils kpartx quilt coreutils qemu-user-static debootstrap zerofree zip dosfstools libarchive-tools libcap2-bin rsync grep udev xz-utils curl xxd file kmod bc
       - name: ⬇ Checkout code
         uses: actions/checkout@v2
         with:
-         fetch-depth: 0
-      - name: Add current Date to env vars
-        run: echo "CURRENT_DATE=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
-      - name: Add Version to env vars
-        run: echo "VERSION=$(head -1 debian/changelog | awk -F'[()]' '{print $2}')" >> $GITHUB_ENV
-      - name: Replace version Number for testing build
-        if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
-        run: sed -i -e "s/${{ env.VERSION }}/${{ env.VERSION }}+${{ env.CURRENT_DATE }}/g" debian/changelog
-      - name: 🔨 Build Debian package
-        run: sudo make deb
-      - name: Add Package Name to env var
-        run: echo "FILE_NAME=$(ls -a ../*.deb)" >> $GITHUB_ENV
-      - name: Decrypt fabscan key secret
-        run: ./.github/scripts/decrypt_file.sh
-        env:
-          FABSCAN_KEY_PASSPHRASE: ${{ secrets.FABSCAN_KEY_PASSPHRASE }}
-      - name: change keyfile permission
-        run: chmod 600 $HOME/secrets/fabscan.key
-      - name: deploy build artifact
-        run: LC_ALL=C scp -o StrictHostKeyChecking=no -i $HOME/secrets/fabscan.key ${{ env.FILE_NAME }} ${{ secrets.FABSCAN_DEPLOY_USER }}@mariolukas.de:/var/deploy/release/.
+          path: hydraplay
+      - run: git clone https://github.com/RPi-Distro/pi-gen
+      - run: cd pi-gen && git fetch && git fetch --tags
+      - run: git checkout 2021-10-30-raspios-bullseye && cd ..
+      - name: Configure Image build environment
+        run: cp -R hydraplay/.github/scripts/build-rpi-os/stage-hydraplay-server/ pi-gen/stage-hydraplay-server
+      - run: cp hydraplay/.github/scripts/build-rpi-os/config.server pi-gen/config
+      - name: Build image
+        run: cd pi-gen && sudo ./build-docker.sh
+

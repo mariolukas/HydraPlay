@@ -1,4 +1,4 @@
-/var/log/netconnectd.log {
+/var/log/hydraplay.log {
     daily
     rotate 3
     compress
