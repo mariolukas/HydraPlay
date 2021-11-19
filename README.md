@@ -29,7 +29,7 @@ The easiest way to get it running is by using docker. Just checkout the source c
 docker-compose build
 ```
 
-Make a copy of the file `hydraplay.example.json` and rename it to `hydraplay.private.json`. This file contains all needed configurations for the setup. 
+Make a copy of the file `hydra.example.json` and rename it to `hydra.private.json`. This file contains all needed configurations for the setup. 
 
 Open the file in an editor and make your changes. If you want to enable Spotify you need a client_id and client_secret. Just follow the instructions of the [Mopidy Spotify extension](https://mopidy.com/ext/spotify/). Add the cliendId, client secret and your Spotify login credentials to the config. Enable Spotify and  save all changes.
 
