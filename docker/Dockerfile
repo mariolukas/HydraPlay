@@ -47,7 +47,11 @@ RUN pip3 install tornado jinja2
 RUN mkdir -p /root/.config/snapcast/ && \
 	mkdir -p /hydraplay \
 	mkdir -p /etc/hydraplay && \
-	touch /etc/hydraplay/hydra.config.json
+	touch /etc/hydraplay/hydra.config.json && \
+	touch /tmp/hydra.config.json && \
+	chmod 664 /etc/hydraplay/hydra.config.json && \
+	chmod 664 /tmp/hydra.config.json
+
 #======================================= General Docker configs ===================================================#
 
 #COPY requirements.txt requirements.txt
