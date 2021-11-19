@@ -16,14 +16,13 @@ from tornado.platform.asyncio import AnyThreadEventLoopPolicy
 
 class HydraServer:
 
-    def __init__(self):
+    def __init__(self, configFile):
 
         asyncio.set_event_loop_policy(AnyThreadEventLoopPolicy())
         self.system_exit = SystemExit()
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
-        self.base_path = "/etc/hydraplay/hydra.config.json" #str(Path(__file__).resolve().parent.parent) + "/config/hydra.config.json"
-        self.config = Config(self.base_path)
+        self.config = Config(configFile)
         self.static_files = str(Path(__file__).resolve().parent) + "/static/"
         self.logger.debug(self.static_files)
         self.server_port = self.config.content['hydraplay']['port']

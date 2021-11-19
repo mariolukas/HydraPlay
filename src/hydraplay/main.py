@@ -113,7 +113,7 @@ def main():
         sys.exit(0)
 
     try:
-        server = HydraServer()
+        server = HydraServer(args.config)
         server.run()
 
     except ServiceExit:

@@ -9,5 +9,5 @@ sed -i -e "s/^#host-name=.*/host-name=${AVAHI_HOST}/" /etc/avahi/avahi-daemon.co
 sed -i -e "s/^#domain-name=.*/domain-name=${AVAHI_DOMAIN}/" /etc/avahi/avahi-daemon.conf
 
 #/usr/sbin/avahi-daemon &
-/hydraplay/hydraplay.sh
+/hydraplay/hydraplay.sh --config /tmp/hydra.config.json
 

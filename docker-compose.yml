@@ -17,4 +17,4 @@ services:
       - 6680-6690:6680-6690
     volumes:
        - ./src/:/hydraplay
-       - ./hydra.private.json:/etc/hydraplay/hydra.config.json
+       - ./hydra.private.json:/tmp/hydra.config.json

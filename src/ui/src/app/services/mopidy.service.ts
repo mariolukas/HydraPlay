@@ -160,8 +160,13 @@ export class MopidyPlayer {
                 })
               })
               this.mopidy$.playlists.asList().then((result)=>{
-         console.log(result);
-      });
+                      console.log(result);
+                      this.mopidy$.playlists.getItems({uri: result[0].uri}).then((res)=>{
+                          console.log(res);
+
+                      });
+
+              });
               console.log(searchResult);
               return combinedSearch;
           })
