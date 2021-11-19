@@ -18,13 +18,17 @@
 			"tunein":{
 				"enabled": true,
 				"timeout": 5000
+			},
+			"soundcloud": {
+				"enabled": false
 			}
 		}
 	},
 	"snapcast_server":{
-		"config_path": "/tmp/",
+		"config_path": "/etc/snapcast/",
 		"server_port": 1704,
 		"remote_port": 1705,
-		"additional_fifos":[]
+		"additional_fifos":[],
+		"config_path": "/tmp/"
 	}
 }

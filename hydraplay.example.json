@@ -18,6 +18,9 @@
 			"tunein":{
 				"enabled": true,
 				"timeout": 5000
+			},
+			"soundcloud": {
+				"enabled": false
 			}
 		}
 	},

@@ -22,7 +22,7 @@ class HydraServer:
         self.system_exit = SystemExit()
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
-        self.base_path = str(Path(__file__).resolve().parent.parent) + "/config/hydra.config.json"
+        self.base_path = "/etc/hydraplay/hydra.config.json"
         self.config = Config(self.base_path)
         self.static_files = str(Path(__file__).resolve().parent) + "/static/"
         self.logger.debug(self.static_files)

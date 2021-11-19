@@ -45,7 +45,8 @@ RUN apt-get -f install -y
 
 RUN pip3 install tornado jinja2
 RUN mkdir -p /root/.config/snapcast/ && \
-	mkdir -p /hydraplay
+	mkdir -p /hydraplay && \
+	mkdir -p /etc/hydraplay
 
 #======================================= General Docker configs ===================================================#
 
