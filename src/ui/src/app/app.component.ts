@@ -2,6 +2,7 @@ import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {SnapcastService} from './services/snapcast.service';
 import {MopidyPoolService} from './services/mopidy.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import _ from "lodash";
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,8 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  @Input() public groups: object[];
-  @Input() public streams: object[];
+  @Input() public groups: any[];
+  @Input() public streams: any[];
 
     customOptions: OwlOptions = {
     loop: false,
@@ -40,6 +41,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor( private snapcastService:SnapcastService, private mopidyPoolService:MopidyPoolService) {
     this.snapcastService.observableGroups$.subscribe((groups) =>{
+      groups.forEach((group, index) => {
+
+          group['clients'] = group['clients'].filter(client => client.connected)
+          console.log(group);
+          if(group['clients'].length > 0){
+            groups[index] = group;
+          } else {
+            groups.splice(index, 1);
+          }
+
+          //this.groups.push(group);
+      });
       this.groups = groups;
     })
     

@@ -72,11 +72,12 @@ export class SnapcastService {
           case "Client.OnNameChanged":
           case "Client.OnLatencyChanged":
           case "Client.OnVolumeChanged":
-
             this.sendNotificationToPlayer(message);
             break;
           case "Client.OnDisconnect":
           case "Client.OnConnect":
+
+            this.getSnapCastServerState();
             break;
           case "Server.OnUpdate":
              this.observableGroups$.next(message.params.server.groups);
@@ -222,6 +223,7 @@ export class SnapcastService {
     }
      this.sendMessage(message)
   }
+
 
   public getSnapCastClientStatus(id: string){
     const message = {
