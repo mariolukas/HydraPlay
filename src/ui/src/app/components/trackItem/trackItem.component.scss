@@ -9,11 +9,8 @@
   color:#03DAC6;
 }
 
-mat-list-item {
-  height: 50px; /* default is 72px */
-}
-
-.tracklist-item p{
+.tracklist-item .mat-list-item-content{
+  height: 55px !important; /* default is 72px */
   margin:0px;
 }
 
@@ -32,7 +29,7 @@ mat-list-item {
    width: 100%;
 }
 
-.playlist .card{
+.track-item .card{
   width: 130px;
   height: 140px;
   background-color:green;
@@ -55,10 +52,5 @@ mat-list-item {
   color:#717171;
 }
 
-.truncate {
 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 

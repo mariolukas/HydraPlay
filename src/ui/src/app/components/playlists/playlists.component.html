@@ -1,0 +1,22 @@
+<div class="play-lists">
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>queue_music</mat-icon>
+                <span class="tablabel" [matBadgeHidden]="tracklist?.length < 5" matBadge="{{tracklist?.length}}" matBadgeOverlap="false" matBadgeColor="accent">Tracklist</span>
+            </ng-template>
+
+            <mat-list class="track-list">
+                <trackItem *ngFor="let pTrack of tracklist" type="track-list-item" [group]="group" [pTrack]="pTrack"></trackItem>
+            </mat-list>
+        </mat-tab>
+        <!--
+        <mat-tab class="tab-streams" label="Mopidy">
+            <ng-template mat-tab-label>
+                <mat-icon>playlist_play</mat-icon>
+                <span class="tablabel">Playlists</span>
+            </ng-template>
+            <app-media [group]="group"></app-media>
+        </mat-tab>-->
+    </mat-tab-group>
+</div>

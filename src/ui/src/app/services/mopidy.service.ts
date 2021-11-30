@@ -138,7 +138,6 @@ export class MopidyPlayer {
 
   public async updateCurrentTrackList(){
       this.currentTrackList = await this.mopidy$.tracklist.getTlTracks();
-      console.log(this.currentTrackList);
       if(this.currentTrackList) {
           this.updateCurrentTrackList$.next(this.currentTrackList);
       }
@@ -159,14 +158,22 @@ export class MopidyPlayer {
                     combinedSearch.push(track);
                 })
               })
+
+              // sample code for playlist loading
+              /*
               this.mopidy$.playlists.asList().then((result)=>{
                       console.log(result);
-                      this.mopidy$.playlists.getItems({uri: result[0].uri}).then((res)=>{
-                          console.log(res);
-
+                      let uris = [];
+                      this.mopidy$.playlists.getItems({uri: result[3].uri}).then((res)=>{
+                          res.forEach((el)=>{
+                              uris.push(el.uri);
+                          })
+                          this.addUriToTrackLIst(uris);
                       });
 
               });
+
+               */
               console.log(searchResult);
               return combinedSearch;
           })
@@ -209,6 +216,13 @@ export class MopidyPlayer {
       });
 
   }
+
+  public addUriToTrackLIst(uris){
+      this.mopidy$.tracklist.add({uris:uris}).then((result) =>{
+         this.updateCurrentTrackList();
+      });
+  }
+
 
   public async removeTrackFromlist(track){
        let result = await this.mopidy$.tracklist.remove({criteria:{"tlid":[track.tlid]}});

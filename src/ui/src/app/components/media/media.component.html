@@ -1,15 +1,20 @@
-<div>
-  <mat-form-field class="full-width-field" appearance="fill" style="overflow-y:hidden;">
-    <mat-label>Discover Mopidy</mat-label>
-    <input matInput #searchBox (change)="search(searchBox.value)"  type="text" >
-  </mat-form-field>
-</div>
-<div>
+<div class="media-library">
+  <div>
+    <mat-form-field class="full-width-field" appearance="fill" style="overflow-y:hidden;">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>Search for Music...</mat-label>
+      <input [(ngModel)]="searchString" matInput #searchBox (change)="search(searchBox.value)"  type="text" >
+     <!-- <button *ngIf="searchString" matSuffix mat-icon-button aria-label="Clear" (click)="searchString=''">
+        <mat-icon>close</mat-icon>
+      </button>-->
+    </mat-form-field>
+  </div>
 
-  <mat-list  *ngFor="let pTrack of searchResult" >
-      <tracklist type="searchlist" [group]="group" [pTrack]="pTrack"></tracklist>
+  <mat-list class="search-list">
+      <trackItem  *ngFor="let pTrack of searchResult" type="search-list-item" [group]="group" [pTrack]="pTrack"></trackItem>
   </mat-list>
-</div>
-<div>
-  <mat-spinner *ngIf="waitingForResults" style="margin:0 auto;"  [diameter]="50"></mat-spinner>
+
+  <div>
+    <mat-spinner *ngIf="waitingForResults" style="margin:0 auto;"  [diameter]="50"></mat-spinner>
+  </div>
 </div>

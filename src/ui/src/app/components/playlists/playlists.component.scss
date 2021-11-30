@@ -1,0 +1,18 @@
+.play-lists{
+  ng-template{
+    span{
+      margin: 1em;
+    }
+  }
+  .track-list{
+      margin-top: 20px;
+      max-height: 390px;
+      overflow: auto;
+      max-width: 305px;
+   }
+}
+
+.tablabel{
+  margin:1em;
+}
+

@@ -2,11 +2,11 @@ import { Input, Component, Attribute, OnInit } from '@angular/core';
 import {MopidyPoolService} from '../../services/mopidy.service';
 
 @Component({
-  selector: 'tracklist',
-  templateUrl: './tracklist.component.html',
-  styleUrls: ['./tracklist.component.scss']
+  selector: 'trackItem',
+  templateUrl: './trackItem.component.html',
+  styleUrls: ['./trackItem.component.scss']
 })
-export class TracklistComponent implements OnInit {
+export class TrackItemComponent implements OnInit {
 
   @Input() pTrack: any;
   @Input() group: any;
@@ -15,7 +15,6 @@ export class TracklistComponent implements OnInit {
 
   private mopidy$: any;
   constructor(@Attribute('type') public type: string, private mopidyPoolService: MopidyPoolService) {
-
   }
 
   ngOnInit() {
@@ -30,8 +29,6 @@ export class TracklistComponent implements OnInit {
              this.isActiveTrack = true;
         }
      });
-
-
   }
 
   public selectTrack(track, clear:boolean) {

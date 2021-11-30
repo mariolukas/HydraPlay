@@ -1,26 +1,13 @@
 import {Component, ViewChild, OnInit, Input,  OnDestroy} from '@angular/core';
-import {MatBadge} from "@angular/material/badge";
 import {SnapcastService} from '../../services/snapcast.service';
-import {MopidyPoolService, IStreamState,MopidyPlayer } from '../../services/mopidy.service';
-import { trigger,state,style,transition,animate } from '@angular/animations';
+import {MopidyPoolService, MopidyPlayer } from '../../services/mopidy.service';
 import {MatTabGroup} from "@angular/material/tabs";
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss'],
-  animations: [
-    trigger('overlayPanel', [
-      // ...
-      state('open', style({
-        height: '510px',
-      })),
-      state('closed', style({
-        height: '0px',
-      })),
-      transition('* => *', animate('200ms')),
-    ]),
-  ],
 })
 export class PlayerComponent implements OnInit, OnDestroy {
   mediaPanelIsOpen = false;
@@ -32,21 +19,49 @@ export class PlayerComponent implements OnInit, OnDestroy {
   @Input() stream:any;
   @Input() group: any;
   @Input() showDialog: boolean = false;
+  @Input() public currentState:any = MopidyPlayer.newStreamState();
+  @Input() public groups: any[] = [];
+  @Input() public groupVolumeSliderValue: any;
+  @Input() public currentSelectedAction: string;
 
   public mopidy: any;
   public selectedClients: {id: string, name:string, selected:boolean }[] =[];
   public clients = [];
   public streams = [];
   public groupVolume: number;
-  @Input() public groupVolumeSliderValue: any;
   public currentTrackList:any = [];
 
   public connectedClientList: string[] = [];
-  @Input() public currentState:any = MopidyPlayer.newStreamState();
-  @Input() public groups: any[] = [];
 
   constructor( private snapcastService: SnapcastService, private mopidyPoolService:MopidyPoolService ) {
 
+  }
+
+  customOptions: OwlOptions = {
+    loop: false,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 50,
+    margin:  30,
+    smartSpeed:10,
+    animateIn: 'fadeInRight delay-2s',
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 2
+      },
+      760: {
+        items: 3
+      },
+      1000: {
+        items: 4
+      }
+    },
+    nav: false
   }
 
   ngOnInit() {
@@ -59,16 +74,14 @@ export class PlayerComponent implements OnInit, OnDestroy {
      this.initClientOptions();
      this.registerPlayerToSnapService(this.group);
      this.groupVolumeSliderValue = this.getGroupVolume(this.group,true);
-
+     this.currentSelectedAction = 'player';
 
      this.mopidy.updateCurrentTrackList$.subscribe((trackList)=>{
          this.currentTrackList = trackList;
-     })
-  };
+     });
 
-  toggleVolumeControlPanel(){
-      this.volumeControlPanelIsOpen = !this.volumeControlPanelIsOpen;
-  }
+     this.mopidy.updateCurrentTrackList();
+  };
 
   closePanel(){
       this.volumeControlPanelIsOpen = false;
@@ -76,22 +89,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
       this.groupControlPanel = false;
   }
 
-  showHideIcons(){
-      if (this.volumeControlPanelIsOpen || this.mediaPanelIsOpen || this.groupControlPanel){
-          return true;
-      } else {
-          return false;
-      }
-  }
-
-  toggleMediaPanel() {
-   this.mediaPanelIsOpen = !this.mediaPanelIsOpen;
-   this.mopidy.updateCurrentTrackList();
-  }
-
-  toggleGroupControlPanel(index:number){
-    this.groupTabs.selectedIndex = index;
-    this.groupControlPanel = !this.groupControlPanel;
+  selectAction(action){
+      this.currentSelectedAction = action;
   }
 
   ngOnDestroy(){
@@ -112,6 +111,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   public updateClientsInGroup(event){
+      console.log(this.selectedClients);
       this.snapcastService.updateClientsInGroup(this.group, this.selectedClients);
   }
 

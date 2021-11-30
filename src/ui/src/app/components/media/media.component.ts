@@ -27,6 +27,7 @@ export class MediaComponent implements OnInit {
 
   private selectedGroup: any;
   private mopidy: any;
+  public searchString: string;
 
   constructor(private snapcastService: SnapcastService, private mopidyPoolService:MopidyPoolService) {
     this.visible = true;

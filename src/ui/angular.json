@@ -31,9 +31,9 @@
             ],
             "styles": [
               "./node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
-             "./node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
               "./node_modules/material-design-icons/iconfont/material-icons.css",
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "./node_modules/animate.css/animate.min.css",
               "src/styles.scss"
             ],
             "scripts": [
@@ -93,7 +93,6 @@
             "karmaConfig": "src/karma.conf.js",
             "styles": [
              "./node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
-             "./node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
              "./node_modules/material-design-icons/iconfont/material-icons.css",
              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.scss"

@@ -9,10 +9,8 @@ import { PlayerComponent } from './components/player/player.component';
 import { StreamComponent } from './components/stream/stream.component';
 import { MediaComponent } from './components/media/media.component';
 import { NoopAnimationsModule} from '@angular/platform-browser/animations';
-import { TracklistComponent } from './components/tracklist/tracklist.component';
+import { TrackItemComponent } from './components/trackItem/trackItem.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
-import { APP_INITIALIZER } from '@angular/core';
 
 import {MatSliderModule} from "@angular/material/slider";
 import {MatButtonModule} from "@angular/material/button";
@@ -27,6 +25,9 @@ import {FormsModule} from "@angular/forms";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatBadgeModule} from "@angular/material/badge";
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { PlaylistsComponent } from './components/playlists/playlists.component';
+import { TunevolumesComponent } from './components/tunevolumes/tunevolumes.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +35,9 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     PlayerComponent,
     StreamComponent,
     MediaComponent,
-    TracklistComponent,
+    TrackItemComponent,
+    PlaylistsComponent,
+    TunevolumesComponent
   ],
   imports: [
     MatSliderModule,

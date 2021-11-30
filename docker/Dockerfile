@@ -50,7 +50,7 @@ RUN mkdir -p /root/.config/snapcast/ && \
 	touch /etc/hydraplay/hydra.config.json && \
 	touch /tmp/hydra.config.json && \
 	chmod 664 /etc/hydraplay/hydra.config.json && \
-	chmod 664 /tmp/hydra.config.json
+	chmod 664 /tmpt /hydra.config.json
 
 #======================================= General Docker configs ===================================================#
 

@@ -1,123 +1,145 @@
-<mat-card class="player-card">
-     <mat-card-header style="margin-bottom:15px;" color="primary">
-              <mat-icon (click)="toggleGroupControlPanel(1)" *ngIf="selectedClients.length == 1" mat-card-avatar>speaker</mat-icon>
-              <mat-icon (click)="toggleGroupControlPanel(1)" *ngIf="selectedClients.length > 1" mat-card-avatar>speaker_group</mat-icon>
+<mat-card class="zone">
+    <mat-card-header color="primary">
+        <mat-icon *ngIf="selectedClients.length == 1" mat-card-avatar>speaker</mat-icon>
+        <mat-icon *ngIf="selectedClients.length > 1" mat-card-avatar>speaker_group</mat-icon>
 
-              <mat-card-title><span>{{connectedClientList}}</span></mat-card-title>
-              <mat-card-subtitle><span>{{group.stream_id}}</span></mat-card-subtitle>
+        <mat-card-title><span>{{connectedClientList}}</span></mat-card-title>
+        <mat-card-subtitle><span>{{group.stream_id}}</span></mat-card-subtitle>
+    </mat-card-header>
 
-              <mat-icon style="font-size: 30px;position:absolute; left:305px;" *ngIf="showHideIcons()" class="playlist-icon" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="closePanel()">expand_more</mat-icon>
-
-     </mat-card-header>
-
-    <div>
-          <img (click)="toggleGroupControlPanel(0)" mat-card-image src="{{currentState.coverUri}}" alt="Album Cover" >
-          <div class="track-title">
-            <div>
-              <h4 class="trackinfo">{{ currentState.artist }}</h4>
-              <h5 class="trackinfo">{{ currentState.title }}</h5>
-              <!--<h5>{{ currentState.album }}</h5>-->
-            </div>
-          </div>
-    </div>
-
-    <div class="player-crontrols" style="margin-top: -40px;margin-bottom: 25px; font-size:20px;">
-        <mat-icon (click)="previousTrack()" style="margin: 0px 30px; top: 8px;" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" class="previous-track-button">skip_previous</mat-icon>
-        <button (click)="play()" class="control-element" mat-fab color="primary" aria-label="Example icon button with a delete icon">
-
-            <mat-icon *ngIf="currentState.playbackState != 'playing'" aria-hidden="false" aria-label="Select Clients" class="play-button">play_arrow</mat-icon>
-            <mat-icon *ngIf="currentState.playbackState == 'playing'" aria-hidden="false" aria-label="Select Clients" class="play-button">pause</mat-icon>
-
-        </button>
-         <mat-icon (click)="nextTrack()" style="margin: 0px 30px; top: 8px;" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" class="next-track-button">skip_next</mat-icon>
-    </div>
-
-    <div class="player-crontrols volume-icon volume-controls">
-         <mat-icon class="volume-mute" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true">volume_mute</mat-icon>
-         <mat-slider (input)="setGroupVolume(group, $event)"  [(ngModel)]="groupVolumeSliderValue" color="primary"
-            [max]="100"
-            [min]="0"
-            [step]="1"
-         ></mat-slider>
-         <mat-icon class="volume-up" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true">volume_up</mat-icon>
-
-    </div>
-
-    <div class="mat-elevation-z4" [@overlayPanel]="groupControlPanel ? 'open' : 'closed'" class="playlist">
-         <mat-tab-group #groupTabs mat-align-tabs="start" >
-
-          <mat-tab  style="overflow: unset;">
-            <ng-template mat-tab-label>
-                <mat-icon >cast</mat-icon>
-               <span class="tablabel">Streams</span>
-            </ng-template>
-                <mat-list  *ngFor="let stream of streams" >
-                 <app-stream [currentState]="currentState" [stream]="stream" [group]="group" ></app-stream>
-                </mat-list>
-          </mat-tab>
-
-          <mat-tab  style="overflow: unset;">
-            <ng-template mat-tab-label>
-                <mat-icon >speaker_group</mat-icon>
-               <span class="tablabel">Clients</span>
-            </ng-template>
-              <mat-selection-list #clientList [(ngModel)]="selectedClients">
-                  <mat-list-option selected="{{client.selected}}" *ngFor="let client of clients" [value]="client.id" (click)="updateClientsInGroup($event)">
-                        {{client.name}}
-                  </mat-list-option>
-              </mat-selection-list>
-          </mat-tab>
-        </mat-tab-group>
-    </div>
-
-    <div class="mat-elevation-z4" [@overlayPanel]="volumeControlPanelIsOpen ? 'open' : 'closed'" class="playlist">
-        <mat-divider></mat-divider>
-        <mat-list style="margin-top:20px;" *ngFor="let client of group.clients" >
-            <mat-list-item style="margin-bottom: 20px;">
-                <div matLine class="player-crontrols volume-icon volume-controls">
-                    <div style="float:left; margin-top:10px;"> {{client.host.name}}</div>
-                    <div style="float:left; margin-bottom:10px;">
-                        <mat-icon class="volume-mute" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true">volume_mute</mat-icon>
-                        <mat-slider (input)="updateClientVolume(client.id, $event)" [(ngModel)]="client.config.volume.percent" color="primary" [max]="100" [min]="0" [step]="1"></mat-slider>
-                        <mat-icon class="volume-up" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true">volume_up</mat-icon>
+    <owl-carousel-o class="action-carousel" [options]="customOptions" #actionCarousel>
+        <ng-template carouselSlide [id]="'player'">
+            <div class="player">
+                <div class="track-info">
+                    <img mat-card-image src="{{currentState.coverUri}}" alt="Album Cover">
+                    <div class="title">
+                            <h4>{{ currentState.artist }}</h4>
+                            <h5>{{ currentState.title }}</h5>
+                            <!--<h5>{{ currentState.album }}</h5>-->
                     </div>
                 </div>
-                 <mat-divider></mat-divider>
-            </mat-list-item>
 
-        </mat-list>
-    </div>
+                <div class="controls">
+                    <div>
+                        <mat-icon (click)="previousTrack()" class="previous-track-button" matRipple
+                                  [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true">
+                            skip_previous
+                        </mat-icon>
+                        <button (click)="play()" class="control-element" mat-fab color="primary"
+                                aria-label="Example icon button with a delete icon">
+                            <mat-icon *ngIf="currentState.playbackState != 'playing'" aria-hidden="false"
+                                      aria-label="Select Clients" class="play-button">play_arrow
+                            </mat-icon>
+                            <mat-icon *ngIf="currentState.playbackState == 'playing'" aria-hidden="false"
+                                      aria-label="Select Clients" class="play-button">pause
+                            </mat-icon>
+                        </button>
+                        <mat-icon class="next-track-button" (click)="nextTrack()" matRipple [matRippleRadius]="25"
+                                  [matRippleCentered]="true" [matRippleUnbounded]="true" class="next-track-button">
+                            skip_next
+                        </mat-icon>
+                    </div>
+                    <div class="volume">
+                        <mat-icon class="mute" matRipple [matRippleRadius]="25" [matRippleCentered]="true"
+                                  [matRippleUnbounded]="true">volume_mute
+                        </mat-icon>
+                        <mat-slider (input)="setGroupVolume(group, $event)" [(ngModel)]="groupVolumeSliderValue"
+                                    color="primary"
+                                    [max]="100"
+                                    [min]="0"
+                                    [step]="1" controller
+                        ></mat-slider>
+                        <mat-icon class="up" matRipple [matRippleRadius]="25" [matRippleCentered]="true"
+                                  [matRippleUnbounded]="true">volume_up
+                        </mat-icon>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
 
+        <ng-template carouselSlide [id]="'streams'">
 
-    <div class="mat-elevation-z4" [@overlayPanel]="mediaPanelIsOpen ? 'open' : 'closed'" class="playlist">
-        <mat-tab-group mat-align-tabs="start" >
-          <mat-tab  style="overflow: unset;">
-            <ng-template mat-tab-label>
-                <mat-icon >queue_music</mat-icon>
-               <span class="tablabel" matBadgeOverlap="false" matBadgeColor="accent">Tracklist</span>
-            </ng-template>
-            <mat-list>
-              <div>
-              <mat-list  *ngFor="let pTrack of currentTrackList" >
-                  <tracklist type="tracklist" [group]="group" [pTrack]="pTrack"></tracklist>
-              </mat-list>
-              </div>
-            </mat-list>
-          </mat-tab>
-          <mat-tab label="Mopidy" >
-            <ng-template mat-tab-label>
-                <mat-icon >search</mat-icon>
-                <span class="tablabel">Search</span>
-            </ng-template>
+            <div class="mat-elevation-z4" class="playlist">
+                <mat-tab-group #groupTabs mat-align-tabs="start">
+                    <mat-tab class="tab-streams">
+                        <ng-template mat-tab-label>
+                            <mat-icon>cast</mat-icon>
+                            <span class="tablabel">Streams</span>
+                        </ng-template>
+                        <mat-list *ngFor="let stream of streams">
+                            <app-stream [currentState]="currentState" [stream]="stream" [group]="group"></app-stream>
+                        </mat-list>
+                    </mat-tab>
+                    <mat-tab class="tab-streams">
+                        <!-- Client list  -->
+                        <ng-template mat-tab-label>
+                            <mat-icon>speaker_group</mat-icon>
+                            <span class="tablabel">Clients</span>
+                        </ng-template>
+                        <mat-selection-list class="client-list" #clientList [(ngModel)]="selectedClients" (selectionChange)="updateClientsInGroup($event)">
+                            <mat-list-option selected="{{client.selected}}" *ngFor="let client of clients" [value]="client.id">
+                                <div>
+                                    <div>
+                                        <div>{{client.name}}</div>
+                                        <button mat-icon-button (click)="editClientName($event)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <mat-divider></mat-divider>
+                            </mat-list-option>
+                        </mat-selection-list>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </ng-template>
+        <!-- Zone Volume Tab -->
+        <ng-template carouselSlide [id]="'tune'">
+            <div class="mat-elevation-z4" class="playlist">
+                <app-tunevolumes [group]="group"></app-tunevolumes>
+            </div>
+        </ng-template>
+        <!-- Track- /Playlist Tab -->
+        <ng-template carouselSlide [id]="'playlist'">
+            <div class="mat-elevation-z4" class="playlist">
+                <app-playlists [tracklist]="currentTrackList" [group]="group"></app-playlists>
+            </div>
+        </ng-template>
+        <ng-template carouselSlide [id]="'search'">
             <app-media [group]="group"></app-media>
-          </mat-tab>
-        </mat-tab-group>
-    </div>
-    <mat-card-actions align="end" color="Primary">
-           <div class="card-container-right" *ngIf="!showHideIcons()">
-              <!--<mat-icon class="group-icon" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="toggleGroupControlPanel()">speaker_group</mat-icon>-->
-              <mat-icon *ngIf="group.clients?.length > 1" class="all-volume-icon" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="toggleVolumeControlPanel()">tune</mat-icon>
-              <mat-icon class="playlist-icon" matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="toggleMediaPanel()">queue_music</mat-icon>
-           </div>
+        </ng-template>
+    </owl-carousel-o>
+    <mat-divider></mat-divider>
+    <mat-card-actions class="footer space-around" align="end" color="Primary">
+        <div class="action" [ngClass]="{'active': currentSelectedAction === 'player'}">
+            <mat-icon (click)="actionCarousel.to('player');selectAction('player')" matRipple [matRippleRadius]="25"
+                      [matRippleCentered]="true" [matRippleUnbounded]="true">play_circle_filled
+            </mat-icon>
+            <div>Player</div>
+        </div>
+        <div class="action" [ngClass]="{'active': currentSelectedAction === 'streams'}">
+            <mat-icon (click)="actionCarousel.to('streams');selectAction('streams')" matRipple [matRippleRadius]="25"
+                      [matRippleCentered]="true" [matRippleUnbounded]="true">cast
+            </mat-icon>
+            <div>Streams</div>
+        </div>
+        <div class="action" [ngClass]="{'active': currentSelectedAction === 'playlist'}">
+            <mat-icon (click)="actionCarousel.to('playlist');selectAction('playlist')" matRipple [matRippleRadius]="25"
+                      [matRippleCentered]="true" [matRippleUnbounded]="true">library_music
+            </mat-icon>
+            <div>Playlists</div>
+        </div>
+        <div class="action" [ngClass]="{'active': currentSelectedAction === 'search'}">
+            <mat-icon (click)="actionCarousel.to('search');selectAction('search')" matRipple [matRippleRadius]="25"
+                      [matRippleCentered]="true" [matRippleUnbounded]="true">search
+            </mat-icon>
+            <div>Search</div>
+        </div>
+        <div *ngIf="selectedClients.length > 1" class="action" [ngClass]="{'active': currentSelectedAction === 'tune'}">
+            <mat-icon (click)="actionCarousel.to('tune');selectAction('tune')" matRipple [matRippleRadius]="25"
+                      [matRippleCentered]="true" [matRippleUnbounded]="true">tune
+            </mat-icon>
+            <div>Tune</div>
+        </div>
     </mat-card-actions>
 </mat-card>
