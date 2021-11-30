@@ -77,7 +77,7 @@
                             <span class="tablabel">Clients</span>
                         </ng-template>
                         <mat-selection-list class="client-list" #clientList [(ngModel)]="selectedClients" (selectionChange)="updateClientsInGroup($event)">
-                            <mat-list-option selected="{{client.selected}}" *ngFor="let client of clients" [value]="client.id">
+                            <mat-list-option selected="{{client.selected}}"  *ngFor="let client of clients" [value]="client.id">
                                 <div>
                                     <div>
                                         <div>{{client.name}}</div>
