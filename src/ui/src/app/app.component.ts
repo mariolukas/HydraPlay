@@ -43,15 +43,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this.snapcastService.observableGroups$.subscribe((groups) =>{
       groups.forEach((group, index) => {
 
+          // remove not connected clients
           group['clients'] = group['clients'].filter(client => client.connected)
-          console.log(group);
+
+          //group needs at least one client
           if(group['clients'].length > 0){
             groups[index] = group;
           } else {
             groups.splice(index, 1);
           }
 
-          //this.groups.push(group);
       });
       this.groups = groups;
     })

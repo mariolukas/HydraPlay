@@ -11,6 +11,9 @@ export class TrackItemComponent implements OnInit {
   @Input() pTrack: any;
   @Input() group: any;
   @Input() cover: string;
+  @Input() coverThumb : string;
+
+
   isActiveTrack: boolean = false;
 
   private mopidy$: any;
@@ -22,13 +25,18 @@ export class TrackItemComponent implements OnInit {
      let trackURI = this.pTrack.track?this.pTrack.track.uri:this.pTrack.uri
 
      this.mopidy$.getCover(trackURI).then((cover)=>{
+         //console.log("Cover Object: ",cover);
           this.cover = cover[trackURI][0].uri;
+          if (cover[trackURI].length > 2) {
+              this.coverThumb = cover[trackURI][2].uri ? cover[trackURI][2].uri : cover[trackURI][0].uri;
+          }
      })
      this.mopidy$.getCurrentTlTrack().then(currentTrack =>{
         if(this.pTrack.track && (currentTrack.tlid == this.pTrack.tlid)){
              this.isActiveTrack = true;
         }
      });
+
   }
 
   public selectTrack(track, clear:boolean) {

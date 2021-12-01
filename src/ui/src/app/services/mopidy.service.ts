@@ -143,6 +143,23 @@ export class MopidyPlayer {
       }
   }
 
+  public getPlaylists():Promise<object>{
+      return this.mopidy$.playlists.asList().then((result)=>{
+          console.log("Found Playlsits: ", result);
+          return result;
+      });
+  }
+
+  public appendPlayListToTrackList(playlistURI){
+         let uris = [];
+         this.mopidy$.playlists.getItems({uri: playlistURI}).then((res)=>{
+              res.forEach((el)=>{
+                  uris.push(el.uri);
+              })
+             this.addUriToTrackLIst(uris);
+          });
+  }
+
   public search(query:string):Observable<object> {
 
       let queryElements = query.match(/(".*?"|[^"\s]+)+(?=\s*|\s*$)/g);
@@ -161,17 +178,7 @@ export class MopidyPlayer {
 
               // sample code for playlist loading
               /*
-              this.mopidy$.playlists.asList().then((result)=>{
-                      console.log(result);
-                      let uris = [];
-                      this.mopidy$.playlists.getItems({uri: result[3].uri}).then((res)=>{
-                          res.forEach((el)=>{
-                              uris.push(el.uri);
-                          })
-                          this.addUriToTrackLIst(uris);
-                      });
 
-              });
 
                */
               console.log(searchResult);
@@ -207,7 +214,7 @@ export class MopidyPlayer {
          await this.mopidy$.playback.play(tlTrack);
       }
 
-      this.updateCurrentTrackList();
+      //this.updateCurrentTrackList();
   }
 
   public addTrackToTracklist(track){
