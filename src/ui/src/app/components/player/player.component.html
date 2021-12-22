@@ -80,7 +80,7 @@
                             <mat-list-option selected="{{client.selected}}"  *ngFor="let client of clients" [value]="client.id">
                                 <div>
                                     <div>
-                                        <div>{{client.name}}</div>
+                                        <div [ngClass]="{'activeClient':client.selected}">{{client.name}}</div>
                                         <button mat-icon-button (click)="editClientName($event)">
                                             <mat-icon>edit</mat-icon>
                                         </button>
@@ -111,28 +111,20 @@
     </owl-carousel-o>
     <mat-divider></mat-divider>
     <mat-card-actions class="footer space-around" align="end" color="Primary">
-        <div class="action" [ngClass]="{'active': currentSelectedAction === 'player'}">
-            <mat-icon (click)="actionCarousel.to('player');selectAction('player')" matRipple [matRippleRadius]="25"
-                      [matRippleCentered]="true" [matRippleUnbounded]="true">play_circle_filled
-            </mat-icon>
+        <div class="action" [ngClass]="{'active': currentSelectedAction === 'player'}" matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="actionCarousel.to('player');selectAction('player')">
+            <mat-icon >play_circle_filled</mat-icon>
             <div>Player</div>
         </div>
-        <div class="action" [ngClass]="{'active': currentSelectedAction === 'streams'}">
-            <mat-icon (click)="actionCarousel.to('streams');selectAction('streams')" matRipple [matRippleRadius]="25"
-                      [matRippleCentered]="true" [matRippleUnbounded]="true">cast
-            </mat-icon>
+        <div class="action" [ngClass]="{'active': currentSelectedAction === 'streams'}" matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="actionCarousel.to('streams');selectAction('streams')">
+            <mat-icon  >cast</mat-icon>
             <div>Streams</div>
         </div>
-        <div class="action" [ngClass]="{'active': currentSelectedAction === 'playlist'}">
-            <mat-icon (click)="actionCarousel.to('playlist');selectAction('playlist')" matRipple [matRippleRadius]="25"
-                      [matRippleCentered]="true" [matRippleUnbounded]="true">library_music
-            </mat-icon>
+        <div class="action" [ngClass]="{'active': currentSelectedAction === 'playlist'}"  matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="actionCarousel.to('playlist');selectAction('playlist')">
+            <mat-icon>library_music</mat-icon>
             <div>Playlists</div>
         </div>
-        <div class="action" [ngClass]="{'active': currentSelectedAction === 'search'}">
-            <mat-icon (click)="actionCarousel.to('search');selectAction('search')" matRipple [matRippleRadius]="25"
-                      [matRippleCentered]="true" [matRippleUnbounded]="true">search
-            </mat-icon>
+        <div class="action" [ngClass]="{'active': currentSelectedAction === 'search'}"  matRipple [matRippleRadius]="30"  (click)="actionCarousel.to('search');selectAction('search')" [matRippleCentered]="true" [matRippleUnbounded]="true">
+            <mat-icon>search</mat-icon>
             <div>Search</div>
         </div>
         <div *ngIf="selectedClients.length > 1" class="action" [ngClass]="{'active': currentSelectedAction === 'tune'}">

@@ -141,6 +141,7 @@ export class MopidyPlayer {
       if(this.currentTrackList) {
           this.updateCurrentTrackList$.next(this.currentTrackList);
       }
+      return this.currentTrackList;
   }
 
   public getPlaylists():Promise<object>{
@@ -191,7 +192,9 @@ export class MopidyPlayer {
   }
 
   public async clearTrackList():Promise<void> {
-      return await this.mopidy$.tracklist.clear();
+      let clearEvent = await this.mopidy$.tracklist.clear();
+      await this.updateCurrentTrackList();
+      return clearEvent;
   }
 
   public async addTrackToTrackList(track):Promise<object>{
@@ -205,12 +208,9 @@ export class MopidyPlayer {
       }
 
       if( pTrack.track){
-          console.log(pTrack);
-
          await this.mopidy$.playback.play({tlid: pTrack.tlid}) //  play(pTrack);
       } else {
          const tlTrack = await this.addTrackToTrackList(pTrack);
-         console.log(tlTrack);
          await this.mopidy$.playback.play(tlTrack);
       }
 

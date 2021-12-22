@@ -1,4 +1,5 @@
 import { ElementRef, ViewChild, Injectable, Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+
 import {SnapcastService} from '../../services/snapcast.service';
 import {MopidyPoolService} from '../../services/mopidy.service';
 
@@ -29,7 +30,7 @@ export class MediaComponent implements OnInit {
   private mopidy: any;
   public searchString: string;
 
-  constructor(private snapcastService: SnapcastService, private mopidyPoolService:MopidyPoolService) {
+  constructor( private snapcastService: SnapcastService, private mopidyPoolService:MopidyPoolService) {
     this.visible = true;
   }
 
@@ -58,6 +59,7 @@ export class MediaComponent implements OnInit {
       this.waitingForResults = false;
     });
   }
+
 
   private hideKeyboard() {
       this.searchBox.nativeElement.setAttribute('readonly', 'readonly'); // Force keyboard to hide on input field.

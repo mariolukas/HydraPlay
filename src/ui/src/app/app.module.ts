@@ -27,7 +27,7 @@ import {MatBadgeModule} from "@angular/material/badge";
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { PlaylistsComponent } from './components/playlists/playlists.component';
 import { TunevolumesComponent } from './components/tunevolumes/tunevolumes.component';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -59,7 +59,8 @@ import { TunevolumesComponent } from './components/tunevolumes/tunevolumes.compo
     FormsModule,
     MatProgressSpinnerModule,
     MatBadgeModule,
-    CarouselModule
+    CarouselModule,
+    MatSnackBarModule
   ],
   exports: [],
   providers: [

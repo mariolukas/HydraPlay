@@ -60,6 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.snapcastService.observableClients$.subscribe((streams) =>{
       this.streams = streams;
     })
+
   }
 
   ngOnDestroy() {

@@ -6,13 +6,20 @@
   }
   .track-list{
       margin-top: 20px;
-      max-height: 390px;
+      max-height: 350px;
       overflow: auto;
       max-width: 305px;
    }
+  .track-list-controls{
+    float: right;
+    margin-right: 60px;
+  }
 }
 
 .tablabel{
   margin:1em;
 }
 
+.tracklist-options-menu{
+  float: right;
+}

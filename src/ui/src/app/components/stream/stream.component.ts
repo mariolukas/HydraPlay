@@ -23,10 +23,13 @@ export class StreamComponent implements OnInit {
     this.mopidy$.updateCurrentState$.subscribe((state) => {
       this.currentState = state;
     });
+
+
     this.currentState = this.mopidy$.getCurrentState();
+
   }
 
-  isSelectedStream() {
+  isActiveStream() {
     return this.stream.id == this.group.stream_id;
   }
 
