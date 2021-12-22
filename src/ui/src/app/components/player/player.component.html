@@ -80,7 +80,7 @@
                             <mat-list-option selected="{{client.selected}}"  *ngFor="let client of clients" [value]="client.id">
                                 <div>
                                     <div>
-                                        <div>{{client.name}}</div>
+                                        <div [ngClass]="{'activeClient':client.selected}">{{client.name}}</div>
                                         <button mat-icon-button (click)="editClientName($event)">
                                             <mat-icon>edit</mat-icon>
                                         </button>

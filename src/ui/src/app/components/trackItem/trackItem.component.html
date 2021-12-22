@@ -1,19 +1,24 @@
 <mat-list-item class="track-item" >
-  <img matListAvatar src="{{cover}}">
+  <img matListAvatar src="{{coverThumb}}">
   <div [ngClass]="{'isCurrentTrack':isActiveTrack}" class="tracklist-item" matRipple [matRippleRadius]="30" matLine (dblclick)="selectTrack(pTrack, false)">
       <p style="font-weight:bold; font-size:18px;" class="disable-text-select" (dblclick)="selectTrack(pTrack, false)" matLine> {{pTrack.track?pTrack.track.name:pTrack.name}} </p>
-      <p>
-        <span class="disable-text-select"> {{pTrack.track?pTrack.track.artists[0].name:pTrack.artists[0].name}} </span>
-      </p>
+      <p><span class="disable-text-select"> {{pTrack.track?pTrack.track.artists[0].name:pTrack.artists[0].name}} </span></p>
   </div>
   <div>
-      <button *ngIf="type == 'search-list-item'" class="tracklist-options-menu" mat-icon-button>
-        <mat-icon (click)="addToTracklist($event,pTrack)">add</mat-icon>
+    <button *ngIf="type == 'track-list-item'" [matMenuTriggerFor]="tracklistMenu"  class="tracklist-options-menu" mat-icon-button>
+        <mat-icon >more_vert</mat-icon>
+    </button>
+
+    <mat-menu #tracklistMenu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="removeTrackFromlist($event,pTrack)">
+          <mat-icon>remove</mat-icon>
+          <span>Remove Track</span>
       </button>
-      <button *ngIf="type == 'track-list-item'" class="tracklist-options-menu" mat-icon-button>
-        <mat-icon (click)="removeTrackFromlist($event,pTrack)">remove</mat-icon>
-      </button>
+    </mat-menu>
+
+    <button *ngIf="type == 'search-list-item'" class="tracklist-options-menu" mat-icon-button>
+        <mat-icon (click)="addToTracklist($event,pTrack)">playlist_add</mat-icon>
+    </button>
   </div>
   <mat-divider></mat-divider>
 </mat-list-item>
-

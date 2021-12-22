@@ -169,6 +169,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
     });
   }
 
+
   public getGroupVolume(group: any, online: boolean): number {
     if (group.clients.length == 0)
         return 0;
