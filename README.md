@@ -97,7 +97,7 @@ This project would not have been possible without all the work on [Snapcast](htt
 
 ### Community and Support 
 
-[Join](https://discord.gg/dPvYsXDw) us at Discord (https://discord.gg/dPvYsXDw).
+[Join](https://discord.gg/xs9CKfbpuY) us at Discord (https://discord.gg/xs9CKfbpuY).
 
 ### Donations
 
