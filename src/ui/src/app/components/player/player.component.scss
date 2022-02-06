@@ -150,13 +150,21 @@ animation-fill-mode: both;
     font-size:20px;
 
     .previous-track-button{
-      margin: 0px 30px;
+      margin: 0px 15px;
+      transform: scale(1.2);
       top: 8px;
     }
 
     .next-track-button{
-      margin: 0px 30px;
+      margin: 0px 15px;
+      transform: scale(1.2);
       top: 8px;
+    }
+
+    .playback-option{
+       transform: scale(0.9);
+       margin: 0px 15px;
+       top: 8px;
     }
 
     .mat-slider{
@@ -206,8 +214,14 @@ mat-tab-group {
     }
 }
 
-
+.repeatIsActive{
+  color:#03DAC6;
+}
 
 .activeClient{
   color:#03DAC6;
+}
+
+.randomIsActive{
+    color:#03DAC6;
 }

@@ -7,7 +7,7 @@
             </ng-template>
 
             <mat-list class="track-list">
-                <trackItem *ngFor="let pTrack of tracklist" type="track-list-item" [group]="group" [pTrack]="pTrack"></trackItem>
+                <trackItem *ngFor="let pTrack of tracklist trackBy: trackById" type="track-list-item" [group]="group" [pTrack]="pTrack"></trackItem>
             </mat-list>
             <div>
                 <button class="track-list-controls" mat-button *ngIf="tracklist?.length > 0" (click)="clearTrackList()" >Clear</button>

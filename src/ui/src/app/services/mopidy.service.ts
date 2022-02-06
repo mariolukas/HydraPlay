@@ -61,6 +61,7 @@ export class MopidyPlayer {
                 this.isConnected = true;
                 this.updateCurrentState();
                 break;
+
             case 'state:offline':
                 this.isConnected = false;
         }
@@ -73,13 +74,17 @@ export class MopidyPlayer {
         switch (event) {
             case 'event:tracklistChanged':
             case 'event:trackPlaybackStarted':
+                this.updateCurrentState$.next(this.currentState);
+                break;
             case 'event:trackPlaybackEnded':
                 this.currentState.playbackState = "stopped";
                 this.updateCurrentState$.next(this.currentState);
                 break;
             case 'event:playbackStateChanged':
+            case 'event:optionsChanged':
                 this.updateCurrentState();
                 break;
+
         }
       })
   }
@@ -177,11 +182,6 @@ export class MopidyPlayer {
                 })
               })
 
-              // sample code for playlist loading
-              /*
-
-
-               */
               console.log(searchResult);
               return combinedSearch;
           })
@@ -230,6 +230,21 @@ export class MopidyPlayer {
       });
   }
 
+  public setRandom(value :boolean) {
+      this.mopidy$.tracklist.setRandom({value: value});
+  }
+
+  public setRepeat(value :boolean) {
+      this.mopidy$.tracklist.setRepeat({value: value});
+  }
+
+  public async getRandom() {
+      return await this.mopidy$.tracklist.getRandom();
+  }
+
+  public async getRepeat() {
+      return await this.mopidy$.tracklist.getRepeat();
+  }
 
   public async removeTrackFromlist(track){
        let result = await this.mopidy$.tracklist.remove({criteria:{"tlid":[track.tlid]}});

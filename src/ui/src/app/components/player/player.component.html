@@ -7,8 +7,8 @@
         <mat-card-subtitle><span>{{group.stream_id}}</span></mat-card-subtitle>
     </mat-card-header>
 
-    <owl-carousel-o class="action-carousel" [options]="customOptions" #actionCarousel>
-        <ng-template carouselSlide [id]="'player'">
+    <div>
+        <ng-template *ngIf="currentSelectedAction == 'player'">
             <div class="player">
                 <div class="track-info">
                     <img mat-card-image src="{{currentState.coverUri}}" alt="Album Cover">
@@ -21,6 +21,10 @@
 
                 <div class="controls">
                     <div>
+                        <mat-icon [ngClass]="{'randomIsActive':randomIsActive}" (click)="setRandom(!randomIsActive)" class="playback-option" matRipple
+                                  [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true">
+                            shuffle
+                        </mat-icon>
                         <mat-icon (click)="previousTrack()" class="previous-track-button" matRipple
                                   [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true">
                             skip_previous
@@ -35,8 +39,12 @@
                             </mat-icon>
                         </button>
                         <mat-icon class="next-track-button" (click)="nextTrack()" matRipple [matRippleRadius]="25"
-                                  [matRippleCentered]="true" [matRippleUnbounded]="true" class="next-track-button">
+                                  [matRippleCentered]="true" [matRippleUnbounded]="true">
                             skip_next
+                        </mat-icon>
+                        <mat-icon [ngClass]="{'repeatIsActive':repeatIsActive}" class="playback-option" (click)="setRepeat(!repeatIsActive)" matRipple [matRippleRadius]="25"
+                                  [matRippleCentered]="true" [matRippleUnbounded]="true">
+                            repeat
                         </mat-icon>
                     </div>
                     <div class="volume">
@@ -57,7 +65,7 @@
             </div>
         </ng-template>
 
-        <ng-template carouselSlide [id]="'streams'">
+        <ng-template *ngIf="currentSelectedAction == 'streams'">
 
             <div class="mat-elevation-z4" class="playlist">
                 <mat-tab-group #groupTabs mat-align-tabs="start">
@@ -94,36 +102,36 @@
             </div>
         </ng-template>
         <!-- Zone Volume Tab -->
-        <ng-template carouselSlide [id]="'tune'">
+        <ng-template *ngIf="currentSelectedAction == 'tune'">
             <div class="mat-elevation-z4" class="playlist">
                 <app-tunevolumes [group]="group"></app-tunevolumes>
             </div>
         </ng-template>
         <!-- Track- /Playlist Tab -->
-        <ng-template carouselSlide [id]="'playlist'">
+        <ng-template *ngIf="currentSelectedAction == 'playlist'">
             <div class="mat-elevation-z4" class="playlist">
                 <app-playlists [tracklist]="currentTrackList" [group]="group"></app-playlists>
             </div>
         </ng-template>
-        <ng-template carouselSlide [id]="'search'">
+        <ng-template *ngIf="currentSelectedAction == 'search'">
             <app-media [group]="group"></app-media>
         </ng-template>
-    </owl-carousel-o>
+    </div>
     <mat-divider></mat-divider>
     <mat-card-actions class="footer space-around" align="end" color="Primary">
-        <div class="action" [ngClass]="{'active': currentSelectedAction === 'player'}" matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="actionCarousel.to('player');selectAction('player')">
+        <div class="action" [ngClass]="{'active': currentSelectedAction === 'player'}" matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="selectAction('player')">
             <mat-icon >play_circle_filled</mat-icon>
             <div>Player</div>
         </div>
-        <div class="action" [ngClass]="{'active': currentSelectedAction === 'streams'}" matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="actionCarousel.to('streams');selectAction('streams')">
+        <div class="action" [ngClass]="{'active': currentSelectedAction === 'streams'}" matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="selectAction('streams')">
             <mat-icon  >cast</mat-icon>
             <div>Streams</div>
         </div>
-        <div class="action" [ngClass]="{'active': currentSelectedAction === 'playlist'}"  matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="actionCarousel.to('playlist');selectAction('playlist')">
+        <div class="action" [ngClass]="{'active': currentSelectedAction === 'playlist'}"  matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="selectAction('playlist')">
             <mat-icon>library_music</mat-icon>
             <div>Playlists</div>
         </div>
-        <div class="action" [ngClass]="{'active': currentSelectedAction === 'search'}"  matRipple [matRippleRadius]="30"  (click)="actionCarousel.to('search');selectAction('search')" [matRippleCentered]="true" [matRippleUnbounded]="true">
+        <div class="action" [ngClass]="{'active': currentSelectedAction === 'search'}"  matRipple [matRippleRadius]="30"  (click)="selectAction('search')" [matRippleCentered]="true" [matRippleUnbounded]="true">
             <mat-icon>search</mat-icon>
             <div>Search</div>
         </div>

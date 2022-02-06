@@ -2,7 +2,6 @@ import {Component, ViewChild, OnInit, Input,  OnDestroy} from '@angular/core';
 import {SnapcastService} from '../../services/snapcast.service';
 import {MopidyPoolService, MopidyPlayer } from '../../services/mopidy.service';
 import {MatTabGroup} from "@angular/material/tabs";
-import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-player',
@@ -30,6 +29,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
   public streams = [];
   public groupVolume: number;
   public currentTrackList:any = [];
+  public randomIsActive:boolean;
+  public repeatIsActive:boolean;
 
   public connectedClientList: string[] = [];
 
@@ -37,32 +38,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   }
 
-  customOptions: OwlOptions = {
-    loop: false,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
-    dots: false,
-    navSpeed: 50,
-    margin:  30,
-    smartSpeed:10,
-    animateIn: 'fadeInRight delay-2s',
-    responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 2
-      },
-      760: {
-        items: 3
-      },
-      1000: {
-        items: 4
-      }
-    },
-    nav: false
-  }
 
   ngOnInit() {
     this.snapcastService.observableGroups$.subscribe((groups) =>{
@@ -78,15 +53,25 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
      this.mopidy.updateCurrentTrackList$.subscribe((trackList)=>{
          this.currentTrackList = trackList;
+         this.updatePlaybackModes();
      });
 
      this.mopidy.updateCurrentTrackList();
   };
 
-  closePanel(){
-      this.volumeControlPanelIsOpen = false;
-      this.mediaPanelIsOpen = false;
-      this.groupControlPanel = false;
+  async updatePlaybackModes(){
+     this.repeatIsActive = await this.mopidy.getRepeat();
+     this.randomIsActive = await this.mopidy.getRandom();
+  }
+
+  public async setRandom(value: boolean){
+      await this.mopidy.setRandom(value);
+      await this.updatePlaybackModes();
+  }
+
+  public async setRepeat(value: boolean){
+     await this.mopidy.setRepeat(value);
+     await this.updatePlaybackModes();
   }
 
   selectAction(action){
@@ -130,8 +115,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
   private registerToMopidyConnection(stream_id:string) {
       this.mopidy = this.mopidyPoolService.getMopidyInstanceById(stream_id);
       this.mopidy.updateCurrentState$.subscribe(state =>{
-         console.log("New State: ", state);
          this.currentState = state;
+         this.updatePlaybackModes();
       });
   }
 
@@ -158,6 +143,10 @@ export class PlayerComponent implements OnInit, OnDestroy {
           console.log(event);
        break;
     }
+  }
+
+  private handleMopidyEvent(event){
+
   }
 
   public setClientVolume(id:number, volume:number):any{
@@ -238,6 +227,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
   public nextTrack() {
       this.mopidy.nextTrack();
   }
+
+
 
   public previousTrack() {
       this.mopidy.previousTrack();

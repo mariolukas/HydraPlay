@@ -24,6 +24,14 @@ export class PlaylistsComponent implements OnInit {
     });
   }
 
+  public playLlistById(index:number, playlist: any){
+    return playlist.id;
+  }
+
+  public trackById(index:number, track: any){
+    return track.id;
+  }
+
   public appendPlaylistToTrackList(playListURI){
     this.mopidy$.appendPlayListToTrackList(playListURI);
     this.notificationService.info(`Appended playlist to ${this.group.stream_id} tracklist`);

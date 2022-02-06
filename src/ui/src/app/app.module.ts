@@ -24,7 +24,6 @@ import {MatMenuModule} from "@angular/material/menu";
 import {FormsModule} from "@angular/forms";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatBadgeModule} from "@angular/material/badge";
-import { CarouselModule } from 'ngx-owl-carousel-o';
 import { PlaylistsComponent } from './components/playlists/playlists.component';
 import { TunevolumesComponent } from './components/tunevolumes/tunevolumes.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -59,7 +58,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     MatProgressSpinnerModule,
     MatBadgeModule,
-    CarouselModule,
     MatSnackBarModule
   ],
   exports: [],
