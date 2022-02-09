@@ -189,6 +189,8 @@ export class SnapcastService {
     this.getSnapCastServerState();
   }
 
+
+
   public updateClientsInGroup(group:any, clients:any[]){
      const message = {
         "id": this.uuidv4(),
