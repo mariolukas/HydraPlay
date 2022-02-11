@@ -1,0 +1,19 @@
+<mat-list-item class="track-item">
+  <p style="font-weight:bold; font-size:18px;" (dblclick)="loadPlayListAsTrackList(playlist.uri)" class="disable-text-select"  matLine> {{playlist.name}} </p>
+    <div>
+    <button align="end" [matMenuTriggerFor]="playlistMenu"  class="tracklist-options-menu" mat-icon-button>
+        <mat-icon >more_vert</mat-icon>
+    </button>
+    <mat-menu #playlistMenu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="appendPlaylistToTrackList(playlist.uri)">
+        <mat-icon>playlist_add</mat-icon>
+        <span>Append to Tracklist</span>
+      </button>
+      <button mat-menu-item (click)="loadPlayListAsTrackList(playlist.uri)">
+        <mat-icon>queue_music</mat-icon>
+        <span>Load as Tracklist</span>
+      </button>
+    </mat-menu>
+  </div>
+  <mat-divider></mat-divider>
+</mat-list-item>

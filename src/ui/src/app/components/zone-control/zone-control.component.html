@@ -1,0 +1,25 @@
+<mat-divider></mat-divider>
+<div class="zone-control">
+    <mat-tab-group #groupTabs mat-align-tabs="start">
+        <mat-tab >
+            <ng-template mat-tab-label>
+                <mat-icon>cast</mat-icon>
+                 <span [matBadgeHidden]="streams?.length == 0" matBadge="{{streams?.length}}" matBadgeOverlap="true" matBadgeColor="accent">Streams</span>
+            </ng-template>
+            <mat-list *ngFor="let stream of streams">
+                <app-stream-item [stream]="stream" [group]="group"></app-stream-item>
+            </mat-list>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>speaker_group</mat-icon>
+                 <span [matBadgeHidden]="clients?.length == 0" matBadge="{{clients?.length}}" matBadgeOverlap="true" matBadgeColor="accent">Clients</span>
+            </ng-template>
+            <mat-selection-list class="client-list" #clientList [(ngModel)]="selectedClients" (selectionChange)="updateClientsInGroup($event)">
+                <mat-list-option selected="{{client.selected}}" *ngFor="let client of clients" [value]="client.id">
+                    <app-client-item [client]="client"></app-client-item>
+                </mat-list-option>
+            </mat-selection-list>
+        </mat-tab>
+    </mat-tab-group>
+</div>

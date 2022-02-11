@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="58px" height="67px" viewBox="0 0 58 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>play</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="play-button" transform="translate(-68.000000, -54.000000)">
+            <g id="play" transform="translate(1.000000, 0.000000)">
+                <g id="Group">
+                    <path d="M85.5,2.85 C39.9,2.85 2.85,39.9 2.85,85.5 C2.85,131.1 39.9,168.15 85.5,168.15 C131.1,168.15 168.15,131.1 168.15,85.5 C168.15,39.9 131.1,2.85 85.5,2.85 Z M61.18,118.75 L61.18,85.5 L61.18,52.25 L118.18,85.5 L61.18,118.75 Z" id="Shape"></path>
+                    <polygon id="Shape" fill="#C1C1C1" fill-rule="nonzero" points="67.18 87.5 67.18 120.75 124.18 87.5 67.18 54.25"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

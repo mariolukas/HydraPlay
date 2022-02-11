@@ -1,0 +1,25 @@
+<mat-divider></mat-divider>
+<div class="play-list-control">
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>queue_music</mat-icon>
+                <span [matBadgeHidden]="tracklist?.length == 0" matBadge="{{tracklist?.length}}" matBadgeOverlap="true" matBadgeColor="accent">Tracklist</span>
+            </ng-template>
+            <mat-spinner class="spinner" *ngIf="waitingForTracklist" [diameter]="50"></mat-spinner>
+            <div *ngIf="!waitingForTracklist" >
+                <app-tracklist [tracks]="tracklist" [group]="group"></app-tracklist>
+            </div>
+
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>playlist_play</mat-icon>
+               <span [matBadgeHidden]="playlists?.length == 0" matBadge="{{playlists?.length}}" matBadgeOverlap="true" matBadgeColor="accent">Playlists</span>
+            </ng-template>
+            <mat-spinner classs="spinner" *ngIf="waitingForPlaylists" [diameter]="50"></mat-spinner>
+            <app-playlist-selection *ngIf="!waitingForPlaylists" [playlists]="playlists" [group]="group"></app-playlist-selection>
+        </mat-tab>
+    </mat-tab-group>
+</div>

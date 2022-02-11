@@ -1,0 +1,98 @@
+.player-control {
+
+  height: 480px;
+
+  .track-info {
+
+    .title {
+      text-align: center;
+      position: relative;
+      bottom: 88px;
+      background-color: #383838c7;
+      overflow: overlay;
+      /* border-radius: 20px; */
+      color: white;
+      padding: 0.4em;
+      margin: -16px;
+      width: 327px;
+      padding: 5px;
+    }
+
+    img {
+      width: 337px !important;
+      display: unset;
+    }
+
+    h4 {
+      font-size: 30px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 270px;
+      margin-left: 20px;
+    }
+
+    h5 {
+      font-size: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 270px;
+      margin-left: 20px;
+    }
+  }
+
+  .controls {
+    text-align: center;
+    margin-top: -70px;
+    height: 140px;
+    font-size: 20px;
+
+    .previous-track-button {
+      margin: 0px 15px;
+      transform: scale(1.2);
+      top: 8px;
+    }
+
+    .next-track-button {
+      margin: 0px 15px;
+      transform: scale(1.2);
+      top: 8px;
+    }
+
+    .playback-option {
+      transform: scale(0.9);
+      margin: 0px 15px;
+      top: 8px;
+    }
+
+    .mat-slider {
+      width: 190px;
+    }
+
+    .volume {
+      margin-top: 15px;
+
+      mat-icon {
+        top: 8px;
+      }
+
+      .mute {
+        margin-right: 10px;
+      }
+
+      .up {
+        margin-left: 15px;
+      }
+
+    }
+  }
+}
+
+.repeatIsActive {
+  color: #03DAC6;
+}
+
+.randomIsActive {
+  color: #03DAC6;
+}

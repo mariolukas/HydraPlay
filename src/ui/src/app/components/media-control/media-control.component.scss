@@ -1,0 +1,29 @@
+.media-control{
+   height: 480px;
+
+   .search-list{
+      height: 340px;
+      overflow: auto;
+   }
+
+   .search-result-label{
+      text-align: right;
+      margin-right: 15px;
+      margin-top: 3px;
+   }
+
+   .search-form{
+      margin-top: 10px;
+      width: 307px;
+      overflow-y:hidden;
+   }
+
+   mat-list-item-content{
+      height: 55px;
+   }
+
+   .spinner{
+      margin: 30px auto;
+   }
+}
+
