@@ -7,13 +7,17 @@ HydraPlay was inspired by a project i have seen on [Youtube](https://www.youtube
 *This project is still under development, some things might be unstable*
 
 ## Screenshots
-
+The scnreenshots below show two connected players and a configuration with two (default value) mopidy instances. 
+<center>
 <div style="text-align: center">
-  <img style="width: 400px" src="doc/images/screen1.png"></img><br>
-  <img style="width: 400px" src="doc/images/screen2.png"></img><br>
-  <img style="width: 400px" src="doc/images/screen3.png"></img><br>
+   Player controls
+  <img style="width: 500px" src="doc/images/screen1.png"></img><br><br>
+  Stream/Zone Controls
+  <img style="width: 500px" src="doc/images/screen2.png"></img><br><br>
+  Playlist controls
+  <img style="width: 500px" src="doc/images/screen3.png"></img><br><br>
 </div>
-
+</center>
 
 
 ## Getting Started
