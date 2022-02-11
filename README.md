@@ -8,14 +8,13 @@ HydraPlay was inspired by a project i have seen on [Youtube](https://www.youtube
 
 ## Screenshots
 
-<center>
-<div float: center'>
-  <img style="width: 200px" width="400px" src="doc/images/screen1.png"></img>
-  <img style="width: 200px" width="400px" src="doc/images/screen2.png"></img>
-  <img style="width: 200px" width="400px" src="doc/images/screen3.png"></img>
-  <img style="width: 200px" width="400px" src="doc/images/screen4.png"></img>
+<div style="text-align: center">
+  <img style="width: 400px" src="doc/images/screen1.png"></img>
+  <img style="width: 400px" src="doc/images/screen2.png"></img>
+  <img style="width: 400px" src="doc/images/screen3.png"></img>
+  <img style="width: 400px" src="doc/images/screen4.png"></img>
 </div>
-</center>
+
 
 
 ## Getting Started
