@@ -35,7 +35,7 @@ import { PlaylistSelectionComponent } from './components/playlist-control/playli
 import { PlaylistSelectionItemComponent } from './components/playlist-control/playlist-selection-item/playlist-selection-item.component';
 import { SearchResultItemComponent } from './components/media-control/search-result-item/search-result-item.component';
 import {SearchResultListComponent} from "./components/media-control/search-result-list/search-result-list.component";
-import {ScrollingModule} from '@angular/cdk/scrolling';
+//import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -75,8 +75,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     FormsModule,
     MatProgressSpinnerModule,
     MatBadgeModule,
-    MatSnackBarModule,
-    ScrollingModule
+    MatSnackBarModule
   ],
   exports: [],
   providers: [

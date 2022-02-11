@@ -37,11 +37,13 @@ export class PlayerComponent implements OnInit, OnDestroy {
      this.streams = this.snapcastService.getStreams();
      this.currentSelectedAction = 'player-control';
 
-  };
+  }
+
 
   selectAction(action){
       this.currentSelectedAction = action;
   }
+
 
   ngOnDestroy(){
     this.snapcastService.unregisterPlayer(this.group.id);

@@ -12,10 +12,7 @@
         <app-zone-control *ngIf="currentSelectedAction == 'zone-control'" [group]="group"></app-zone-control>
         <app-playlist-control *ngIf="currentSelectedAction == 'playlist-control'" [group]="group"></app-playlist-control>
         <app-media-control  *ngIf="currentSelectedAction == 'media-control'" [group]="group"></app-media-control>
-        <!-- Zone Volume Tab
-       <div class="mat-elevation-z4" class="playlist" *ngIf="currentSelectedAction == 'tune'">
-            <app-tunevolumes [group]="group"></app-tunevolumes>
-        </div>-->
+        <app-volume-control *ngIf="currentSelectedAction == 'volume-control'" [group]="group"></app-volume-control>
 
     </div>
     <mat-divider></mat-divider>
@@ -36,11 +33,9 @@
             <mat-icon>search</mat-icon>
             <div>Media</div>
         </div>
-
-        <div *ngIf="getNumberOfActiveClients() > 1" class="action" [ngClass]="{'active': currentSelectedAction === 'tune'}">
-            <mat-icon (click)="selectAction('tune')" matRipple [matRippleRadius]="25"
-                      [matRippleCentered]="true" [matRippleUnbounded]="true">tune
-            </mat-icon>
+        <div *ngIf="getNumberOfActiveClients() > 1" class="action" [ngClass]="{'active': currentSelectedAction === 'volume-control'}" (click)="selectAction('volume-control')" matRipple [matRippleRadius]="30"
+                      [matRippleCentered]="true" [matRippleUnbounded]="true">
+            <mat-icon>tune</mat-icon>
             <div>Tune</div>
         </div>
     </mat-card-actions>

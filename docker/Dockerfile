@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM debian:buster-slim
 RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install wget haproxy supervisor iputils-ping apt-utils wget git -y
 
 RUN apt-get update && \

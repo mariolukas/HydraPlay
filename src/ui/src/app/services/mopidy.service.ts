@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import * as Mopidy from 'mopidy';
 import { HttpClient } from '@angular/common/http';
-import {Subject, from, Observable, BehaviorSubject, zip} from 'rxjs';
+import {Subject, from, of, Observable, BehaviorSubject, zip} from 'rxjs';
 import {map, switchMap, filter, repeat} from "rxjs/operators";
 
 export interface IStreamState {
@@ -81,6 +81,9 @@ export class MopidyPlayer {
             case 'event:optionsChanged':
                 this.setCurrentPlayerOptions();
                 break;
+            case 'event:streamTitleChanged':
+                this.updateCurrentStreamTitle();
+                break;
         }
       })
   }
@@ -103,12 +106,18 @@ export class MopidyPlayer {
       }
   }
 
+  private isEndOfTracklist(){
+      from(this.mopidy$.tracklist.getEotTlid()).subscribe((tlid)=>{
+          console.log(tlid);
+          if (tlid)
+              return false;
+          else
+              return true;
+      });
+  }
+
   private setWebmopidyProtocol() {
-      if (location.protocol !== 'https:') {
-          this.protocol = 'ws';
-      } else {
-          this.protocol = 'wss';
-      }
+
   }
 
   public getId(): string {
@@ -134,6 +143,19 @@ export class MopidyPlayer {
           });
   }
 
+  public updateCurrentStreamTitle(){
+
+      from(this.mopidy$.playback.getStreamTitle()).subscribe((title) =>{
+             this.currentPlayerState.title = title;
+             this.updatePlayerState$.next(this.currentPlayerState);
+      })
+  }
+
+  public resetTrack(){
+      this.currentPlayerState = MopidyPlayer.newStreamState();
+      this.updatePlayerState$.next(this.currentPlayerState);
+  }
+
   public setCurrentTrackState() {
 
       let statusSubscription$ = zip(
@@ -142,23 +164,37 @@ export class MopidyPlayer {
       )
 
       statusSubscription$.subscribe(([playbackState, currentTrack]) => {
+        if(currentTrack && playbackState) {
+            if (this.currentPlayerState.uri != currentTrack.track.uri ||
+                this.currentPlayerState.title != currentTrack.track.name
+            ) {
 
-          if ( currentTrack && this.currentPlayerState.uri != currentTrack.track.uri ) {
-              this.currentPlayerState.album = currentTrack.track.album.name;
-              this.currentPlayerState.artist = currentTrack.track.artists[0].name;
-              this.currentPlayerState.title = currentTrack.track.name;
-              this.currentPlayerState.uri = currentTrack.track.uri;
-              this.currentPlayerState.tlid = currentTrack.tlid;
-              this.currentPlayerState.playbackState = playbackState;
+                this.currentPlayerState.album = currentTrack.track.album.name;
+                this.currentPlayerState.artist = currentTrack.track.artists[0].name;
+                this.currentPlayerState.title = currentTrack.track.name;
+                this.currentPlayerState.uri = currentTrack.track.uri;
+                this.currentPlayerState.tlid = currentTrack.tlid;
+                this.currentPlayerState.playbackState = playbackState;
 
-              from(this.mopidy$.library.getImages({uris: [currentTrack.track.uri]}))
-                  .subscribe((images) => {
-                      this.currentPlayerState.coverUri = images[currentTrack.track.uri][1].uri;
-                      this.updatePlayerState$.next(this.currentPlayerState);
-                  })
-          }
+                from(this.mopidy$.library.getImages({uris: [currentTrack.track.uri]}))
+                    .subscribe((images) => {
 
+                        if (images) {
+                            if (images[currentTrack.track.uri].length > 1) {
+                                this.currentPlayerState.coverUri = images[currentTrack.track.uri][1].uri
+                            } else {
+                                this.currentPlayerState.coverUri = images[currentTrack.track.uri][0].uri
+                            }
+                        } else {
+                            this.currentPlayerState.coverUri = "../../assets/images/cover_placeholder.jpg";
+                        }
+
+                        this.updatePlayerState$.next(this.currentPlayerState);
+                    })
+            }
+        }
       })
+
   }
 
   public getTrackList(){
@@ -191,7 +227,6 @@ export class MopidyPlayer {
           map(searchResult => {
               let combinedSearch: object[] = [];
               if (searchResult) {
-
                   searchResult.forEach((searchURI, index) => {
                       if(searchResult[index].tracks) {
                           searchResult[index].tracks.forEach((track) => {
@@ -200,21 +235,19 @@ export class MopidyPlayer {
                       }
                   })
               }
-
               return combinedSearch;
           })
       );
   }
 
   public clearTrackList() {
+      //this.resetTrack();
       return from(this.mopidy$.tracklist.clear()).subscribe();
   }
-
 
   public addTrackToTrackList(track){
       return from(this.mopidy$.tracklist.add({tracks: [track]}));
   }
-
 
   public playTrack(tlid){
       from(this.mopidy$.playback.play({tlid: tlid})).subscribe();
@@ -232,9 +265,8 @@ export class MopidyPlayer {
       from(this.mopidy$.tracklist.setRepeat({value: value})).subscribe();
   }
 
-  public async removeTrackFromlist(track){
-       let result = await this.mopidy$.tracklist.remove({criteria:{"tlid":[track.tlid]}});
-       this.getTrackList();
+  public removeTrackFromlist(track){
+      from(this.mopidy$.tracklist.remove({criteria:{"tlid":[track.tlid]}})).subscribe();
   }
 
   public getCover(uri) {
