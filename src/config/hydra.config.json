@@ -1,0 +1,35 @@
+{
+	"hydraplay": {
+	    "port": 8080
+	},
+	"mopidy":{
+		"mpd_base_port": 6600,
+		"web_base_port": 6680,
+		"tcp_sink_base_port": 4953,
+		"instances": 2,
+		"config_path": "/tmp/",
+		"extensions":{
+			"spotify":{
+				"enabled": false,
+				"username": "<username>",
+				"password": "<password>",
+				"client_id": "<client_id>",
+				"client_secret": "<client_secret>"
+			},
+			"tunein":{
+				"enabled": true,
+				"timeout": 5000
+			},
+			"soundcloud": {
+				"enabled": false
+			}
+		}
+	},
+	"snapcast_server":{
+		"config_path": "/etc/snapcast/",
+		"server_port": 1704,
+		"remote_port": 1705,
+		"additional_fifos":[],
+		"config_path": "/tmp/"
+	}
+}

@@ -1,0 +1,37 @@
+.zone-control{
+    height: 480px;
+    /*border: 1px solid red;*/
+    .client-list {
+
+      height:400px;
+
+      mat-list-option{
+        div{
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          div{
+            display:flex;
+            align-items:center;
+            div{
+              width: 210px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+        }
+      }
+  }
+}
+
+mat-icon{
+     margin-right: 10px;
+}
+
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+ min-width: 0!important;
+ padding: 12px!important;
+ margin: 10px!important;
+}
+

@@ -1,0 +1,54 @@
+<div class="player-control" >
+    <div class="track-info">
+        <img mat-card-image src="{{currentState.coverUri}}" alt="Album Cover">
+        <div class="title">
+                <h4>{{ currentState.artist }}</h4>
+                <h5>{{ currentState.title }}</h5>
+                <!--<h5>{{ currentState.album }}</h5>-->
+        </div>
+    </div>
+
+    <div class="controls">
+        <div>
+            <mat-icon [ngClass]="{'randomIsActive':currentState.random}" (click)="setRandom(!currentState.random)" class="playback-option" matRipple
+                      [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true">
+                shuffle
+            </mat-icon>
+            <mat-icon (click)="previousTrack()" class="previous-track-button" matRipple
+                      [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true">
+                skip_previous
+            </mat-icon>
+            <button (click)="play()" class="control-element" mat-fab color="primary"
+                    aria-label="Example icon button with a delete icon">
+                <mat-icon *ngIf="currentState.playbackState != 'playing'" aria-hidden="false"
+                          aria-label="Select Clients" class="play-button">play_arrow
+                </mat-icon>
+                <mat-icon *ngIf="currentState.playbackState == 'playing'" aria-hidden="false"
+                          aria-label="Select Clients" class="play-button">pause
+                </mat-icon>
+            </button>
+            <mat-icon class="next-track-button" (click)="nextTrack()" matRipple [matRippleRadius]="25"
+                      [matRippleCentered]="true" [matRippleUnbounded]="true">
+                skip_next
+            </mat-icon>
+            <mat-icon [ngClass]="{'repeatIsActive':currentState.repeat}" class="playback-option" (click)="setRepeat(!currentState.repeat)" matRipple [matRippleRadius]="25"
+                      [matRippleCentered]="true" [matRippleUnbounded]="true">
+                repeat
+            </mat-icon>
+        </div>
+        <div class="volume">
+            <mat-icon class="mute" matRipple [matRippleRadius]="25" [matRippleCentered]="true"
+                      [matRippleUnbounded]="true" (click)="setVolume(group, 0)">volume_mute
+            </mat-icon>
+            <mat-slider (input)="setGroupVolume(group, $event)" [(ngModel)]="groupVolumeSliderValue"
+                        color="primary"
+                        [max]="100"
+                        [min]="0"
+                        [step]="1" controller
+            ></mat-slider>
+            <mat-icon class="up" matRipple [matRippleRadius]="25" [matRippleCentered]="true"
+                      [matRippleUnbounded]="true"  (click)="setVolume(group, 100)">volume_up
+            </mat-icon>
+        </div>
+    </div>
+</div>

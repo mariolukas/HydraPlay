@@ -39,6 +39,7 @@ export class SnapcastService {
     this.snapcastHost = url.hostname;
     this.observableClients$ = new BehaviorSubject<Array<object>>(this.clients);
     this.observableGroups$ = new BehaviorSubject<Array<object>>(this.groups);
+
   }
 
   public registerPlayer(playerId:string):Observable<any>{
@@ -76,18 +77,17 @@ export class SnapcastService {
             break;
           case "Client.OnDisconnect":
           case "Client.OnConnect":
-
             this.getSnapCastServerState();
             break;
           case "Server.OnUpdate":
              this.observableGroups$.next(message.params.server.groups);
-            this.sendNotificationToPlayer(message);
+             this.sendNotificationToPlayer(message);
             break;
           case "Group.OnStreamChanged":
                console.log(message.params.id);
             break;
           case "Stream.OnUpdate":
-              console.log("SncapCast Update: ", message)
+              this.sendNotificationToPlayer(message);
             break;
           default:
             console.log("Unhandled Snapcast Event: ", message.method,message)
@@ -123,17 +123,18 @@ export class SnapcastService {
     return this.groups;
   }
 
-
   private sendNotificationToPlayer(message:any){
-    console.log(message.params);
     this.groups.forEach(group =>{
       group.clients.forEach((client) =>{
-          if (client.connected && client.id == message.params.id){
+          if (client.connected){
              this.players[group.id].next(message);
           }
       })
-
     });
+  }
+
+  public getPlayerObserverById(playerId){
+      return this.players[playerId];
   }
 
   private getNewWebSocket() {

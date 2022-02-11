@@ -72,7 +72,8 @@ port = 1704
 # stream URI of the PCM input stream, can be configured multiple times
 # Format: TYPE://host/path?name=NAME[&codec=CODEC][&sampleformat=SAMPLEFORMAT]
 {% for stream_id in range(hydraplay_config.mopidy.instances) %}
-source = pipe:///tmp/stream_{{stream_id}}.fifo?name=MOPIDY-{{stream_id}}&mode=read
+#source = pipe:///tmp/stream_{{stream_id}}.fifo?name=MOPIDY-{{stream_id}}&mode=read
+source = tcp://127.0.0.1:{{ tcp_port |int  + stream_id |int }}?name=MOPIDY-{{ stream_id }}
 {%- endfor %}
 
 # Default sample format

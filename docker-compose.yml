@@ -1,6 +1,8 @@
 version: "3.5"
 services:
   hydraplay:
+    # fix for running on apple m1 chip (needs rosetta)
+    platform: linux/amd64
     privileged: true
     build:
       context: docker/

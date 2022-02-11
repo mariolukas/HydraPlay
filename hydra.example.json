@@ -5,6 +5,7 @@
 	"mopidy":{
 		"mpd_base_port": 6600,
 		"web_base_port": 6680,
+		"tcp_sink_base_port": 4953,
 		"instances": 2,
 		"config_path": "/tmp/",
 		"extensions":{

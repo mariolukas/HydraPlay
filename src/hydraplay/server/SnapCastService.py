@@ -46,7 +46,10 @@ class SnapCastService(threading.Thread):
         templateLoader = FileSystemLoader(searchpath=template_path)
         templateEnvironment = Environment(loader=templateLoader)
         template = templateEnvironment.get_template("snapserver.conf.j2")
-        renedered_config = template.render(hydraplay_config=self.config)
+        tcp_port = self.config['mopidy']['tcp_sink_base_port']
+        renedered_config = template.render(hydraplay_config=self.config,
+                                           tcp_port=tcp_port
+                                          )
         with open(self.config['snapcast_server']['config_path'] + "snapserver.conf", "w") as fh:
             fh.write(renedered_config)
 

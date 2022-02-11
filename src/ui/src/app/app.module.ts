@@ -6,10 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PlayerComponent } from './components/player/player.component';
-import { StreamComponent } from './components/stream/stream.component';
-import { MediaComponent } from './components/media/media.component';
 import { NoopAnimationsModule} from '@angular/platform-browser/animations';
-import { TrackItemComponent } from './components/trackItem/trackItem.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {MatSliderModule} from "@angular/material/slider";
@@ -22,22 +19,41 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatInputModule} from "@angular/material/input";
 import {MatMenuModule} from "@angular/material/menu";
 import {FormsModule} from "@angular/forms";
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatBadgeModule} from "@angular/material/badge";
-import { CarouselModule } from 'ngx-owl-carousel-o';
-import { PlaylistsComponent } from './components/playlists/playlists.component';
-import { TunevolumesComponent } from './components/tunevolumes/tunevolumes.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PlayerControlComponent} from "./components/player-control/player-control.component";
+import { PlaylistControlComponent} from "./components/playlist-control/playlist-control.component";
+import { ZoneControlComponent } from './components/zone-control/zone-control.component';
+import {StreamItemComponent} from "./components/zone-control/stream-item/stream-item.component";
+import { VolumeControlComponent} from "./components/volume-control/volume-control.component";
+import { ClientItemComponent } from './components/zone-control/client-item/client-item.component';
+import { MediaControlComponent } from './components/media-control/media-control.component';
+import { TracklistItemComponent } from './components/playlist-control/tracklist-item/tracklist-item.component';
+import { TracklistComponent } from './components/playlist-control/tracklist/tracklist.component';
+import { PlaylistSelectionComponent } from './components/playlist-control/playlist-selection/playlist-selection.component';
+import { PlaylistSelectionItemComponent } from './components/playlist-control/playlist-selection-item/playlist-selection-item.component';
+import { SearchResultItemComponent } from './components/media-control/search-result-item/search-result-item.component';
+import {SearchResultListComponent} from "./components/media-control/search-result-list/search-result-list.component";
+//import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
     AppComponent,
     PlayerComponent,
-    StreamComponent,
-    MediaComponent,
-    TrackItemComponent,
-    PlaylistsComponent,
-    TunevolumesComponent
+    PlayerControlComponent,
+    PlaylistControlComponent,
+    ZoneControlComponent,
+    StreamItemComponent,
+    VolumeControlComponent,
+    ClientItemComponent,
+    MediaControlComponent,
+    TracklistItemComponent,
+    TracklistComponent,
+    PlaylistSelectionComponent,
+    PlaylistSelectionItemComponent,
+    SearchResultItemComponent,
+    SearchResultListComponent
   ],
   imports: [
     MatSliderModule,
@@ -59,7 +75,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     MatProgressSpinnerModule,
     MatBadgeModule,
-    CarouselModule,
     MatSnackBarModule
   ],
   exports: [],
