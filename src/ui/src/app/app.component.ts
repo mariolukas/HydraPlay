@@ -32,11 +32,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
       });
 
+      /*
       if (!clientsConnected){
         this.notificationService.modalInfo("No Snapclient connected!");
       } else {
         this.notificationService.dismissInfo();
-      }
+      }*/
 
       this.groups = groups;
     })
