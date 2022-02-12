@@ -271,7 +271,13 @@ export class MopidyPlayer {
   }
 
   public removeTrackFromlist(track){
-      from(this.mopidy$.tracklist.remove({criteria:{"tlid":[track.tlid]}})).subscribe();
+      from(this.mopidy$.tracklist.remove({criteria:{"tlid":[track.tlid]}})).subscribe(() =>{
+          from(this.mopidy$.tracklist.getLength()).subscribe((numberOfTRacks)=>{
+             if(numberOfTRacks == 0){
+                 this.resetTrack();
+             }
+          });
+      });
   }
 
   public getCover(uri) {
