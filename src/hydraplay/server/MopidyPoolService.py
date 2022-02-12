@@ -16,7 +16,7 @@ class MopidyPoolService(threading.Thread):
     def run(self):
         for instance in range(self.config['mopidy']['instances']):
 
-            if self.config['hydraplay']['pipe'] == "fifo":
+            if self.config['hydraplay']['source_type'] == "fifo":
                 # create a fifo for each stream
                 command = ['mkfifo', '/tmp/stream_{0}.fifo'.format(instance)]
                 Executor("FIFO Task".format(instance), command).start()
@@ -51,13 +51,13 @@ class MopidyPoolService(threading.Thread):
         mpd_port = self.config['mopidy']['mpd_base_port'] + instance
         web_port = self.config['mopidy']['web_base_port'] + instance
         tcp_port = self.config['mopidy']['tcp_sink_base_port']
-        pipe = self.config['hydraplay']['pipe']
+        source_type = self.config['hydraplay']['source_type']
         renedered_config = template.render(hydraplay_config=self.config,
                                            stream_id=instance,
                                            mpd_port=mpd_port,
                                            web_port=web_port,
                                            tcp_port=tcp_port,
-                                           pipe=pipe
+                                           source_type=source_type
                                            )
         with open(self.config['mopidy']['config_path'] + "mopidy_{0}.conf".format(instance), "w") as fh:
             fh.write(renedered_config)

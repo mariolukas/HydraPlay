@@ -1,7 +1,7 @@
 {
 	"hydraplay": {
 	    "port": 8080,
-		"pipe": "tcp"
+		"source_type": "tcp"
 	},
 	"mopidy":{
 		"mpd_base_port": 6600,
@@ -32,6 +32,7 @@
 		"server_port": 1704,
 		"remote_port": 1705,
 		"additional_fifos":[],
-		"config_path": "/tmp/"
+		"config_path": "/tmp/",
+		"codec": "flac"
 	}
 }

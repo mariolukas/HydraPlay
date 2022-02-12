@@ -14,10 +14,10 @@ debug_file = /temp/mopidy-debug.log
 playlists_dir = /var/lib/mopidy/playlists
 
 [audio]
-{% if pipe == "fifo" %}
+{% if source_type == "fifo" %}
 output = audioresample ! audio/x-raw,rate=48000,channels=2,format=S16LE ! audioconvert ! wavenc ! filesink location=/tmp/stream_{{ stream_id }}.fifo
 {% endif %}
-{% if pipe == "tcp" %}
+{% if source_type == "tcp" %}
 output = audioresample ! audioconvert ! audio/x-raw,rate=48000,channels=2,format=S16LE ! wavenc ! tcpclientsink host=127.0.0.1 port={{ tcp_port |int + stream_id |int }}
 {% endif %}
 

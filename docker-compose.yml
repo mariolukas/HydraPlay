@@ -12,7 +12,7 @@ services:
       #dockerfile: Dockerfile.armhf
       args:
         SNAPCASTVERSION: 0.26.0
-        PACKAGE_TYPE: _without-pulse
+        #PACKAGETYPE: _without-pulse
     container_name: hydraplay
     ports:
       - 8080:8080
