@@ -133,7 +133,7 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 
 ### Known Issues
 * mdns/avahi does not work within docker. You need to start your clients with  the -h <ip_address_of_server> parameter.
-* ~~ Play/Pause button will not change back after a track was completed. Somehow there is no Mopidy event incomming for EndOfTrack.~~ (works with tcp sources)
+* ~~Play/Pause button will not change back after a track was completed. Somehow there is no Mopidy event incomming for EndOfTrack.~~ (works with tcp sources)
 
 ### Not Implemented yet
 
