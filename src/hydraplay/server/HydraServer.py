@@ -56,6 +56,8 @@ class HydraServer:
 
     def routes(self):
         return tornado.web.Application([
+
             (r"/api/mopidy/settings", MopidySettingsHandler, {"config": self.config}),
             (r"/(.*)", StaticFileHandler, {"path": self.static_files, "default_filename": "index.html"})
+
         ])

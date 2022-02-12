@@ -1,6 +1,7 @@
 hydra.private.json
 src/ui/node_modules
 
+snapweb/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
