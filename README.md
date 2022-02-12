@@ -37,15 +37,21 @@ The scnreenshots below show two connected players and a configuration with two (
 
 ## Getting Started
 
+### 1 Build the docker image
+
 The easiest way to get it running is by using docker. Just checkout the source code from GitHub and change into the folder. Be sure that you have docker and docker-compose installed. Build the docker image by calling:
 
 ```
 docker-compose build
 ```
 
+### 2 Configure Hydraplay
+
 Make a copy of the file `hydra.example.json` and rename it to `hydra.private.json`. This file contains all needed configurations for the setup. 
 
 Open the file in an editor and make your changes. If you want to enable Spotify you need a client_id and client_secret. Just follow the instructions of the [Mopidy Spotify extension](https://mopidy.com/ext/spotify/). Add the cliendId, client secret and your Spotify login credentials to the config. Enable Spotify and  save all changes.
+
+### 3 Start the Docker container 
 
 Now you are able to start the server with:
 
@@ -53,7 +59,11 @@ Now you are able to start the server with:
 docker-compose up
 ```
 
+### 4 Connect a SnapClient to HydraPlay
+
 Connect a SnapClient to the server.
+
+#### Integrated Webclient (Snapweb)
 The fastest way is by using the integrated webclient. Open a browser and go to 
 
 ```
@@ -70,22 +80,30 @@ Your client should be connected to the server ( you can proceed with the next st
   <img style="width: 500px" src="doc/images/screen6.png"></img><br><br>
 </div>
 
+#### Connect with SnapClient
+
 Alternatively use a more stable generic client on your client-side systems (e.g Raspberry Pi)
 
 ```
 snapclient -h <server_ip>
 ```
 
+Detailed information can be found on the offical [Snapcast GitHub project](https://github.com/badaix/snapcast) documentation.
+
+#### Use SnapCasts Android Client
+
 Or even install the official android client on your mobile phone
 
 [https://github.com/badaix/snapdroid/releases/tag/v0.24.0](https://github.com/badaix/snapdroid/releases/tag/v0.24.0)
 
+### 5 Open HydraPlay and use it!
 
-Open a Browser and goto:
+Finally open a Browser and goto:
 
 ```
 http://<your_server_ip>:<port_in_configuration>
 ```
+
 
 ## Running on a Raspberry Pi
 *Docker*
