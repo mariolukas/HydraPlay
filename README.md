@@ -59,6 +59,16 @@ The fastest way is by using the integrated webclient. Open a browser and go to
 ```
 http://<your_server_ip>:<port_in_configuration>/client/
 ```
+Click on the play button on the top right corner in the window.
+<div style="text-align: center">
+  <img style="width: 500px" src="doc/images/screen5.png"></img><br><br>
+</div>
+
+Your client should be connected to the server ( you can proceed with the next step)
+
+<div style="text-align: center">
+  <img style="width: 500px" src="doc/images/screen6.png"></img><br><br>
+</div>
 
 Alternatively use a more stable generic client on your client-side systems (e.g Raspberry Pi)
 

@@ -81,6 +81,7 @@ export class SnapcastService {
           case "Client.OnDisconnect":
             this.notificationService.info(`${message.params.client.host.name} connection lost.`)
             this.reconnectTimeout = setInterval(this.connect, 1000);
+            this.getSnapCastServerState();
             break;
           case "Client.OnConnect":
             this.getSnapCastServerState();
