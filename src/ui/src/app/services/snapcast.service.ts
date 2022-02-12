@@ -4,6 +4,7 @@ import {EMPTY, Subject, BehaviorSubject, Observable} from 'rxjs';
 import { catchError, tap, switchAll } from 'rxjs/operators';
 import _ from "lodash";
 import {passBoolean} from "protractor/built/util";
+import {NotificationService} from "./notification.service";
 
 export interface ISnapCastEvent {
   label: string;
@@ -22,6 +23,7 @@ export class SnapcastService {
 
   private snapcastPort: number;
   private snapcastHost: string;
+  private reconnectTimeout: any;
 
   private groups: Array<any> = [];
   private streams: Array<any> = [];
@@ -32,7 +34,7 @@ export class SnapcastService {
   public observableClients$: BehaviorSubject<Array<object>>
   public snapCastIsConnected: boolean = false;
 
-  constructor() {
+  constructor( public notificationService: NotificationService) {
     const url = new URL(window.location.href);
 
     this.snapcastPort = 1780;
@@ -52,6 +54,7 @@ export class SnapcastService {
   }
 
   public connect():void {
+    console.log("Connecting to Snapcast Server ... ")
     this.messages$.subscribe(message => this.handleIncomingSnapcastEvent(message))
     if (!this.socket$ || this.socket$.closed) {
       this.socket$ = this.getNewWebSocket();
@@ -76,8 +79,12 @@ export class SnapcastService {
             this.sendNotificationToPlayer(message);
             break;
           case "Client.OnDisconnect":
+            this.notificationService.info(`${message.params.client.host.name} connection lost.`)
+            this.reconnectTimeout = setInterval(this.connect, 1000);
+            break;
           case "Client.OnConnect":
             this.getSnapCastServerState();
+            clearInterval(this.reconnectTimeout)
             break;
           case "Server.OnUpdate":
              this.observableGroups$.next(message.params.server.groups);

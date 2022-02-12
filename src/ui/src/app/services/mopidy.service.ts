@@ -3,6 +3,7 @@ import * as Mopidy from 'mopidy';
 import { HttpClient } from '@angular/common/http';
 import {Subject, from, of, Observable, BehaviorSubject, zip} from 'rxjs';
 import {map, switchMap, filter, repeat} from "rxjs/operators";
+import {NotificationService} from "./notification.service";
 
 export interface IStreamState {
     title: string;
@@ -19,6 +20,7 @@ export interface IStreamState {
 export class MopidyPlayer {
   public mopidy$: Mopidy;
   private id: string;
+  private notificationService:NotificationService;
   private mopidyPort: string;
   private mopidyIP: string;
   private protocol: string;
@@ -30,12 +32,13 @@ export class MopidyPlayer {
 
   public currentPlayerState:IStreamState;
 
-  constructor(instance: any) {
+  constructor(instance: any, notificationService:NotificationService) {
 
     this.setWebmopidyProtocol();
     this.id = instance.stream_id;
     this.mopidyPort = instance.port;
     this.mopidyIP = instance.ip;
+    this.notificationService = notificationService;
 
     this.currentPlayerState = MopidyPlayer.newStreamState();
     this.updatePlayerState$ = new BehaviorSubject<IStreamState>(this.currentPlayerState);
@@ -59,6 +62,8 @@ export class MopidyPlayer {
                 break;
             case 'state:offline':
                 this.isConnected = false;
+                this.notificationService.info(`${this.id} connection lost.`)
+            break;
         }
     });
 
@@ -306,7 +311,7 @@ export class MopidyPoolService {
   poolReady: boolean;
   public poolIsReady$: Subject<boolean> = new Subject<boolean>();
 
-  constructor( private http: HttpClient) {
+  constructor( private http: HttpClient,  public notificationService: NotificationService) {
         this.poolReady = false;
   }
 
@@ -319,7 +324,7 @@ export class MopidyPoolService {
 
       this.http.get<any>(hdraplayProtocol + "://" + hydraplayHost + ":" + hydraplayPort + "/api/mopidy/settings").subscribe(settings => {
         settings.forEach(instance => {
-            let mopidyPlayer = new MopidyPlayer( instance );
+            let mopidyPlayer = new MopidyPlayer( instance, this.notificationService );
             this.mopidies.push(mopidyPlayer);
         });
         this.poolReady = true

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {SnapcastService} from './services/snapcast.service';
 import {MopidyPoolService} from './services/mopidy.service';
+import {NotificationService} from "./services/notification.service";
 
 @Component({
   selector: 'app-root',
@@ -13,13 +14,15 @@ export class AppComponent implements OnInit, OnDestroy {
   @Input() public groups: any[];
   @Input() public streams: any[];
 
-  constructor( private snapcastService:SnapcastService, private mopidyPoolService:MopidyPoolService) {
+  constructor( private snapcastService:SnapcastService, private mopidyPoolService:MopidyPoolService,
+               public notificationService: NotificationService) {
     this.snapcastService.observableGroups$.subscribe((groups) =>{
+      let clientsConnected = false;
       groups.forEach((group, index) => {
 
           // remove not connected clients
           group['clients'] = group['clients'].filter(client => client.connected)
-
+          if(group['clients'].length > 0) clientsConnected = true;
           //group needs at least one client
           if(group['clients'].length > 0){
             groups[index] = group;
@@ -28,6 +31,15 @@ export class AppComponent implements OnInit, OnDestroy {
           }
 
       });
+
+      if (!clientsConnected){
+        setTimeout(()=>{
+          this.notificationService.modalInfo("No Snapclient connected!");
+        }, 3000);
+      } else {
+        this.notificationService.dismissInfo();
+      }
+
       this.groups = groups;
     })
     

@@ -38,4 +38,15 @@ export class NotificationService {
     });
   };
 
+  public modalInfo(message: string): void{
+     this.snackBar.open(message, "close", {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
+
+  public dismissInfo(){
+      this.snackBar.dismiss();
+  }
+
 }
