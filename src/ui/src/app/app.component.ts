@@ -33,9 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
       });
 
       if (!clientsConnected){
-        setTimeout(()=>{
-          this.notificationService.modalInfo("No Snapclient connected!");
-        }, 3000);
+        this.notificationService.modalInfo("No Snapclient connected!");
       } else {
         this.notificationService.dismissInfo();
       }
