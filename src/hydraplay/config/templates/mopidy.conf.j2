@@ -5,7 +5,7 @@ data_dir = /var/lib/mopidy
 
 [logging]
 config_file = /etc/mopidy/logging.conf
-debug_file = /var/log/mopidy/mopidy-debug.log
+debug_file = /temp/mopidy-debug.log
 
 #[local]
 #media_dir = /var/lib/mopidy/media
@@ -14,13 +14,17 @@ debug_file = /var/log/mopidy/mopidy-debug.log
 playlists_dir = /var/lib/mopidy/playlists
 
 [audio]
-#output = audioresample ! audio/x-raw,rate=48000,channels=2,format=S16LE ! audioconvert ! wavenc ! filesink location=/tmp/stream_{{ stream_id }}.fifo
+{% if pipe == "fifo" %}
+output = audioresample ! audio/x-raw,rate=48000,channels=2,format=S16LE ! audioconvert ! wavenc ! filesink location=/tmp/stream_{{ stream_id }}.fifo
+{% endif %}
+{% if pipe == "tcp" %}
 output = audioresample ! audioconvert ! audio/x-raw,rate=48000,channels=2,format=S16LE ! wavenc ! tcpclientsink host=127.0.0.1 port={{ tcp_port |int + stream_id |int }}
+{% endif %}
 
-[mpd]
-enabled = true
-hostname = 0.0.0.0
-port= {{ mpd_port }}
+#[mpd]
+#enabled = true
+#hostname = 0.0.0.0
+#port= {{ mpd_port }}
 
 [http]
 enabled = true
@@ -29,10 +33,6 @@ port= {{ web_port }}
 zeroconf = mopidy_{{ stream_id }}
 csrf_protection = false
 allowed_origins = 0.0.0.0:8080
-
-#[musicbox_webclient]
-#enabled = true
-#musicbox = true
 
 {% for extension, attributes in hydraplay_config.mopidy.extensions.items() %}
 [{{ extension }}]

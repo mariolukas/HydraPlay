@@ -30,15 +30,13 @@ RUN curl -L https://apt.mopidy.com/mopidy.gpg | apt-key add - \
         mopidy-tunein \
         mopidy-soundcloud
 
-
-
 #======================================= SNAPCAST INSTALLATION ===================================================#
 
 ARG SNAPCASTVERSION
 
 RUN wget https://github.com/badaix/snapcast/releases/download/v${SNAPCASTVERSION}/snapserver_${SNAPCASTVERSION}-1_amd64.deb
 
-RUN dpkg -i --force-all snapserver_${SNAPCASTVERSION}-1_amd64.deb
+RUN dpkg -i --force-all snapserver_${SNAPCASTVERSION}-1_${PACKAGE_TYPE}}amd64.deb
 RUN apt-get -f install -y
 
 #======================================= HydraPlay Docker configs ===================================================#

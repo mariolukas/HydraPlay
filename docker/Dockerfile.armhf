@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM debian:buster-slim
 RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install wget haproxy supervisor iputils-ping apt-utils wget git -y
 
 RUN apt-get update && \
@@ -30,13 +30,11 @@ RUN curl -L https://apt.mopidy.com/mopidy.gpg | apt-key add - \
         mopidy-tunein \
         mopidy-soundcloud
 
-
-
 #======================================= SNAPCAST INSTALLATION ===================================================#
 
 ARG SNAPCASTVERSION
 
-RUN wget https://github.com/badaix/snapcast/releases/download/v${SNAPCASTVERSION}/snapserver_${SNAPCASTVERSION}-1_armhf.deb
+RUN wget https://github.com/badaix/snapcast/releases/download/v${SNAPCASTVERSION}/snapserver_${SNAPCASTVERSION}-1${PACKAGE_TYPE}_armhf.deb
 
 RUN dpkg -i --force-all snapserver_${SNAPCASTVERSION}-1_armhf.deb
 RUN apt-get -f install -y

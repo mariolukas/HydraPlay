@@ -1,14 +1,18 @@
 version: "3.5"
 services:
   hydraplay:
-    # fix for running on apple m1 chip (needs rosetta)
-    platform: linux/amd64
+    # use platform if you are running on apple m1 architecture ( requires rosetta )
+    #platform: linux/amd64
     privileged: true
     build:
       context: docker/
+      # use this for amd64/intel builds
       dockerfile: Dockerfile
+      # use this for Raspberry Pi builds
+      #dockerfile: Dockerfile.armhf
       args:
-        SNAPCASTVERSION: 0.25.0
+        SNAPCASTVERSION: 0.26.0
+        PACKAGE_TYPE: _without-pulse
     container_name: hydraplay
     ports:
       - 8080:8080

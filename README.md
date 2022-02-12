@@ -75,8 +75,6 @@ dockerfile: Dockerfile.armhf
 
 afterwards follow the steps in *Getting Started*.
 
-*Native*
-TODO
 
 ## Configuration
 TODO
@@ -91,12 +89,10 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 
 ### Not Implemented yet
 
-- [x] remove track from tracklist
-- [ ] change tracklist order
-- [ ] save tracklist as playlist
-- [ ] load playlists
-- [ ] add message when no client is connected (until now only a black screen appears)
-- [ ] change client names
+- [ ] add debian package config and make file
+- [ ] add build script for raspberry pi image
+- [ ] add more documentation ( for Raspberry Pi, MacOS with m1, run without docker, configuration etc. )
+- [ ] provide ready to use pre-build docker images 
 
 ### Credits
 This project would not have been possible without all the work on [Snapcast](https://github.com/badaix/snapcast) and [Mopidy](https://mopidy.com/)! Special thanks to Ryan Detzel for the inspiration.
