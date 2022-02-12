@@ -68,7 +68,7 @@ snapclient -h <server_ip>
 
 Or even install the official android client on your mobile phone
 
-(https://github.com/badaix/snapdroid/releases/tag/v0.24.0)[https://github.com/badaix/snapdroid/releases/tag/v0.24.0]
+[https://github.com/badaix/snapdroid/releases/tag/v0.24.0](https://github.com/badaix/snapdroid/releases/tag/v0.24.0)
 
 
 Open a Browser and goto:
