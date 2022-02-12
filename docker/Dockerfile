@@ -10,6 +10,7 @@ RUN apt-get update && \
     python3 \
     python3-pip \
     python3-crypto \
+    python3-setuptools \
     python3-pykka  \
     python3-gst-1.0 \
     gstreamer1.0-plugins-bad \
