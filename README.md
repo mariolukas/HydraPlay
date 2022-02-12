@@ -15,7 +15,7 @@ The scnreenshots below show two connected players and a configuration with two (
   <img style="width: 500px" src="doc/images/screen1.png"></img><br><br>
 </div>
 
-### Stream/Zone Controls<br>
+### Stream/Zone controls<br>
 <div style="text-align: center">
   <img style="width: 500px" src="doc/images/screen2.png"></img><br><br>
 </div>
