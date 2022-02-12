@@ -53,11 +53,23 @@ Now you are able to start the server with:
 docker-compose up
 ```
 
-Connect your SnapClients to the server by running
+Connect a SnapClient to the server.
+The fastest way is by using the integrated webclient. Open a browser and go to 
+
+```
+http://<your_server_ip>:<port_in_configuration>/client/
+```
+
+Alternatively use a more stable generic client on your client-side systems (e.g Raspberry Pi)
 
 ```
 snapclient -h <server_ip>
 ```
+
+Or even install the official android client on your mobile phone
+
+(https://github.com/badaix/snapdroid/releases/tag/v0.24.0)[https://github.com/badaix/snapdroid/releases/tag/v0.24.0]
+
 
 Open a Browser and goto:
 
