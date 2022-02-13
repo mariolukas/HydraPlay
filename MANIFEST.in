@@ -1,6 +1,9 @@
 recursive-include hydraplay/config/ *.json
 recursive-include hydraplay/templates/ *.j2
 recursive-include hydraplay/server/static *
-recursive-include hydraplay/server/static/assets/images *
+recursive-include hydraplay/server/static/snanpweb *
+recursive-include hydraplay/server/static/snanpweb/3rd-party *
+recursive-include hydraplay/server/static/player *
+recursive-include hydraplay/server/static/player/assets/images *
 include README.md
 include requirements.txt

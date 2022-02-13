@@ -34,8 +34,6 @@ class HydraServer:
 
     def run(self):
         self.logger.info("Hydraplay Server started.")
-
-
         self.mopidy_sercice.start()
         time.sleep(2)
         self.snapcast_service.start()
