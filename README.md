@@ -126,7 +126,7 @@ afterwards follow the steps in *Getting Started*.
 
 
 ## Configuration
-TODO
+This section describes the HydraPlay cofiguration file ```hydra.example.conf```
 
 ### Hydraplay Section
 `
@@ -157,6 +157,8 @@ starting point would be number of instances equals number of clients. Defualt is
 ```config_path```: Defines the folder where HydraPlay generates the Mopidy configurations. Default is ```/tmp/```,
 
 #### Extensions
+
+TODO
 
 ## Details 
 You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-source-multiroom-audio/) which i wrote a couple of years ago when i started the project. A lot of things changed since the first setup. But it will give you and idea on how it works under the hood.
