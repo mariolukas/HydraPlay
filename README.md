@@ -129,7 +129,7 @@ afterwards follow the steps in *Getting Started*.
 This section describes the HydraPlay cofiguration file ```hydra.example.conf```
 
 ### Hydraplay Section
-`
+
 **port**: defines the web port on which hydraplay will be available in the browser. Defaults is ```8080```
 
 **sourc_type**: Defines which type of audio source should be used between mopidy and snapcast. Possible values are ```fifo``` and ```tcp```. Defaults is ```tcp```.
