@@ -139,7 +139,7 @@ This section describes the HydraPlay cofiguration file ```hydra.example.conf```
 
 **server_port**: Default is ```1704```
 
-**remote_port**: Defualt is ```1705```
+**remote_port**: Default is ```1705```
 
 **additional_fifos**: Will be used for additional sources but is not implemented yet. Default is ```[]```,
 
