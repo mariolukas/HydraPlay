@@ -28,7 +28,6 @@
 		}
 	},
 	"snapcast_server":{
-		"config_path": "/etc/snapcast/",
 		"server_port": 1704,
 		"remote_port": 1705,
 		"additional_fifos":[],

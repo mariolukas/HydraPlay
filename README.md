@@ -128,6 +128,36 @@ afterwards follow the steps in *Getting Started*.
 ## Configuration
 TODO
 
+### Hydraplay Section
+`
+**port**: defines the web port on which hydraplay will be available in the browser. Defaults is ```8080```
+
+**sourc_type**: Defines which type of audio source should be used between mopidy and snapcast. Possible values are ```fifo``` and ```tcp```. Defaults is ```tcp```.
+### Snapcast Section
+
+**config_path**:  Defines the path to the generated Snapserver config file. Default for Docker usage is ```/tmp/```,
+
+**server_port**: Default is ```1704```
+
+**remote_port**: Defualt is ```1705```
+
+**additional_fifos**: Will be used for additional sources but is not implemented yet. Default is ```[]```,
+
+**codec**: Defines Snapcsats audio codec. Possible values are ```flac, opus, ogg, pcm``` Default is ```flac```
+
+### Mopidy Section
+
+```mpd_base_port```: Default is ```6600```
+
+```web_base_port```: Defines the web API port for Mopidy. This port is used by HydraPlay for connecting to the Mopidy web API. The first instance equals to this port. For all further instances the port is increased by a count of one. Default is```6680```
+
+```instances```: Defines the number of stated Mopidy instances. Each instance represents one stream in HydraPlay. A good
+starting point would be number of instances equals number of clients. Defualt is ```2```
+
+```config_path```: Defines the folder where HydraPlay generates the Mopidy configurations. Default is ```/tmp/```,
+
+#### Extensions
+
 ## Details 
 You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-source-multiroom-audio/) which i wrote a couple of years ago when i started the project. A lot of things changed since the first setup. But it will give you and idea on how it works under the hood.
 
