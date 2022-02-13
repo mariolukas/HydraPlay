@@ -202,7 +202,7 @@ def params():
 
     install_requires = ["tornado", "jinja2"]
 
-    package_data = {'hydraplay': ['config/*json', 'config/templates/*.j2', 'server/static/*', 'server/static/assets/images/*']}
+    package_data = {'hydraplay': ['config/*json', 'config/templates/*.j2', 'server/static/*','server/static/snapweb/*','server/static/snapweb/3rd-party/*','server/static/player/*' 'server/static/player/assets/images/*']}
     include_package_data = True
 
     #include_package_data = True
