@@ -15,7 +15,7 @@ by Ryan Detzel.
 *This project is still under development, some things might be unstable*
 
 
-### Donations
+## Donations
 
 If you like my work and want to support it, feel free to leave a donation.
 
