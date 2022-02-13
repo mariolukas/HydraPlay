@@ -14,6 +14,7 @@ by Ryan Detzel.
 
 *This project is still under development, some things might be unstable*
 
+
 ## Screenshots
 The scnreenshots below show two connected players and a configuration with two (default value) mopidy instances. 
 <center>
@@ -33,6 +34,7 @@ The scnreenshots below show two connected players and a configuration with two (
   <img style="width: 500px" src="doc/images/screen3.png"></img><br><br>
 </div>
 </center>
+
 
 
 ## Getting Started
@@ -105,6 +107,15 @@ Finally open a Browser and goto:
 http://<your_server_ip>:<port_in_configuration>
 ```
 
+## Donations
+
+If you like my work and want to support it, feel free to leave a donation.
+
+<center>
+<a href="https://www.paypal.com/donate?hosted_button_id=FHPTBZ43KZGSU">
+  <img width="200" src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" alt="Donate with PayPal" />
+</a>
+</center>
 
 ## Running on a Raspberry Pi
 *Docker*
@@ -182,15 +193,6 @@ This project would not have been possible without all the work on [Snapcast](htt
 
 [Join](https://discord.gg/xs9CKfbpuY) us at Discord (https://discord.gg/xs9CKfbpuY).
 
-### Donations
-
-If you like my work and want to support it, feel free to leave a donation.
-
-<center>
-<a href="https://www.paypal.com/donate?hosted_button_id=FHPTBZ43KZGSU">
-  <img width="200" src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" alt="Donate with PayPal" />
-</a>
-</center>
 
 
 
