@@ -139,7 +139,7 @@ This section describes the HydraPlay cofiguration file ```hydra.example.conf```
 
 **port**: defines the web port on which hydraplay will be available in the browser. Defaults is ```8080```
 
-**sourc_type**: Defines which type of audio source should be used between mopidy and snapcast. Possible values are ```fifo``` and ```tcp```. Defaults is ```tcp```.
+**source_type**: Defines which type of audio source should be used between mopidy and snapcast. Possible values are ```fifo``` and ```tcp```. Defaults is ```tcp```.
 ### Snapcast Section
 
 **config_path**:  Defines the path to the generated Snapserver config file. Default for Docker usage is ```/tmp/```,
@@ -154,14 +154,14 @@ This section describes the HydraPlay cofiguration file ```hydra.example.conf```
 
 ### Mopidy Section
 
-```mpd_base_port```: Default is ```6600```
+**mpd_base_port**: Default is ```6600```
 
-```web_base_port```: Defines the web API port for Mopidy. This port is used by HydraPlay for connecting to the Mopidy web API. The first instance equals to this port. For all further instances the port is increased by a count of one. Default is```6680```
+**web_base_port**: Defines the web API port for Mopidy. This port is used by HydraPlay for connecting to the Mopidy web API. The first instance equals to this port. For all further instances the port is increased by a count of one. Default is```6680```
 
-```instances```: Defines the number of stated Mopidy instances. Each instance represents one stream in HydraPlay. A good
+**instances**: Defines the number of stated Mopidy instances. Each instance represents one stream in HydraPlay. A good
 starting point would be number of instances equals number of clients. Defualt is ```2```
 
-```config_path```: Defines the folder where HydraPlay generates the Mopidy configurations. Default is ```/tmp/```,
+**config_path**: Defines the folder where HydraPlay generates the Mopidy configurations. Default is ```/tmp/```,
 
 #### Extensions
 

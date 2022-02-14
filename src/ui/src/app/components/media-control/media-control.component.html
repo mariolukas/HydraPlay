@@ -10,6 +10,15 @@
       </button>-->
     </mat-form-field>
   </div>
+    <!--
+    <section>
+        <mat-checkbox class="extension-checkbox">track</mat-checkbox>
+        <mat-checkbox class="extension-checkbox">artist</mat-checkbox>
+        <mat-checkbox class="extension-checkbox">album</mat-checkbox>
+    </section>-->
+     <section class="example-section">
+        <mat-checkbox *ngFor="let extension of extenstionsOptionsList" [checked]="extension.selected" [value]="extension.name" (change)="extensionFilterChanged(extension,$event)" class="extension-checkbox">{{ extension.name }}</mat-checkbox>
+     </section>
    <mat-spinner *ngIf="waitingForResults" class="spinner" [diameter]="50"></mat-spinner>
    <app-search-result-list [results]="searchResult" [group]="group"></app-search-result-list>
    <div class="search-result-label" *ngIf="!waitingForResults && searchString">{{searchResult.length}} Results</div>

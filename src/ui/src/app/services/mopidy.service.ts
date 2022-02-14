@@ -23,6 +23,7 @@ export class MopidyPlayer {
   private notificationService:NotificationService;
   private mopidyPort: string;
   private mopidyIP: string;
+  public extensions: [];
   private protocol: string;
   public currentTrackList:any;
   public isConnected: boolean;
@@ -38,6 +39,8 @@ export class MopidyPlayer {
     this.id = instance.stream_id;
     this.mopidyPort = instance.port;
     this.mopidyIP = instance.ip;
+    this.extensions = instance.extensions;
+
     this.notificationService = notificationService;
 
     this.currentPlayerState = MopidyPlayer.newStreamState();
@@ -113,7 +116,6 @@ export class MopidyPlayer {
 
   private isEndOfTracklist(){
       from(this.mopidy$.tracklist.getEotTlid()).subscribe((tlid)=>{
-          console.log(tlid);
           if (tlid)
               return false;
           else
@@ -121,8 +123,16 @@ export class MopidyPlayer {
       });
   }
 
-  private setWebmopidyProtocol() {
+  public getExtensions():[]{
+      return this.extensions;
+  }
 
+  private setWebmopidyProtocol() {
+      if (location.protocol !== 'https:') {
+          this.protocol = 'ws';
+      } else {
+          this.protocol = 'wss';
+      }
   }
 
   public getId(): string {
@@ -221,14 +231,14 @@ export class MopidyPlayer {
              }));
   }
 
-  public search(query:string):Observable<object> {
+  public search(query:string, extensionFilter:[]):Observable<object> {
 
       let queryElements = query.match(/(".*?"|[^"\s]+)+(?=\s*|\s*$)/g);
       queryElements = queryElements.map(function (el) {
           return el.replace(/"/g, '');
       });
 
-      return from(this.mopidy$.library.search({query:{ 'any' : queryElements }, uris:['spotify:', 'tunein:'], exact:false})).pipe(
+      return from(this.mopidy$.library.search({query:{ 'any' : queryElements }, uris:extensionFilter, exact:false})).pipe(
           map(searchResult => {
               let combinedSearch: object[] = [];
               if (searchResult) {
@@ -313,6 +323,7 @@ export class MopidyPlayer {
 })
 export class MopidyPoolService {
 
+  public settings: any;
   public mopidies: MopidyPlayer[] = [];
   poolReady: boolean;
   public poolIsReady$: Subject<boolean> = new Subject<boolean>();
@@ -332,6 +343,7 @@ export class MopidyPoolService {
         settings.forEach(instance => {
             let mopidyPlayer = new MopidyPlayer( instance, this.notificationService );
             this.mopidies.push(mopidyPlayer);
+            this.settings = settings;
         });
         this.poolReady = true
         this.poolIsReady$.next(this.poolReady);

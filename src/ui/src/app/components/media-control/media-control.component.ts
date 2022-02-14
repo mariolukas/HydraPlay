@@ -17,29 +17,58 @@ export class MediaControlComponent implements OnInit {
   public waitingForResults:boolean = false;
   private mopidy$: any;
   public searchString: string;
+  public extenstionsOptionsList: {name:string, selected:boolean }[] =[];
 
   constructor( private snapcastService: SnapcastService, private mopidyPoolService:MopidyPoolService,
                public notificationService: NotificationService) {
   }
 
   ngOnInit() {
-      this.mopidy$ = this.mopidyPoolService.getMopidyInstanceById(this.group.stream_id);
+      this.mopidy$ = this.mopidyPoolService.getMopidyInstanceById(this.group.stream_id)
       this.streams = this.snapcastService.getStreams();
+      this.initExtenstionsFilterList();
+  }
 
+  public initExtenstionsFilterList(){
+      let extensions = this.mopidy$.getExtensions();
+      extensions.forEach((extension) =>{
+            this.extenstionsOptionsList.push({name: extension, selected: true })
+      })
+  }
+
+  public extensionFilterChanged(extentsion, $event){
+      let index = this.extenstionsOptionsList.findIndex((obj => obj.name == extentsion.name));
+      this.extenstionsOptionsList[index]['selected'] = $event.checked;
+      if (this.getExtensionsFilterQuery().length == 0){
+          this.searchResult = [];
+      } else {
+          if (this.searchString && this.searchString.length > 0) {
+              this.search(this.searchString);
+          }
+      }
   }
 
   public clearSearch() {
     this.searchResult = [];
   }
 
+  public getExtensionsFilterQuery(){
+      let filter = [];
+      this.extenstionsOptionsList.forEach((extension) =>{
+          if (extension.selected) filter.push(extension.name+':');
+      })
+      return filter;
+  }
+
   public search(query:string){
     if(query.length > 0) {
         this.waitingForResults = true;
         this.clearSearch();
-        this.mopidy$.search(query).subscribe(result => {
+        let filter = this.getExtensionsFilterQuery()
+        this.mopidy$.search(query,filter).subscribe(result => {
             this.searchResult = result;
             if(this.searchResult.length == 0) this.notificationService.info(`No results found for '${query}'`);
-            this.hideKeyboard();
+            //this.hideKeyboard();
             this.waitingForResults = false;
         });
     }
