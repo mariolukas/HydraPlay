@@ -6,13 +6,11 @@ services:
     privileged: true
     build:
       context: docker/
-      # use this for amd64/intel builds
       dockerfile: Dockerfile
-      # use this for Raspberry Pi builds
-      #dockerfile: Dockerfile.armhf
       args:
         SNAPCASTVERSION: 0.26.0
-        #PACKAGETYPE: _without-pulse
+        # use this for amd64 or armhf
+        ARCH: amd64
     container_name: hydraplay
     ports:
       - 8080:8080
