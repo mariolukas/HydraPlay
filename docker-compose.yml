@@ -2,11 +2,10 @@ version: "3.5"
 services:
   hydraplay:
     # use platform if you are running on apple m1 architecture ( requires rosetta )
-    platform: linux/amd64
+    #platform: linux/amd64
     privileged: true
     build:
       context: docker/
-
       dockerfile: Dockerfile
       args:
         SNAPCASTVERSION: 0.26.0
