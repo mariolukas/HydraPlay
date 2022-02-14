@@ -123,15 +123,11 @@ If you like my work and want to support it, feel free to leave a donation.
 You are also able to run HydraPlay by using docker on a Rasperry Pi. You need to change
 the following line in docker-compose.yaml from 
 
-```
-dockerfile: Dockerfile
-```
+```ARCH: amd64```
 
-to 
+to
 
-```
-dockerfile: Dockerfile.armhf
-```
+```ARCH: armhf```
 
 afterwards follow the steps in *Getting Started*.
 
