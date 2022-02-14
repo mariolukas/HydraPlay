@@ -25,7 +25,9 @@ RUN apt-get update  \
         mopidy \
         mopidy-spotify \
         mopidy-tunein \
-        mopidy-soundcloud
+        mopidy-soundcloud \
+ && python3 -m pip install https://github.com/natumbri/mopidy-youtube/archive/develop.zip \
+ && python3 -m pip install --upgrade youtube-dl
 
 #======================================= SNAPCAST INSTALLATION ===================================================#
 
