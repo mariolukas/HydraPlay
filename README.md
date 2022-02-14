@@ -47,6 +47,7 @@ The easiest way to get it running is by using docker. Just checkout the source c
 docker-compose build
 ```
 :warning: **Using this on a Mac with Apple silicon requires [Rosetta](https://docs.docker.com/desktop/mac/apple-silicon/), additionally you need to enable ```platform: linux/amd64``` in the docker-compose.yml file.**
+
 :warning: **For Raspberry Pi see section "Build Docker on a Raspberry Pi"**
 
 ### 2 Configure Hydraplay
