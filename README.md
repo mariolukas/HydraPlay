@@ -99,7 +99,7 @@ Detailed information can be found on the offical [Snapcast GitHub project](https
 
 Or even install the official android client on your mobile phone
 
-[https://github.com/badaix/snapdroid/releases/tag/v0.24.0](https://github.com/badaix/snapdroid/releases/tag/v0.24.0)
+[https://github.com/badaix/snapdroid/releases/tag/v0.26.0](https://github.com/badaix/snapdroid/releases/tag/v0.24.0)
 
 ### 5 Open HydraPlay and use it!
 
