@@ -25,7 +25,10 @@
 				"auth_token": "<auth_token_here>"
 			},
 			"youtube": {
-				"enabled": false
+				"enabled": false,
+				"musicapi_enabled": false,
+				"youtube_api_key":  "<api key you got from Google>",
+				"api_enabled": false
 			}
 		}
 	},

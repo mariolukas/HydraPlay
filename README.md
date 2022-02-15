@@ -1,6 +1,6 @@
 # About HydraPlay
 HydraPlay is an easy to use multiroom audio player. HydraPlay provides an integrated web interface to multiple
-[Mopidy](https://mopidy.com/) instances and one [Snapcast](https://github.com/badaix/snapcast). It generates
+[Mopidy](https://mopidy.com/) instances and one [Snapcast](https://github.com/badaix/snapcast) server. It generates
 all the complex configurations under the hood. Only one configuration file is needed to define what the user needs.
 
 The server part is written in Python and provides a webserver for the frontend delivery. Besides that the server 
@@ -152,12 +152,17 @@ starting point would be number of instances equals number of clients. Defualt is
 **config_path**: Defines the folder where HydraPlay generates the Mopidy configurations. Default is ```/tmp/```,
 
 #### Extensions
+TODO
 
+## Build the Angular Frontend
+TODO
+
+## Build the Docker image
 TODO
 
 ## Details 
 You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-source-multiroom-audio/) which i wrote a couple of years ago when i started the project. A lot of things changed since the first setup. But it will give you and idea on how it works under the hood.
-
+( the blog post describes the very first prototype! )
 
 ### Known Issues
 * mdns/avahi does not work within docker. You need to start your clients with  the -h <ip_address_of_server> parameter.
