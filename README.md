@@ -48,7 +48,7 @@ docker-compose build
 ```
 :warning: **Using this on a Mac with Apple silicon requires [Rosetta](https://docs.docker.com/desktop/mac/apple-silicon/), additionally you need to enable ```platform: linux/amd64``` in the docker-compose.yml file.**
 
-:warning: **For Raspberry Pi you will need ```ARCH: armhf``` in docker-compose.yml**
+:warning: **For Raspberry Pi you need to change to ```ARCH: armhf``` in docker-compose.yml**
 
 ### 2 Configure Hydraplay
 
