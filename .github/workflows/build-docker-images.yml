@@ -41,4 +41,4 @@ jobs:
           platforms: linux/amd64,linux/armhf
           file: docker/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/hydraplay:${{ steps.vars.outputs.tag }},${{ secrets.DOCKERHUB_USERNAME }}/hydraplay:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/hydraplay:${{ steps.vars.outputs.tag }},${{ secrets.DOCKERHUB_USERNAME }}/hydraplay:latest
