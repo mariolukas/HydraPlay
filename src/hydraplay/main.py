@@ -38,11 +38,11 @@ def checkDependencies():
    valid = True
    if not checkForExecutable('snapserver'):
        valid = False
-       print("Snapcast Server is not installed.")
+       print("Snapcast Server executable not found.")
 
    if not checkForExecutable('mopidy'):
        valid = False
-       print("Mopidy is not installed.")
+       print("Mopidy executable not found.")
 
    if (not valid):
        sys.exit(0)

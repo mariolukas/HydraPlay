@@ -39,32 +39,23 @@ The scnreenshots below show two connected players and a configuration with two (
 
 ## Getting Started
 
-### 1 Build the docker image
-
-The easiest way to get it running is by using docker. Just checkout the source code from GitHub and change into the folder. Be sure that you have docker and docker-compose installed. Build the docker image by calling:
-
-```
-docker-compose build
-```
-:warning: **Using this on a Mac with Apple silicon requires [Rosetta](https://docs.docker.com/desktop/mac/apple-silicon/), additionally you need to enable ```platform: linux/amd64``` in the docker-compose.yml file.**
-
-:warning: **For Raspberry Pi you need to change to ```ARCH: armhf``` in docker-compose.yml**
-
-### 2 Configure Hydraplay
+### 1 Configure Hydraplay
 
 Make a copy of the file `hydra.example.json` and rename it to `hydra.private.json`. This file contains all needed configurations for the setup. 
 
 Open the file in an editor and make your changes. If you want to enable Spotify you need a client_id and client_secret. Just follow the instructions of the [Mopidy Spotify extension](https://mopidy.com/ext/spotify/). Add the cliendId, client secret and your Spotify login credentials to the config. Enable Spotify and  save all changes.
 
-### 3 Start the Docker container 
+### 2 Start the Docker container 
 
 Now you are able to start the server with:
+
+:warning: **Using this on a Mac with Apple silicon requires [Rosetta](https://docs.docker.com/desktop/mac/apple-silicon/), additionally you need to enable ```platform: linux/amd64``` in the docker-compose.yml file.**
 
 ```
 docker-compose up
 ```
 
-### 4 Connect a SnapClient to HydraPlay
+### 3 Connect a SnapClient to HydraPlay
 
 Connect a SnapClient to the server.
 
@@ -101,7 +92,7 @@ Or even install the official android client on your mobile phone
 
 [https://github.com/badaix/snapdroid/releases/tag/v0.24.0](https://github.com/badaix/snapdroid/releases/tag/v0.24.0)
 
-### 5 Open HydraPlay and use it!
+### 4 Open HydraPlay and use it!
 
 Finally open a Browser and goto:
 
@@ -158,7 +149,13 @@ TODO
 TODO
 
 ## Build the Docker image
-TODO
+Building the image instead downloading it can be done by using:
+
+```
+docker-compose build
+```
+
+:warning: **Using this on a Mac with Apple silicon requires [Rosetta](https://docs.docker.com/desktop/mac/apple-silicon/), additionally you need to enable ```platform: linux/amd64``` in the docker-compose.yml file.**
 
 ## Details 
 You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-source-multiroom-audio/) which i wrote a couple of years ago when i started the project. A lot of things changed since the first setup. But it will give you and idea on how it works under the hood.
