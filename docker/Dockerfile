@@ -2,14 +2,14 @@ FROM node:16-alpine as build-frontend
 
 RUN mkdir -p /ui
 
-RUN npm install -g @angular/cli -g --silent
-
 WORKDIR /ui
+
 COPY src/ui/package.json /ui
 COPY src/ui/package-lock.json /ui
 COPY src/hydraplay /hydraplay
+RUN npm install -g @angular/cli -g --silent
 
-RUN npm install -g --silent
+RUN npm install -g
 
 COPY src/ui /ui
 
