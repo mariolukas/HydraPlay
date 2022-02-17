@@ -36,16 +36,20 @@ The scnreenshots below show two connected players and a configuration with two (
 </center>
 
 
-
 ## Getting Started
 
-### 1 Configure Hydraplay
+The following steps require Docker and Docker Compose to be installed on your system.
+
+[Guid to install Docker](https://docs.docker.com/get-docker/)
+[Guide for Docker Compose](https://docs.docker.com/compose/install/)
+
+### 1. Configure Hydraplay
 
 Make a copy of the file `hydra.example.json` and rename it to `hydra.private.json`. This file contains all needed configurations for the setup. 
 
 Open the file in an editor and make your changes. If you want to enable Spotify you need a client_id and client_secret. Just follow the instructions of the [Mopidy Spotify extension](https://mopidy.com/ext/spotify/). Add the cliendId, client secret and your Spotify login credentials to the config. Enable Spotify and  save all changes.
 
-### 2 Start the Docker container 
+### 2. Start the Docker container 
 
 Now you are able to start the server with:
 
@@ -55,7 +59,7 @@ Now you are able to start the server with:
 docker-compose up
 ```
 
-### 3 Connect a SnapClient to HydraPlay
+### 3. Connect a SnapClient to HydraPlay
 
 Connect a SnapClient to the server.
 
@@ -92,7 +96,7 @@ Or even install the official android client on your mobile phone
 
 [https://github.com/badaix/snapdroid/releases/tag/v0.24.0](https://github.com/badaix/snapdroid/releases/tag/v0.24.0)
 
-### 4 Open HydraPlay and use it!
+### 4. Open HydraPlay and use it!
 
 Finally open a Browser and goto:
 
@@ -170,7 +174,7 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 - [ ] add debian package config and make file
 - [ ] add build script for raspberry pi image
 - [ ] add more documentation ( for Raspberry Pi, MacOS with m1, run without docker, configuration etc. )
-- [ ] provide ready to use pre-build docker images 
+- [x] provide ready to use pre-build docker images 
 
 ### Credits
 This project would not have been possible without all the work on [Snapcast](https://github.com/badaix/snapcast) and [Mopidy](https://mopidy.com/)! Special thanks to Ryan Detzel for the inspiration.
