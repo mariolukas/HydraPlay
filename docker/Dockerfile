@@ -9,7 +9,7 @@ COPY src/ui/package-lock.json /ui
 COPY src/hydraplay /hydraplay
 RUN npm install -g @angular/cli -g --silent
 
-RUN npm install -g
+RUN npm ci
 
 COPY src/ui /ui
 
