@@ -37,7 +37,7 @@ export class ZoneControlComponent implements OnInit {
           group.clients.forEach((client) =>{
               let _client = {
                   id: client.id,
-                  name: client.name? client.name:client.host.name,
+                  name: client.config.name? client.config.name : client.host.name,
                   selected: (this.group.id == group.id )
               }
               this.clients.push(_client);

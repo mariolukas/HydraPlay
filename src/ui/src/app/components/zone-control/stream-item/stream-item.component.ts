@@ -32,7 +32,6 @@ export class StreamItemComponent implements OnInit {
   }
 
   selectStream() {
-    console.log(this.stream.id);
     this.snapcastservice.setStream(this.stream.id, this.group.id);
   }
 
