@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { webSocket, WebSocketSubject } from "rxjs/webSocket";
-import {EMPTY, Subject, BehaviorSubject, Observable} from 'rxjs';
-import { catchError, tap, switchAll } from 'rxjs/operators';
-import _ from "lodash";
-import {passBoolean} from "protractor/built/util";
+import { webSocket,  WebSocketSubject } from "rxjs/webSocket";
+import {EMPTY, Subject, BehaviorSubject, Observable, timer} from 'rxjs';
+import { catchError, tap, switchAll, retryWhen, delayWhen, } from 'rxjs/operators';
 import {NotificationService} from "./notification.service";
 
 export interface ISnapCastEvent {
@@ -17,6 +15,7 @@ export interface ISnapCastEvent {
 })
 export class SnapcastService {
 
+  private RECONNECT_INTERVAL = 2000;
   private socket$: WebSocketSubject<any>;
   private messagesSubject$ = new Subject();
   public messages$ = this.messagesSubject$.pipe(switchAll(), catchError(e => { throw e }));
@@ -53,18 +52,42 @@ export class SnapcastService {
     delete this.players[playerId];
   }
 
-  public connect():void {
+  public connect(cfg: { reconnect: boolean } = { reconnect: false }):void {
     console.log("Connecting to Snapcast Server ... ")
-    this.messages$.subscribe(message => this.handleIncomingSnapcastEvent(message))
+
     if (!this.socket$ || this.socket$.closed) {
-      this.socket$ = this.getNewWebSocket();
-      const messages = this.socket$.pipe(
-        tap({
-          error: error => console.log(error),
-        }), catchError(_ => EMPTY));
-       this.messagesSubject$.next(messages);
+    this.messages$.subscribe(message => this.handleIncomingSnapcastEvent(message))
+    this.socket$ = this.getNewWebSocket();
+    const messages = this.socket$.pipe(cfg.reconnect ? this.reconnect : o => o,
+       tap({
+         error: error => console.log(error),
+       }), catchError(_ => EMPTY))
+    this.messagesSubject$.next(messages);
+
     }
     this.getSnapCastServerState();
+  }
+
+  private getNewWebSocket() {
+    return webSocket({
+      url: `ws://${this.snapcastHost}:${this.snapcastPort}/jsonrpc`,
+      closeObserver: {
+       next: () => {
+         console.log('[DataService]: connection closed');
+         this.socket$ = undefined;
+         this.connect({ reconnect: true });
+       }
+      },
+    });
+  }
+
+  private reconnect(observable: Observable<any>): Observable<any> {
+      return observable.pipe(
+          retryWhen((errors => errors.pipe(
+              tap(val => console.log('Snapcast: Try to reconnect', val)),
+              delayWhen(_ => timer(3000))
+          ))
+      ));
   }
 
   private handleIncomingSnapcastEvent(message){
@@ -145,9 +168,7 @@ export class SnapcastService {
       return this.players[playerId];
   }
 
-  private getNewWebSocket() {
-    return webSocket(`ws://${this.snapcastHost}:${this.snapcastPort}/jsonrpc`);
-  }
+
 
   public sendMessage(msg: any) {
     this.socket$.next(msg);
