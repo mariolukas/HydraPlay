@@ -1,4 +1,10 @@
 
+.viewport{
+     height:auto;
+    max-height:150%;
+    overflow:auto;
+}
+
 .app {
   text-align: center;
   overflow-y:hidden;
