@@ -1,0 +1,106 @@
+@use '@angular/material' as mat;
+/*
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+ */
+
+
+.track-item{
+  height: 72px;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.track-list.cdk-drop-list-dragging .track-item:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag-preview{
+    width: 295px;
+    background: #424242;
+    @include mat.elevation(2);
+    /*
+    border-top: 1px solid #888;
+    border-bottom: 1px solid #888;*/
+}
+
+::ng-deep .cdk-drag-preview  .mat-list-item-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 16px;
+    position: relative;
+    height: 72px !important; /* default is 72px */
+    margin:0px;
+    color:white;
+
+}
+
+::ng-deep .cdk-drag-preview  .mat-list-item {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 16px;
+    position: relative;
+    height: inherit;
+}
+
+::ng-deep .cdk-drag-preview  .mat-list-avatar{
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+::ng-deep .cdk-drag-preview  .mat-list-text{
+    padding-right: 0;
+    padding-left: 16px;
+    width: 167px;
+}
+
+::ng-deep .cdk-drag-preview  .mat-line{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    box-sizing: border-box;
+
+    p{
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        box-sizing: border-box;
+
+        span{
+           font-weight: normal;
+           font-size: inherit;
+        }
+    }
+}
+
+
+
+::ng-deep .cdk-drag-preview .mat-icon-button{
+    display: none;
+}

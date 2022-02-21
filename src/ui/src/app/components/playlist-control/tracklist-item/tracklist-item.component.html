@@ -1,19 +1,21 @@
-<mat-list-item class="track-item" >
-  <img matListAvatar src="{{ coverThumb }}">
-  <div [ngClass]="{'isCurrentTrack': isActiveTrack}" class="tracklist-item" matRipple [matRippleRadius]="30" matLine (dblclick)="playTrack(hTrack.tlid)">
-      <p style="font-weight:bold; font-size:18px;" class="disable-text-select" (dblclick)="playTrack(hTrack.tlid)" matLine> {{hTrack.track?hTrack.track.name:hTrack.name}} </p>
-      <p><span class="disable-text-select"> {{hTrack.track ? hTrack.track.artists[0].name : hTrack.name}} </span></p>
-  </div>
-    <div>
-    <button align="end" [matMenuTriggerFor]="playlistMenu"  class="tracklist-options-menu" mat-icon-button>
-        <mat-icon >more_vert</mat-icon>
+<mat-list-item cdkDrag class="track-item" matRipple [matRippleRadius]="300" [matRippleCentered]="false" [matRippleUnbounded]="false">
+<img matListAvatar src="{{ coverThumb }}">
+<div [ngClass]="{'isCurrentTrack': isActiveTrack}" class="tracklist-item unselectable" matLine  (dblclick)="playTrack(hTrack.tlid)">
+    <p style="font-weight:bold; font-size:18px;" class="disable-text-select" (dblclick)="playTrack(hTrack.tlid)" matLine> {{hTrack.track?hTrack.track.name:hTrack.name}} </p>
+    <p><span class="disable-text-select"> {{hTrack.track ? hTrack.track.artists[0].name : hTrack.name}} </span></p>
+</div>
+  <div>
+  <button (mousedown)="$event.stopPropagation()" align="end" [matMenuTriggerFor]="playlistMenu"  class="tracklist-options-menu" mat-icon-button>
+      <mat-icon >more_vert</mat-icon>
+  </button>
+  <mat-menu #playlistMenu="matMenu" xPosition="before">
+    <button (mousedown)="$event.stopPropagation()" mat-menu-item (click)="removeTrackFromlist($event, hTrack)">
+      <mat-icon>remove_circle_outline</mat-icon>
+      <span>Remove Track</span>
     </button>
-    <mat-menu #playlistMenu="matMenu" xPosition="before">
-      <button mat-menu-item (click)="removeTrackFromlist($event, hTrack)">
-        <mat-icon>remove_circle_outline</mat-icon>
-        <span>Remove Track</span>
-      </button>
-    </mat-menu>
-  </div>
-  <mat-divider></mat-divider>
+  </mat-menu>
+</div>
+<mat-divider></mat-divider>
 </mat-list-item>
+
+

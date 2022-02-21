@@ -1,6 +1,38 @@
-<!--<cdk-virtual-scroll-viewport #scroller itemSize="55" class="track-list">-->
-    <mat-list class="track-list">
+<div class="track-list-wrapper">
+    <mat-list *ngIf="!trackListDialogIsOpen"  class="track-list" cdkDropList (cdkDropListDropped)="dropTrackListItem($event)">
         <app-tracklist-item *ngFor="let hTrack of tracks" [group]="group" [hTrack]="hTrack"></app-tracklist-item>
-     </mat-list>
+    </mat-list>
+    <div *ngIf="trackListDialogIsOpen" class="track-list">
+        <div class="dialog-card">
+            <mat-card>
+              <mat-card-title style="text-align: center">Save as Playlist</mat-card-title>
+              <mat-card-content>
+                  <mat-form-field appearance="fill" class="save-track-list-from">
+                      <mat-icon matPrefix>label</mat-icon>
+                      <mat-label>Enter a playlist name ...</mat-label>
+                      <input [(ngModel)]="playlistName" matInput autocomplete=“off” type="text" >
+                  </mat-form-field>
+              </mat-card-content>
+              <mat-card-actions style="text-align:center;">
+                <button mat-button [disabled]="playlistName == 0" (click)="saveTrackListAsPlayList()">Save</button>
+                <button mat-button (click)="cancelTrackListDialog()">Cancel</button>
+              </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+    <div *ngIf="tracks.length > 0 && !trackListDialogIsOpen" matRipple [matRippleDisabled]="true" class="track-list-actions">
+        <div class="track-list-action">
+        </div>
+        <!--<div class="track-list-action">
+             <button (mousedown)="$event.stopPropagation()" (click)="openTrackListDialog()" mat-icon-button>
+                 <mat-icon>save_as</mat-icon>
+             </button>
+        </div>-->
+        <div class="track-list-action">
+             <button (mousedown)="$event.stopPropagation()" (click)="clearTrackList()" mat-icon-button>
+                 <mat-icon>delete</mat-icon>
+             </button>
+        </div>
 
-<!--</cdk-virtual-scroll-viewport>-->
+    </div>
+</div>

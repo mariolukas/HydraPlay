@@ -5,17 +5,9 @@
       <mat-icon matPrefix>search</mat-icon>
       <mat-label>Search for Music...</mat-label>
       <input [(ngModel)]="searchString" matInput #searchBox (change)="search(searchBox.value)" autocomplete=“off” type="text" >
-     <!-- <button *ngIf="searchString" matSuffix mat-icon-button aria-label="Clear" (click)="searchString=''">
-        <mat-icon>close</mat-icon>
-      </button>-->
     </mat-form-field>
   </div>
-    <!--
-    <section>
-        <mat-checkbox class="extension-checkbox">track</mat-checkbox>
-        <mat-checkbox class="extension-checkbox">artist</mat-checkbox>
-        <mat-checkbox class="extension-checkbox">album</mat-checkbox>
-    </section>-->
+
      <section class="example-section">
         <mat-checkbox *ngFor="let extension of extenstionsOptionsList" [checked]="extension.selected" [value]="extension.name" (change)="extensionFilterChanged(extension,$event)" class="extension-checkbox">{{ extension.name }}</mat-checkbox>
      </section>

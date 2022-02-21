@@ -1,12 +1,12 @@
 
-<mat-list-item class="track-item" >
+<mat-list-item class="track-item"  matRipple [matRippleRadius]="300" [matRippleCentered]="false" [matRippleUnbounded]="false">
   <img matListAvatar src="{{coverThumb}}">
-  <div class="tracklist-item" matRipple [matRippleRadius]="30" matLine (dblclick)="addAndPlay($event, pTrack)" >
-      <p style="font-weight:bold; font-size:18px;" class="disable-text-select" matLine> {{pTrack.name}} <!--<img class="media-source-icon" src="assets/images/{{ pTrack.sourceType }}.png">--> </p>
+  <div class="tracklist-item unselectable"  matLine (dblclick)="addAndPlay($event, pTrack)" >
+      <p style="font-weight:bold; font-size:18px;" matLine> {{pTrack.name}} <!--<img class="media-source-icon" src="assets/images/{{ pTrack.sourceType }}.png">--> </p>
       <p><span class="disable-text-select"> {{pTrack.artists[0].name}} </span> </p>
   </div>
   <div>
-    <button class="tracklist-options-menu" mat-icon-button>
+    <button (mousedown)="$event.stopPropagation()" class="tracklist-options-menu" mat-icon-button>
         <mat-icon (click)="addToTracklist($event,pTrack)">playlist_add</mat-icon>
     </button>
   </div>

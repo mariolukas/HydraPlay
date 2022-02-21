@@ -1,4 +1,42 @@
-.track-list{
-  height:350px;
+.dialog-card{
+  margin-top: 50px;
 }
 
+.dialog-card-header{
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.save-track-list-from{
+  width: 100%;
+  margin-top: 30px;
+}
+
+.track-list{
+  max-height:355px;
+  overflow: auto;
+}
+
+.save-track-list{
+    text-align:right;
+}
+
+.track-list-wrapper{
+  min-height: 410px;
+  overflow: hidden;
+}
+
+.track-list-actions{
+  display: flex;
+}
+
+.track-list-action{
+  flex: 1;
+  flex-grow: 0;
+}
+
+.track-list-action:first-child{
+    width: 100%;
+    /*margin-right: 20px;*/
+    flex-basis: 100%;
+}

@@ -18,4 +18,5 @@ export class PlaylistSelectionComponent implements OnInit {
     this.mopidy$ = this.mopidyPoolService.getMopidyInstanceById(this.group.stream_id);
   }
 
+
 }

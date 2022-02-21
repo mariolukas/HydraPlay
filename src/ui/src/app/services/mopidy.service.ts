@@ -171,6 +171,10 @@ export class MopidyPlayer {
       this.updatePlayerState$.next(this.currentPlayerState);
   }
 
+  public moveTrack(start, end, to_position){
+      from(this.mopidy$.tracklist.move({start:start, end:end, to_position:to_position})).subscribe();
+  }
+
   public setCurrentTrackState() {
 
       let statusSubscription$ = zip(

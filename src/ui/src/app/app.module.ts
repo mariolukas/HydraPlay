@@ -36,7 +36,7 @@ import { PlaylistSelectionItemComponent } from './components/playlist-control/pl
 import { SearchResultItemComponent } from './components/media-control/search-result-item/search-result-item.component';
 import {SearchResultListComponent} from "./components/media-control/search-result-list/search-result-list.component";
 import {MatCheckboxModule} from "@angular/material/checkbox";
-//import {ScrollingModule} from '@angular/cdk/scrolling';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -77,7 +77,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatProgressSpinnerModule,
     MatBadgeModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    DragDropModule
   ],
   exports: [],
   providers: [

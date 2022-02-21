@@ -8,9 +8,8 @@
             </ng-template>
             <mat-spinner class="spinner" *ngIf="waitingForTracklist" [diameter]="50"></mat-spinner>
             <div *ngIf="!waitingForTracklist" >
-                <app-tracklist [tracks]="tracklist" [group]="group"></app-tracklist>
+                    <app-tracklist [tracks]="tracklist" [group]="group"></app-tracklist>
             </div>
-
         </mat-tab>
 
         <mat-tab>
