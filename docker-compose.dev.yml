@@ -1,10 +1,18 @@
+## builds an image without the ui part.
+## ui can be run by using ng build --watch for development
 version: "3.5"
 services:
   hydraplay:
     # use platform linux/amd64 if you are running on apple siclicon ( ! requires rosetta ! )
-    #platform: linux/amd64
+    platform: linux/amd64
     privileged: true
-    image: mariolukas/hydraplay:latest
+    #image: mariolukas/hydraplay:latest
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+      target: hydraplay
+      args:
+        SNAPCASTVERSION: 0.26.0
     container_name: hydraplay
     ports:
       - 8080:8080
@@ -14,4 +22,5 @@ services:
       - 6680-6690:6680-6690
     volumes:
        # mount src folder for development
+       - ./src/:/app/
        - ./hydra.private.json:/tmp/hydra.config.json

@@ -23,11 +23,11 @@
     <div *ngIf="tracks.length > 0 && !trackListDialogIsOpen" matRipple [matRippleDisabled]="true" class="track-list-actions">
         <div class="track-list-action">
         </div>
-        <!--<div class="track-list-action">
+        <div class="track-list-action">
              <button (mousedown)="$event.stopPropagation()" (click)="openTrackListDialog()" mat-icon-button>
                  <mat-icon>save_as</mat-icon>
              </button>
-        </div>-->
+        </div>
         <div class="track-list-action">
              <button (mousedown)="$event.stopPropagation()" (click)="clearTrackList()" mat-icon-button>
                  <mat-icon>delete</mat-icon>

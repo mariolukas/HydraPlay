@@ -13,6 +13,10 @@
         <mat-icon>queue_music</mat-icon>
         <span>Load as Tracklist</span>
       </button>
+      <button *ngIf="playlist.uri.includes('m3u')" (mousedown)="$event.stopPropagation()" mat-menu-item (click)="deletePlayList(playlist.uri)">
+        <mat-icon>delete</mat-icon>
+        <span>Delete Playlist</span>
+      </button>
     </mat-menu>
   </div>
   <mat-divider></mat-divider>

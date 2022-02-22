@@ -26,8 +26,9 @@ export class MopidyPlayer {
   public extensions: [];
   private protocol: string;
   public currentTrackList:any;
+  public playlists:any;
   public isConnected: boolean;
-
+  public event$ = new Subject();
   public updatePlayerState$: BehaviorSubject<IStreamState>;
   public updateTrackList$: BehaviorSubject<any>;
 
@@ -46,6 +47,7 @@ export class MopidyPlayer {
     this.currentPlayerState = MopidyPlayer.newStreamState();
     this.updatePlayerState$ = new BehaviorSubject<IStreamState>(this.currentPlayerState);
     this.updateTrackList$ = new BehaviorSubject<any>(this.currentTrackList);
+
 
     const url = new URL(window.location.href);
     let wsUrl = `ws://${url.hostname}:${this.mopidyPort}/mopidy/ws`;
@@ -73,6 +75,7 @@ export class MopidyPlayer {
     this.mopidy$.on('event', (event)=>{
 
         console.log(`[Mopidy_${this.id}][event]`, event);
+        this.event$.next(event);
         switch (event) {
             case 'event:tracklistChanged':
                 this.getTrackList().subscribe(tracklist =>this.updateTrackList$.next(tracklist));
@@ -133,6 +136,20 @@ export class MopidyPlayer {
       } else {
           this.protocol = 'wss';
       }
+  }
+
+  public saveTrackListAsPlayList(name: string){
+      from(this.mopidy$.playlists.create({name: name, uri_scheme:'m3u'})).subscribe((playlist) =>{
+          from(this.mopidy$.tracklist.getTracks()).subscribe((tracks) =>{
+              // hacky, dont do that at home.
+              (playlist.tracks as Mopidy.models.Playlist['tracks']) = tracks;
+             from(this.mopidy$.playlists.save({playlist: playlist})).subscribe();
+          });
+      });
+  }
+
+  public deletePlaylist(uri: string){
+     return from(this.mopidy$.playlists.delete({uri:uri})).subscribe();
   }
 
   public getId(): string {

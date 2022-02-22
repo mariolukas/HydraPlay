@@ -19,8 +19,19 @@ export class PlaylistControlComponent implements OnInit {
   constructor(private mopidyPoolService: MopidyPoolService, public notificationService: NotificationService) { }
 
   ngOnInit(): void {
-    this.mopidy$ = this.mopidyPoolService.getMopidyInstanceById(this.group.stream_id);
+     this.mopidy$ = this.mopidyPoolService.getMopidyInstanceById(this.group.stream_id);
 
+     this.mopidy$.event$.subscribe((event) =>{
+      switch(event){
+        case 'event:playlistChanged':
+        case 'event:playlistDeleted':
+          this.mopidy$.getPlaylists().subscribe( playlists =>{
+              this.playlists = playlists;
+              this.waitingForPlaylists = false;
+          });
+          break;
+      }
+    });
 
     this.waitingForTracklist = true;
     this.mopidy$.getTrackList().subscribe(tracklist =>{

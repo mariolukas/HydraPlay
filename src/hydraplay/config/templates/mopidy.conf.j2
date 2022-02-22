@@ -4,14 +4,20 @@ config_dir = /etc/mopidy
 data_dir = /var/lib/mopidy
 
 [logging]
-config_file = /etc/mopidy/logging.conf
-debug_file = /temp/mopidy-debug.log
+verbosity = 0
+format = %(levelname)-8s %(asctime)s [%(process)d:%(threadName)s] %(name)s\n  %(message)s
+color = true
+config_file =
 
 #[local]
 #media_dir = /var/lib/mopidy/media
 
 [m3u]
-playlists_dir = /var/lib/mopidy/playlists
+enabled = true
+playlists_dir = /var/lib/mopidy/m3u/
+base_dir = $XDG_MUSIC_DIR
+default_encoding = latin-1
+default_extension = .m3u8
 
 [audio]
 {% if source_type == "fifo" %}

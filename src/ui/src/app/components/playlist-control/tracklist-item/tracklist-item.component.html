@@ -1,4 +1,4 @@
-<mat-list-item cdkDrag class="track-item" matRipple [matRippleRadius]="300" [matRippleCentered]="false" [matRippleUnbounded]="false">
+<mat-list-item cdkDrag class="track-item"  cdkDrag [cdkDragStartDelay]="200" matRipple [matRippleRadius]="300" [matRippleCentered]="false" [matRippleUnbounded]="false">
 <img matListAvatar src="{{ coverThumb }}">
 <div [ngClass]="{'isCurrentTrack': isActiveTrack}" class="tracklist-item unselectable" matLine  (dblclick)="playTrack(hTrack.tlid)">
     <p style="font-weight:bold; font-size:18px;" class="disable-text-select" (dblclick)="playTrack(hTrack.tlid)" matLine> {{hTrack.track?hTrack.track.name:hTrack.name}} </p>

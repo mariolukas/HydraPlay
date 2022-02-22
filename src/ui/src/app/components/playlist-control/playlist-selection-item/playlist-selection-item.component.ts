@@ -20,6 +20,7 @@ export class PlaylistSelectionItemComponent implements OnInit {
 
   ngOnInit(): void {
       this.mopidy$ = this.mopidyPoolService.getMopidyInstanceById(this.group.stream_id);
+
   }
 
   public appendPlaylistToTrackList(playListURI){
@@ -34,4 +35,11 @@ export class PlaylistSelectionItemComponent implements OnInit {
       this.notificationService.info(`Loaded playlist as ${this.group.stream_id} tracklist`);
     });
   }
+
+  public deletePlayList(uri:string){
+    if(this.mopidy$.deletePlaylist(uri)){
+       this.notificationService.info(`Playlist removed.`);
+    };
+  }
+
 }

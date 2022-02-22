@@ -36,6 +36,7 @@ export class TracklistComponent implements OnInit {
   public saveTrackListAsPlayList(): void {
     this.trackListDialogIsOpen = false;
     console.log(this.playlistName);
+    this.mopidy$.saveTrackListAsPlayList(this.playlistName);
   }
 
   public cancelTrackListDialog():void{
@@ -47,8 +48,9 @@ export class TracklistComponent implements OnInit {
     this.mopidy$.clearTrackList();
   }
 
-  dropTrackListItem(event: CdkDragDrop<string[]>) {
 
+
+  dropTrackListItem(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.tracks, event.previousIndex, event.currentIndex);
     this.mopidy$.moveTrack(event.previousIndex, event.previousIndex, event.currentIndex);
 
