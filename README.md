@@ -16,7 +16,7 @@ by Ryan Detzel.
 
 
 ## Screenshots
-The scnreenshots below show two connected players and a configuration with two (default value) mopidy instances. 
+The scnreenshots below show two connected players and a configuration with two (default value) Mopidy instances. 
 <center>
 
 ### Player controls<br>
@@ -150,15 +150,46 @@ starting point would be number of instances equals number of clients. Defualt is
 #### Extensions
 TODO
 
-## Build the Angular Frontend
-TODO
+## Development
 
-## Build the Docker image
-Building the image instead downloading it can be done by using:
+### Running a dev container locally
+If you want to do some development on the ui you can use a local docker dev 
+image for keeping things easy. The dev image is almost the same as the production image but it does not contain a pre-compiled version of the ui. Therefore the image build process is much faster. Just run 
+
+```docker-compose -f docker-compose.dev.yml build```
+
+:warning: **Using this on a Mac with Apple silicon requires [Rosetta](https://docs.docker.com/desktop/mac/apple-silicon/), additionally you need to enable ```platform: linux/amd64``` in the docker-compose.yml file.**
+
+
+Afterwards you can fire up the development environment
+by 
+
+```docker-compose -f docker-compse.dev.yml up```
+
+Now you can proceed whit "Build the Angular Frontend"
+
+### Build the Angular Frontend
+[nodejs](https://nodejs.org/en/download/) is required before you can proceed.
+After you've installed nodejs you can build the ui by using: 
 
 ```
-docker-compose build
+cd src/ui
+npm install -g @angular/cli -g
+npm install
+ng build
 ```
+
+You can run ```ng build``` with the additional argument ```--watch``` for live
+re-compiling while you are working on your code. 
+
+The build folder is located at ```/src/hydraplay/server/static/player```
+
+
+
+### Building the production image. 
+You can build a production image instead downloading by using:
+
+docker build -f docker/Dockerfile -t mariolukas/hydraplay --build-arg SNAPCASTVERSION=0.26.0 .
 
 :warning: **Using this on a Mac with Apple silicon requires [Rosetta](https://docs.docker.com/desktop/mac/apple-silicon/), additionally you need to enable ```platform: linux/amd64``` in the docker-compose.yml file.**
 

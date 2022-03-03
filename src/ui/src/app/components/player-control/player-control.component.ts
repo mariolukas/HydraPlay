@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {SnapcastService} from "../../services/snapcast.service";
 import {MopidyPlayer, MopidyPoolService} from "../../services/mopidy.service";
 
@@ -15,6 +15,12 @@ export class PlayerControlComponent implements OnInit {
   public groupVolume: number;
   public mopidy$: any;
   public currentTrackList:any = [];
+  public checkPositionTimerInterval;
+  public isSeeking:boolean = false;
+  public currentTrackPosition: string;
+  public currentTimePosition: number;
+  public positionBarMode: string;
+
 
   constructor(private snapcastService: SnapcastService, private mopidyPoolService:MopidyPoolService) { }
 
@@ -23,11 +29,21 @@ export class PlayerControlComponent implements OnInit {
       this.registerPlayerToSnapService(this.group);
 
       this.groupVolumeSliderValue = this.getGroupVolume(this.group,true);
-
+      this.positionBarMode= 'indeterminate'
       this.mopidy$.updatePlayerState$.subscribe(playerState =>{
          this.currentState = playerState;
+         if (this.currentState.length > 0){
+             this.checkPositionTimerInterval = setInterval(() => {
+                 this.checkTimePosition();
+             }
+             , 1000);
+         } else {
+           this.positionBarMode= 'buffer'
+         }
       });
+
   }
+
 
   public setRandom(value: boolean){
      this.mopidy$.setRandom(value);
@@ -111,11 +127,8 @@ export class PlayerControlComponent implements OnInit {
   private handleSnapCastNotification(event){
     switch (event.method) {
       case 'Client.OnVolumeChanged':
-          console.log("Volume",event.params.volume);
-
               this.setClientVolume(event.params.id, event.params.volume);
               this.groupVolumeSliderValue = this.getGroupVolume(this.group, true);
-
         break;
     }
   }
@@ -138,6 +151,7 @@ export class PlayerControlComponent implements OnInit {
       switch (this.currentState.playbackState) {
           case "playing":
                this.mopidy$.pause();
+               clearInterval(this.checkPositionTimerInterval);
               break;
           case "paused":
               this.mopidy$.resume();
@@ -154,5 +168,41 @@ export class PlayerControlComponent implements OnInit {
 
   public previousTrack() {
       this.mopidy$.previousTrack();
+  }
+
+  public timeFromMilliSeconds(length) {
+      if (length === undefined) {
+        return '';
+      }
+      let d = Number(length/1000);
+      let h = Math.floor(d / 3600);
+      let m = Math.floor(d % 3600 / 60);
+      let s = Math.floor(d % 3600 % 60);
+      return ((h > 0 ? h + ":" : "") + (m > 0 ? (h > 0 && m < 10 ? "0" : "") + m + ":" : "0:") + (s < 10 ? "0" : "") + s);
+  }
+
+  public checkTimePosition() {
+    if (! this.isSeeking) {
+      this.positionBarMode= 'determinate';
+      this.mopidy$.getTrackPosition().subscribe((timePosition) => {
+        if (this.currentState.length > 0 && timePosition > 0) {
+          this.currentTimePosition = (timePosition / this.currentState.length) * 100;
+          this.currentTrackPosition = this.timeFromMilliSeconds(timePosition);
+        }
+        else {
+          this.currentTimePosition = 0;
+          this.currentTrackPosition = this.timeFromMilliSeconds(0);
+        }
+      });
+    }
+  }
+
+  public seek($event){
+      console.log($event);
+  }
+
+  public ngOnDestroy(){
+      clearInterval(this.checkPositionTimerInterval);
+      //this.mopidy$.updatePlayerState$.unsubscribe();
   }
 }

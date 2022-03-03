@@ -8,6 +8,7 @@ import {NotificationService} from "./notification.service";
 export interface IStreamState {
     title: string;
     album: string;
+    length: number;
     coverUri: string;
     uri: string;
     artist: string;
@@ -107,6 +108,7 @@ export class MopidyPlayer {
       return {
         title: "no Track",
         album: "no Album",
+        length: 0,
         coverUri:  "../../assets/images/cover_placeholder.jpg",
         uri: "none",
         artist: "none",
@@ -207,6 +209,7 @@ export class MopidyPlayer {
 
                 this.currentPlayerState.album = currentTrack.track.album.name;
                 this.currentPlayerState.artist = currentTrack.track.artists[0].name;
+                this.currentPlayerState.length = currentTrack.track.length;
                 this.currentPlayerState.title = currentTrack.track.name;
                 this.currentPlayerState.uri = currentTrack.track.uri;
                 this.currentPlayerState.tlid = currentTrack.tlid;
@@ -309,6 +312,10 @@ export class MopidyPlayer {
              }
           });
       });
+  }
+
+  public getTrackPosition(){
+      return from(this.mopidy$.playback.getTimePosition());
   }
 
   public getCover(uri) {

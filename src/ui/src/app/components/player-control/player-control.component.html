@@ -5,7 +5,13 @@
                 <h4>{{ currentState.artist }}</h4>
                 <h5>{{ currentState.title }}</h5>
                 <!--<h5>{{ currentState.album }}</h5>-->
+            <div class="seekbar-wrapper">
+                <div *ngIf="currentState.length > 0" class="seekbar-time">{{currentTrackPosition}}</div>
+                <mat-progress-bar (click)="seek($event)" class="seekbar" [mode]="positionBarMode" [value]="currentTimePosition"></mat-progress-bar>
+                <div *ngIf="currentState.length > 0" class="seekbar-time">{{timeFromMilliSeconds(currentState.length)}}</div>
+            </div>
         </div>
+
     </div>
 
     <div class="controls">

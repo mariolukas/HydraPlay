@@ -1,6 +1,25 @@
 .player-control {
 
+
+
+
   height: 480px;
+  .seekbar-wrapper{
+    display: flex;
+  }
+
+  .seekbar-time, .seekbar {
+    min-width: 0
+  }
+
+  .seekbar-time { flex: 0 35px }
+
+  .seekbar {
+    flex: 0 300px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 8px;
+  }
 
   .track-info {
 

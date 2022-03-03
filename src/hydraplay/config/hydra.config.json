@@ -22,13 +22,17 @@
 			},
 			"soundcloud": {
 				"enabled": false,
-				"auth_token": "<auth_token_here>"
+				"auth_token": "<auth_token_here_see_extension_docs>"
 			},
 			"youtube": {
-				"enabled": false,
+				"enabled": true,
 				"musicapi_enabled": false,
 				"youtube_api_key":  "<api key you got from Google>",
 				"api_enabled": false
+			},
+			"bandcamp": {
+				"enabled": false,
+				"identity": "<your_id_here_see_extension_docs>"
 			}
 		}
 	},
