@@ -52,6 +52,7 @@ RUN export SNAPCAST_ARCH=$TARGETARCH \
  && dpkg -i --force-all snapserver_${SNAPCASTVERSION}-1_${SNAPCAST_ARCH}.deb \
  && apt-get -f install -y\
  && mkdir -p /app \
+ && mkdir -p /temp/additional_streams \
  && mkdir -p /root/.config/snapcast/ \
  &&	touch /tmp/hydra.config.json \
  &&	chmod 664 /tmp/hydra.config.json \

@@ -43,7 +43,7 @@
 	"snapcast_server":{
 		"server_port": 1704,
 		"remote_port": 1705,
-		"additional_fifos":[],
+		"additional_streams":[],
 		"config_path": "/tmp/"
 	}
 }

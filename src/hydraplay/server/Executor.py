@@ -23,7 +23,7 @@ class Executor(threading.Thread):
                                             )
             for stdout_line in iter(self.process.stdout.readline, ""):
                 self.logger.debug(stdout_line.strip())
-            self.popen.stdout.close()
+            self.process.stdout.close()
             return_code = self.process.wait()
 
             self.logger.info("Process {0} started.".format(self.label))

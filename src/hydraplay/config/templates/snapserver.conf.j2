@@ -80,6 +80,16 @@ source = tcp://127.0.0.1:{{ tcp_port |int  + stream_id |int }}?name=MOPIDY-{{ st
 {% endif %}
 {%- endfor %}
 
+{% for additional_stream_id in range(additional_streams| length ) %}
+{% if additional_streams[additional_stream_id].source_type == "fifo" %}
+source = pipe:///tmp/additional_streams/stream_{{ additional_stream_id |int + hydraplay_config.mopidy.instances| int }}.fifo?name={{additional_streams[additional_stream_id].label}}-{{additional_stream_id}}
+{% endif %}
+{% if additional_streams[additional_stream_id].source_type == "tcp" %}
+source = tcp://127.0.0.1:{{ tcp_port |int  + additional_stream_id |int + hydraplay_config.mopidy.instances|int }}?name={{additional_streams[additional_stream_id].label}}-{{additional_stream_id}}
+{% endif %}
+{%- endfor %}
+
+
 # Default sample format
 #sampleformat = 48000:16:2
 

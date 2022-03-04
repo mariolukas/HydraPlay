@@ -17,6 +17,13 @@ class SnapCastService(threading.Thread):
         self.executor = None
 
     def run(self):
+
+        #for idx, additional_stream in enumerate(self.config['snapcast_server']['additional_streams']):
+        #    if self.config['snapcast_server']['additional_streams'][idx]['source_type'] == "fifo":
+        #        # create a fifo for each stream
+        #        command = ['mkfifo', '/tmp/stream_{0}.fifo'.format(self.config['mopidy']['instances']+idx)]
+        #        Executor("FIFO Task".format(self.config['mopidy']['instances']+idx), command).start()
+
         self.executor = Executor("Snapcast Server", self.command)
         self.generate_config()
         self.executor.run()
@@ -49,11 +56,13 @@ class SnapCastService(threading.Thread):
         tcp_port = self.config['mopidy']['tcp_sink_base_port']
         codec = self.config['snapcast_server']['codec']
         source_type = self.config['hydraplay']['source_type']
+        additional_streams = self.config['snapcast_server']['additional_streams']
 
         renedered_config = template.render(hydraplay_config=self.config,
                                            tcp_port=tcp_port,
                                            source_type=source_type,
-                                           codec=codec
+                                           codec=codec,
+                                           additional_streams=additional_streams
                                           )
         with open(self.config['snapcast_server']['config_path'] + "snapserver.conf", "w") as fh:
             fh.write(renedered_config)
