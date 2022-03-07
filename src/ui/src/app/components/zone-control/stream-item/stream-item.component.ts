@@ -19,12 +19,16 @@ export class StreamItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mopidy$ = this.mopidyPoolService.getMopidyInstanceById(this.stream.id);
-    this.mopidy$.updatePlayerState$.subscribe((state) => {
-      this.currentState = state;
-    });
+    if (this.stream.id.indexOf('MOPIDY') > -1 ){
+      this.mopidy$ = this.mopidyPoolService.getMopidyInstanceById(this.stream.id);
+      this.mopidy$.updatePlayerState$.subscribe((state) => {
+        this.currentState = state;
+      });
 
-    this.mopidy$.setCurrentTrackState();
+      this.mopidy$.setCurrentTrackState();
+    } else {
+      this.currentState.coverUri = "../../assets/images/stream.png"
+    }
   }
 
   isActiveStream() {

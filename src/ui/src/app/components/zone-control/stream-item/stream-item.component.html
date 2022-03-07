@@ -1,5 +1,5 @@
 <mat-list-item [ngClass]="{'activeStream':isActiveStream()}" matRipple (click)="selectStream()">
-  <img matListAvatar src="{{currentState?.coverUri}}">
+  <img matListAvatar src="{{currentState?.coverUri || '../../assets/images/cover_placeholder.jpg' }}">
   <h5 matLine>{{stream?.id }}</h5>
   <p matLine>{{currentState?.artist}}<p>
   <p matLine>{{currentState?.title}}<p>

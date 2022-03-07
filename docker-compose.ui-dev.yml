@@ -24,4 +24,4 @@ services:
        # mount src folder for development
        - ./src/:/app/
        - ./hydra.private.json:/tmp/hydra.config.json
-       #- ./pipes/:/tmp/additional_streams
+       - ./pipes/:/tmp/additional_streams

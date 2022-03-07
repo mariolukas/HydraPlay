@@ -20,27 +20,40 @@ export class PlayerControlComponent implements OnInit {
   public currentTrackPosition: string;
   public currentTimePosition: number;
   public positionBarMode: string;
-
+  public showPlayerControls: boolean;
 
   constructor(private snapcastService: SnapcastService, private mopidyPoolService:MopidyPoolService) { }
 
   ngOnInit(): void {
-      this.registerToMopidyConnection(this.group.stream_id);
-      this.registerPlayerToSnapService(this.group);
+
+      if (this.group.stream_id.indexOf('MOPIDY') > -1 ) {
+          this.registerToMopidyConnection(this.group.stream_id);
+          this.registerPlayerToSnapService(this.group);
+          this.showPlayerControls = true;
+          this.positionBarMode= 'indeterminate'
+      } else {
+          this.showPlayerControls = false;
+          this.currentState.title = "-"
+          this.currentState.artist = this.group.stream_id;
+          this.positionBarMode = 'buffer'
+      }
 
       this.groupVolumeSliderValue = this.getGroupVolume(this.group,true);
-      this.positionBarMode= 'indeterminate'
-      this.mopidy$.updatePlayerState$.subscribe(playerState =>{
-         this.currentState = playerState;
-         if (this.currentState.length > 0){
-             this.checkPositionTimerInterval = setInterval(() => {
-                 this.checkTimePosition();
-             }
-             , 1000);
-         } else {
-           this.positionBarMode= 'buffer'
-         }
-      });
+
+
+      if (this.mopidy$) {
+          this.mopidy$.updatePlayerState$.subscribe(playerState => {
+              this.currentState = playerState;
+              if (this.currentState.length > 0) {
+                  this.checkPositionTimerInterval = setInterval(() => {
+                          this.checkTimePosition();
+                      }
+                      , 1000);
+              } else {
+                  this.positionBarMode = 'buffer'
+              }
+          });
+      }
 
   }
 

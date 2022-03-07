@@ -31,9 +31,8 @@ RUN apt-get update && \
  && python3 -m pip install jinja2 tornado \
  && apt-get remove -y \
     curl \
-    gcc \
-    python3-pip \
-    python3-setuptools \
+    gcc
+
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
 
 #======================================= SNAPCAST INSTALLATION ===================================================#

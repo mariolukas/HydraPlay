@@ -50,8 +50,6 @@ RUN apt-get update && \
  && apt-get remove -y \
     curl \
     gcc \
-    python3-pip \
-    python3-setuptools \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
 
 #======================================= SNAPCAST INSTALLATION ===================================================#

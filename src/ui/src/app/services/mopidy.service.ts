@@ -119,15 +119,6 @@ export class MopidyPlayer {
       }
   }
 
-  private isEndOfTracklist(){
-      from(this.mopidy$.tracklist.getEotTlid()).subscribe((tlid)=>{
-          if (tlid)
-              return false;
-          else
-              return true;
-      });
-  }
-
   public getExtensions():[]{
       return this.extensions;
   }
