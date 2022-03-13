@@ -1,5 +1,19 @@
+@use '@angular/material' as mat;
+
 .media-control{
    height: 480px;
+
+   .source-filter{
+      z-index: 1000;
+      position: absolute;
+      width: 306px;
+      background: #424242;
+      @include mat.elevation(2);
+   }
+
+   .source-filter hide{
+      display: none;
+   }
 
    .extension-checkbox{
       margin-left: 10px;
@@ -27,7 +41,20 @@
    }
 
    .spinner{
-      margin: 30px auto;
+      margin: 120px auto;
+   }
+
+   .filter-icon{
+      float:left;
+      margin-left: 8px;
+      margin-right: 8px;
+      margin-top: -2px;
+   }
+   .filter-open{
+      float: right;
+      font-size: 30px;
+      margin-right: 8px;
+      margin-top: -2px;
    }
 }
 

@@ -246,25 +246,46 @@ export class MopidyPlayer {
              }));
   }
 
-  public search(query:string, extensionFilter:[]):Observable<object> {
+  public search(query:string, extensionFilter:[], mediaFilter:[]):Observable<object> {
 
       let queryElements = query.match(/(".*?"|[^"\s]+)+(?=\s*|\s*$)/g);
       queryElements = queryElements.map(function (el) {
           return el.replace(/"/g, '');
       });
 
-      return from(this.mopidy$.library.search({query:{ 'any' : queryElements }, uris:extensionFilter, exact:false})).pipe(
+     let mediaQuery:any = {};
+
+     /*
+      if(mediaFilter.length > 0) {
+          mediaFilter.forEach( (element) =>{
+                mediaQuery[element] = queryElements;
+          });
+      } else {
+          mediaQuery = { 'any' : queryElements };
+      }*/
+
+      mediaQuery = { 'any' : queryElements };
+
+      return from(this.mopidy$.library.search({query: mediaQuery, uris:extensionFilter, exact:false})).pipe(
           map(searchResult => {
               let combinedSearch: object[] = [];
               if (searchResult) {
                   searchResult.forEach((searchURI, index) => {
-                      if(searchResult[index].tracks) {
-                          searchResult[index].tracks.forEach((track) => {
-                              combinedSearch.push(track);
-                          })
-                      }
+
+                          if (searchResult[index]?.tracks){
+                              searchResult[index].tracks.forEach((track) => {
+                                  combinedSearch.push(track);
+                              })
+                          }
+                          if (searchResult[index].albums) {
+                              searchResult[index].albums.forEach((album) => {
+                                  combinedSearch.push(album);
+                              })
+                          }
+
                   })
               }
+
               return combinedSearch;
           })
       );
@@ -277,6 +298,15 @@ export class MopidyPlayer {
 
   public addTrackToTrackList(track){
       return from(this.mopidy$.tracklist.add({tracks: [track]}));
+  }
+
+  public addAlbumToTrackList(trackURI){
+      from(this.mopidy$.library.lookup({uris: [trackURI]})).subscribe((albumTracks) =>{
+          var trackList = albumTracks[Object.keys(albumTracks)[0]];
+          trackList.forEach(track =>{
+              this.addTrackToTrackList(track);
+          });
+      });
   }
 
   public playTrack(tlid){

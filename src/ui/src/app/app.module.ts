@@ -38,6 +38,7 @@ import {SearchResultListComponent} from "./components/media-control/search-resul
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     MatSnackBarModule,
     MatCheckboxModule,
     DragDropModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSelectModule
   ],
   exports: [],
   providers: [

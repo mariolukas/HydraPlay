@@ -1,13 +1,24 @@
 <mat-list-item matRipple [matRippleRadius]="300" [matRippleCentered]="false" [matRippleUnbounded]="false">
-  <img matListAvatar src="{{coverThumb}}">
+    <img matListAvatar src="{{coverThumb}}">
+    <mat-icon class="media-type">{{mediaTypeIcon}}</mat-icon>
   <div matLine (dblclick)="addAndPlay($event, pTrack)" >
       <p style="font-weight:bold; font-size:18px;" matLine> {{pTrack.name}} <!--<img class="media-source-icon" src="assets/images/{{ pTrack.sourceType }}.png">--> </p>
       <p><span class="disable-text-select"> {{pTrack.artists[0].name}} </span> </p>
   </div>
   <div>
-    <button (mousedown)="$event.stopPropagation()" class="tracklist-options-menu" mat-icon-button>
-        <mat-icon (click)="addToTracklist($event,pTrack)">playlist_add</mat-icon>
-    </button>
+      <button (mousedown)="$event.stopPropagation()" align="end" [matMenuTriggerFor]="playlistMenu"  class="tracklist-options-menu" mat-icon-button>
+        <mat-icon >more_vert</mat-icon>
+      </button>
+      <mat-menu #playlistMenu="matMenu" xPosition="before">
+      <button *ngIf="pTrack.__model__ == 'Track'"  (mousedown)="$event.stopPropagation()" mat-menu-item (click)="addTrackToTracklist($event,pTrack)">
+        <mat-icon>playlist_add</mat-icon>
+        <span>Add Track</span>
+      </button>
+      <button (mousedown)="$event.stopPropagation()" *ngIf="pTrack?.album?.uri || pTrack.__model__ == 'Album'" mat-menu-item (click)="addAlbumToTracklist($event,pTrack)">
+        <mat-icon>playlist_add</mat-icon>
+        <span>Add Album</span>
+      </button>
+      </mat-menu>
   </div>
   <mat-divider></mat-divider>
 </mat-list-item>

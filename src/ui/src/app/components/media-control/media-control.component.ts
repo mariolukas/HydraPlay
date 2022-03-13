@@ -3,6 +3,7 @@ import {SnapcastService} from "../../services/snapcast.service";
 import {MopidyPoolService} from "../../services/mopidy.service";
 import {NotificationService} from "../../services/notification.service";
 
+
 @Component({
   selector: 'app-media-control',
   templateUrl: './media-control.component.html',
@@ -17,7 +18,9 @@ export class MediaControlComponent implements OnInit {
   public waitingForResults:boolean = false;
   private mopidy$: any;
   public searchString: string;
+  public mediaOptionsList: {label: String, type: String, selected:boolean}[] = [];
   public extenstionsOptionsList: {name:string, selected:boolean }[] =[];
+  public filterExpanded: boolean = false;
 
   constructor( private snapcastService: SnapcastService, private mopidyPoolService:MopidyPoolService,
                public notificationService: NotificationService) {
@@ -27,6 +30,22 @@ export class MediaControlComponent implements OnInit {
       this.mopidy$ = this.mopidyPoolService.getMopidyInstanceById(this.group.stream_id)
       this.streams = this.snapcastService.getStreams();
       this.initExtenstionsFilterList();
+      this.mediaOptionsList = [
+          {
+              label: "Track",
+              type: "track_name",
+              selected: true
+          },
+          {
+              label: "Album",
+              type: "album",
+              selected: true
+          }
+      ];
+  }
+
+  public toggleFilterList(){
+      this.filterExpanded = !this.filterExpanded;
   }
 
   public initExtenstionsFilterList(){
@@ -60,12 +79,21 @@ export class MediaControlComponent implements OnInit {
       return filter;
   }
 
+  public getMediaFilterQuery(){
+      let filter = [];
+      this.mediaOptionsList.forEach((mediaType) =>{
+          if (mediaType.selected) filter.push(mediaType.type);
+      })
+      return filter;
+  }
+
   public search(query:string){
     if(query.length > 0) {
         this.waitingForResults = true;
         this.clearSearch();
-        let filter = this.getExtensionsFilterQuery()
-        this.mopidy$.search(query,filter).subscribe(result => {
+        let extensionFilter = this.getExtensionsFilterQuery();
+        let mediaFilter = this.getMediaFilterQuery();
+        this.mopidy$.search(query, extensionFilter, mediaFilter).subscribe(result => {
             this.searchResult = result;
             if(this.searchResult.length == 0) this.notificationService.info(`No results found for '${query}'`);
             //this.hideKeyboard();
