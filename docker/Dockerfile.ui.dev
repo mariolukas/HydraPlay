@@ -17,8 +17,9 @@ RUN apt-get update && \
     gstreamer1.0-libav \
     gstreamer1.0-plugins-ugly \
     gstreamer1.0-tools \
- && export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt && curl  -L https://apt.mopidy.com/mopidy.gpg | apt-key add - \
- && export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt && curl -L https://apt.mopidy.com/mopidy.list -o /etc/apt/sources.list.d/mopidy.list \
+ && mkdir -p /usr/local/share/keyrings \
+ && wget -q -O /usr/local/share/keyrings/mopidy-archive-keyring.gpg https://apt.mopidy.com/mopidy.gpg \
+ && wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/buster.list \
  && apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         mopidy \
