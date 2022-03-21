@@ -1,0 +1,59 @@
+name: build hydraplay release file
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: Get latest tag
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF:10}
+      - name: checkout hydraplay
+        uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: build hydraplay web fronend
+        run: |
+          npm install -g @angular/cli
+          cd src/ui
+          npm i
+          ng build
+          cd
+      - name: get and build snapweb
+        run: |
+          wget -O snapweb-0.2.0.zip https://github.com/badaix/snapweb/archive/refs/tags/v0.2.0.zip
+          unzip snapweb-0.2.0.zip
+          echo "let config = {
+              baseUrl: (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.hostname + ':1780'
+           }" > snapweb-0.2.0/page/config.ts
+          npm install -g typescript@4.3 
+          cd snapweb-0.2.0
+          make dist
+          mv dist ../src/hydraplay/server/static/snapweb
+          cd ..
+          rm snapweb-0.2.0.zip
+          rm -R snapweb-0.2.0
+      - name: zip dist
+        run: zip -r hydraplay-${{ steps.vars.outputs.tag }}.zip . -x "src/ui/*" ".git/*" ".github/*" ".gitignore" "docker-compose.inst-dev.yml" "docker-compose.ui-dev.yml"
+      - name: Push Build to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "hydraplay-${{ steps.vars.outputs.tag }}.zip"
+          token: ${{ secrets.TOKEN }}

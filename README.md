@@ -40,7 +40,7 @@ The scnreenshots below show two connected players and a configuration with two (
 
 The following steps require Docker and Docker Compose to be installed on your system.
 
-[Guid to install Docker](https://docs.docker.com/get-docker/)
+[Guide to install Docker](https://docs.docker.com/get-docker/)
 
 [Guide for Docker Compose](https://docs.docker.com/compose/install/)
 

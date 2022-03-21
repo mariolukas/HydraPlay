@@ -1,6 +1,7 @@
 hydra.private.json
 src/ui/node_modules
 src/hydraplay/server/static/player
+pipes/*
 
 snapweb/
 # Byte-compiled / optimized / DLL files
