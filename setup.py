@@ -179,7 +179,7 @@ class UninstallExtrasCommand(Command):
 
 def params():
     name = "hydraplay"
-    version = "0.2.0"
+    version = "0.7.3"
     description = DESCRIPTION
     long_description = LONG_DESCRIPTION
     author = "Mario Lukas"
@@ -211,6 +211,8 @@ def params():
             "hydraplay = hydraplay.main:main"
         }
     }
+
+    scripts = ['src/hydraplay.sh']
 
     return locals()
 

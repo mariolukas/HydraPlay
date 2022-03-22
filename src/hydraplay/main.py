@@ -64,16 +64,15 @@ def main():
     parser.add_argument("-d", "--debug", action="store_true", dest="debug",
                         help="Enable debug mode")
 
-    # parser.add_argument("--host", action="store", type=str, dest="host",
-    #                     help="Specify the host on which to bind the server")
-
     parser.add_argument("--port", action="store", type=int, dest="port",
                         help="Specify the port on which to bind the server")
 
     parser.add_argument("-c", "--config", action="store", required=False, dest="config",
+                        default="/etc/hydraplay/hydra.config.json",
                         help="Specify the config file to use. HydraPlay needs to have write access for the config dialog to work. Defaults to /etc/hydraplay/hydra.config.json")
 
-    parser.add_argument("--logfile", action="store", dest="logConf", default=None,
+    parser.add_argument("--logfile", action="store", dest="logConf",
+                        default="/var/log/hydraplay/hydraplay.log",
                         help="Define the log file and path for logging. Defaults to /var/log/hydraplay/hydraplay.log")
 
     parser.add_argument("--loglevel", action="store", dest="logLevel", default="debug",

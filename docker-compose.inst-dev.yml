@@ -2,12 +2,13 @@
 ## ui can be run by using ng build --watch for development
 version: "3.5"
 services:
-  hydraplay:
+  hydraplay_install:
     # use platform linux/amd64 if you are running on apple siclicon ( ! requires rosetta ! )
     platform: linux/amd64
     privileged: true
     build:
       context: .
       dockerfile: docker/Dockerfile.inst.dev
-      target: hydraplay
-    container_name: hydraplay
+    volumes:
+      - ./install.sh:/install.sh
+    command: ./install.sh
