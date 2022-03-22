@@ -1,5 +1,0 @@
-RELEASE=buster
-IMG_NAME='hydraplay-server'
-STAGE_LIST="stage0 stage1 stage2 stage-hydraplay"
-ENABLE_SSH=1
-USE_QCOW2=0
