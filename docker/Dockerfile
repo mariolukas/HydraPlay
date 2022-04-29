@@ -16,7 +16,7 @@ COPY src/ui /ui
 RUN ng build
 
 
-FROM debian:buster-slim as hydraplay
+FROM debian:bullseye-slim as hydraplay
 
 #======================================= MOPIDY INSTALLATION ===================================================#
 RUN apt-get update && \
@@ -28,7 +28,7 @@ RUN apt-get update && \
     ca-certificates \
     python3 \
     python3-pip \
-    python3-crypto \
+    python3-cryptography \
     python3-setuptools \
     python3-pykka  \
     python3-gst-1.0 \

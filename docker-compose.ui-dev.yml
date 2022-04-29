@@ -14,6 +14,8 @@ services:
       args:
         SNAPCASTVERSION: 0.26.0
     container_name: hydraplay
+    environment:
+      PYTHONUNBUFFERED: 0
     ports:
       - 8080:8080
       - 1780:1780
@@ -25,3 +27,4 @@ services:
        - ./src/:/app/
        - ./hydra.private.json:/tmp/hydra.config.json
        - ./pipes/:/tmp/additional_streams
+    entrypoint: ["python3", "-u", "/app/hydraplay.sh", "--config", "/tmp/hydra.config.json", "--loglevel", "debug"]

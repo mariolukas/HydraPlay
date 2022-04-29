@@ -1,4 +1,4 @@
-FROM debian:buster-slim as hydraplay
+FROM debian:bullseye-slim as hydraplay
 
 #======================================= MOPIDY INSTALLATION ===================================================#
 RUN apt-get update && \
@@ -10,7 +10,7 @@ RUN apt-get update && \
     ca-certificates \
     python3 \
     python3-pip \
-    python3-crypto \
+    python3-cryptography  \
     python3-setuptools \
     python3-pykka  \
     python3-gst-1.0 \
@@ -54,6 +54,8 @@ RUN export SNAPCAST_ARCH=$TARGETARCH \
  && mkdir -p /app \
  && mkdir -p /temp/additional_streams \
  && mkdir -p /root/.config/snapcast/ \
+ && mkdir -p /var/log/hydraplay/ \
+ && touch /var/log/hydraplay/hydraplay.log \
  &&	touch /tmp/hydra.config.json \
  &&	chmod 664 /tmp/hydra.config.json \
  && chmod a+x /app/hydraplay.sh \
