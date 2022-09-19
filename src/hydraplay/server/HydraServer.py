@@ -1,5 +1,6 @@
 from hydraplay.server.handler.StaticFileHandler import StaticFileHandler
 from hydraplay.server.handler.MopidySettingsHandler import MopidySettingsHandler
+from hydraplay.server.handler.MopidyExtensionHandler import MopidyExtensionHandler
 from hydraplay.server.SnapCastService import SnapCastService
 from hydraplay.server.MopidyPoolService import MopidyPoolService
 from hydraplay.config import Config
@@ -63,7 +64,8 @@ class HydraServer:
 
     def routes(self):
         return tornado.web.Application([
+            (r"/api/mopidy/local/scan", MopidyExtensionHandler),
             (r"/api/mopidy/settings", MopidySettingsHandler, {"config": self.config}),
             (r"/client/(.*)", StaticFileHandler, {"path": self.static_files+"/snapweb", "default_filename": "index.html"}),
-            (r"/(.*)", StaticFileHandler, {"path": self.static_files+"/player", "default_filename": "index.html"})
+            (r"/(.*)", StaticFileHandler, {"path": self.static_files+"/player", "default_filename": "index.html"}),
         ])

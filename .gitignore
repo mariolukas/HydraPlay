@@ -9,7 +9,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.pyc
-
+mp3/*
 .idea/
 .github/act/my.secrets
 .DS_Store

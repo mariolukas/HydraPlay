@@ -2,11 +2,9 @@
     <mat-card-header color="primary">
         <mat-icon *ngIf="getNumberOfActiveClients() == 1" mat-card-avatar>speaker</mat-icon>
         <mat-icon *ngIf="getNumberOfActiveClients() > 1" mat-card-avatar>speaker_group</mat-icon>
-
         <mat-card-title><span>{{connectedClientList}}</span></mat-card-title>
         <mat-card-subtitle><span>{{group.stream_id}}</span></mat-card-subtitle>
     </mat-card-header>
-
     <div>
         <app-player-control *ngIf="currentSelectedAction == 'player-control'" [group]="group"></app-player-control>
         <app-zone-control *ngIf="currentSelectedAction == 'zone-control'" [group]="group"></app-zone-control>

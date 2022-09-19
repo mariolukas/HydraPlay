@@ -27,4 +27,5 @@ services:
        - ./src/:/app/
        - ./hydra.private.json:/tmp/hydra.config.json
        - ./pipes/:/tmp/additional_streams
+       - ./mp3:/media
     entrypoint: ["python3", "-u", "/app/hydraplay.sh", "--config", "/tmp/hydra.config.json", "--loglevel", "debug"]

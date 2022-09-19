@@ -34,6 +34,10 @@
 			"bandcamp": {
 				"enabled": false,
 				"identity": "<your_id_here_see_extension_docs>"
+			},
+			"local": {
+				"enabled": true,
+				"media_dir": "/media"
 			}
 		}
 	},
