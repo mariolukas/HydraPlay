@@ -18,11 +18,11 @@ class SnapCastService(threading.Thread):
 
     def run(self):
 
-        #for idx, additional_stream in enumerate(self.config['snapcast_server']['additional_streams']):
-        #    if self.config['snapcast_server']['additional_streams'][idx]['source_type'] == "fifo":
-        #        # create a fifo for each stream
-        #        command = ['mkfifo', '/tmp/stream_{0}.fifo'.format(self.config['mopidy']['instances']+idx)]
-        #        Executor("FIFO Task".format(self.config['mopidy']['instances']+idx), command).start()
+        for idx, additional_stream in enumerate(self.config['snapcast_server']['additional_streams']):
+           if self.config['snapcast_server']['additional_streams'][idx]['source_type'] == "fifo":
+               # create a fifo for each stream
+               command = ['mkfifo', '/tmp/additional_streams/stream_{0}.fifo'.format(self.config['mopidy']['instances']+idx)]
+               Executor("FIFO Task".format(self.config['mopidy']['instances']+idx), command).start()
 
         self.executor = Executor("Snapcast Server", self.command)
         self.generate_config()

@@ -1,12 +1,12 @@
 .mat-tab-body-content { overflow: unset;}
 
 .center-vertically{
-    display:flex;
+
     align-items: center;
 }
 
 .zone{
-  width: 305px;
+
   height: 600px;
   margin:10px 5px;
 
@@ -42,16 +42,16 @@
   }
 
   .client-list{
-    width:307px;
+
     height:400px;
 
     mat-list-option{
       div{
-        display:flex;
+
         justify-content:space-between;
         align-items:center;
         div{
-          display:flex;
+
           align-items:center;
           div{
             width: 210px;
@@ -118,6 +118,6 @@ mat-tab-group {
     overflow: hidden;
 
     mat-list{
-      width: 305px;
+
     }
 }

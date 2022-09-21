@@ -44,7 +44,16 @@
 	"snapcast_server":{
 		"server_port": 1704,
 		"remote_port": 1705,
-		"additional_streams":[],
+		"additional_streams":[
+			{
+				"label": "BLUETOOTH",
+				"source_type": "fifo"
+			},
+			{
+				"label": "BLUETOOTH2",
+				"source_type": "fifo"
+			}
+		],
 		"config_path": "/tmp/",
 		"codec": "flac"
 	}
