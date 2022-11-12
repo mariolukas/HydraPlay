@@ -1,6 +1,22 @@
+<mat-toolbar>
+  <span>HydraPlay</span>
+  <span class="fill-space"></span>
+</mat-toolbar>
 <div class="viewport">
-    <ng-container *ngFor="let group of groups">
-        <app-player [group]="group" ></app-player>
+    <!-- Desktop -->
+    <div *ngIf="groups.length == 0" class="no-clients">No client connected</div>
+    <ng-container  *ngIf="!isMobileDevice" >
+        <app-player  *ngFor="let group of groups" [group]="group" ></app-player>
     </ng-container>
-</div>
 
+    <!-- Mobile -->
+    <ng-container *ngIf="isMobileDevice">
+        <swiper [config]="swiperConfig" style="width: 100%; height: 88vh;">
+            <ng-template swiperSlide *ngFor="let group of groups">
+                 <app-player style="width: 100%; height: 100%" [group]="group" ></app-player>
+            </ng-template>
+        </swiper>
+        <div class="player-pagination"></div>
+    </ng-container>
+
+</div>

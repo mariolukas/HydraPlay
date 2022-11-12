@@ -1,32 +1,48 @@
-.mat-tab-body-content { overflow: unset;}
+@import "mixins";
+
+.mat-card-footer{
+  @include desktop{
+    bottom: 0.4em;
+  };
+
+  bottom: 10px;
+
+  position: absolute;
+  width: 100%;
+}
+
+.mat-tab-body-content {
+  overflow: unset;
+}
 
 .center-vertically{
-
     align-items: center;
 }
 
 .zone{
+  // position: relative;
+  height: inherit;
+  flex-direction: column;
 
-  height: 600px;
+  @include desktop {
+    width: 310px;
+    height: 665px;
+  }
   margin:10px 5px;
 
   mat-card-header{
-    margin-bottom:15px;
+    margin-bottom:0.5em;
   }
 
   mat-card-title{
-    width: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .action-carousel{
-    height: 480px;
-
+  mat-card-actions{
+    margin-bottom: 0px;
   }
-
-
 
   .zone-volume-sliders{
     margin-top:20px;
@@ -70,7 +86,18 @@
 
   .footer {
     display: flex;
+
+    /*
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    */
+
+    /*
+    position: absolute;
+    bottom: 0*/
   }
+
 
   .footer .action{
     text-align: center;
@@ -89,7 +116,6 @@
     }
   }
 
-
   .footer.space-around {
     justify-content: space-around;
   }
@@ -97,7 +123,6 @@
   .footer.space-between {
     justify-content: space-between;
   }
-
 
 }
 
@@ -111,13 +136,9 @@ mat-tab-group {
 }
 
 .playlist{
-     height: 480px;
+    height: 480px;
     bottom: 65px;
     background: #424242;
     z-index: 100;
     overflow: hidden;
-
-    mat-list{
-
-    }
 }

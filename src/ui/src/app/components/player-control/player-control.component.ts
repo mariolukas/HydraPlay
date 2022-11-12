@@ -105,6 +105,10 @@ export class PlayerControlComponent implements OnInit {
       this.groupVolumeSliderValue = volume;
   }
 
+  public touchEventHandler(event:any){
+        event.stopImmediatePropagation();
+  }
+
   public setGroupVolume(group: any, event:any) {
 
     this.groupVolume = this.groupVolumeSliderValue;
@@ -134,7 +138,6 @@ export class PlayerControlComponent implements OnInit {
         // TODO: use batch request to update all client volumes at once
         this.snapcastService.setVolume(client_id, new_volume, false);
     }
-
   }
 
   private handleSnapCastNotification(event){
