@@ -1,14 +1,22 @@
 @import "mixins";
 
+.mat-card{
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 16px;
+  padding-top:16px
+
+}
+
 .mat-card-footer{
   @include desktop{
     bottom: 0.4em;
   };
 
   bottom: 10px;
-
   position: absolute;
   width: 100%;
+  margin-left: 0px;
 }
 
 .mat-tab-body-content {
@@ -23,6 +31,12 @@
   // position: relative;
   height: inherit;
   flex-direction: column;
+  display: flex;
+  align-content: center;
+  flex-wrap: nowrap;
+  margin-left: -16px;
+  margin-right: -16px;
+
 
   @include desktop {
     width: 310px;
@@ -32,6 +46,17 @@
 
   mat-card-header{
     margin-bottom:0.5em;
+    margin-left: 16px;
+  }
+
+  .player-content{
+      width: 100%;
+  }
+
+  mat-card-content{
+    display: flex;
+    flex: 1;
+    margin-bottom: 4em;
   }
 
   mat-card-title{
@@ -86,16 +111,7 @@
 
   .footer {
     display: flex;
-
-    /*
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
-    */
-
-    /*
-    position: absolute;
-    bottom: 0*/
+    margin-left: 0px;
   }
 
 

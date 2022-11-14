@@ -6,8 +6,6 @@
   height: 90%;
 }
 
-
-
 .swiper-slide {
     flex-shrink: 0;
     width: 100%;
@@ -16,13 +14,10 @@
     transition-property: transform;
 }
 
-
-
 :root {
     --swiper-theme-color: #7b1fa2;
    --swiper-pagination-bullet-size: 12px;
 }
-
 
 .material-icons{
     font-family: 'Material Icons' !important;

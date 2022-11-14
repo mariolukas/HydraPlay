@@ -1,11 +1,15 @@
 @use '@angular/material' as mat;
 
 .media-control{
-   height: 480px;
+   height: 80%;
+   justify-content: space-between;
+
+   .mat-form-field{
+      display: block;
+   }
 
    .source-filter{
       z-index: 1000;
-      position: absolute;
       //width: 306px;
       background: #424242;
       @include mat.elevation(2);

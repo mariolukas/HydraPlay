@@ -1,5 +1,5 @@
-<mat-divider></mat-divider>
 <div class="media-control">
+  <mat-divider></mat-divider>
   <div class="search-input-field">
     <mat-form-field appearance="fill" class="search-form">
       <mat-icon matPrefix>search</mat-icon>
@@ -7,23 +7,27 @@
       <input [(ngModel)]="searchString" matInput #searchBox (change)="search(searchBox.value)" autocomplete=“off” type="text" >
     </mat-form-field>
   </div>
-    <div class="source-filter">
-         <div *ngIf="searchResult.length > 0 || (waitingForResults && filterExpanded)">
-             <mat-icon class="filter-icon" matPrefix>filter_list</mat-icon>Filter
-             <div matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="toggleFilterList()" class="filter-open">
-                <mat-icon *ngIf="!filterExpanded" matPrefix>expand_more</mat-icon>
-                <mat-icon *ngIf="filterExpanded" matPrefix>expand_less</mat-icon>
+    <div style="border: 1px solid red; height: 75%">
+        <div class="source-filter">
+             <div *ngIf="searchResult.length > 0 || (waitingForResults && filterExpanded)">
+                 <mat-icon class="filter-icon" matPrefix>filter_list</mat-icon>Filter
+                 <div matRipple [matRippleRadius]="25" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="toggleFilterList()" class="filter-open">
+                    <mat-icon *ngIf="!filterExpanded" matPrefix>expand_more</mat-icon>
+                    <mat-icon *ngIf="filterExpanded" matPrefix>expand_less</mat-icon>
+                 </div>
              </div>
-         </div>
-         <section *ngIf="searchResult.length == 0 || filterExpanded" style="padding:10px; clear: both; margin-top: 10px;">
-            <mat-checkbox *ngFor="let extension of extenstionsOptionsList" [checked]="extension.selected" [value]="extension.name" (change)="extensionFilterChanged(extension,$event)" class="extension-checkbox">{{ extension.name }}</mat-checkbox>
-         </section>
-        <!--
-         <section *ngIf="searchResult.length == 0 || filterExpanded" style="padding:10px; clear: both; margin-top: 10px;">
-            <mat-checkbox *ngFor="let media of mediaOptionsList" [checked]="media.selected" [value]="media.type"  class="extension-checkbox">{{ media.label }}</mat-checkbox>
-         </section>-->
-     </div>
-   <mat-spinner *ngIf="waitingForResults" class="spinner" [diameter]="50"></mat-spinner>
-   <app-search-result-list [results]="searchResult" [group]="group"></app-search-result-list>
-   <div class="search-result-label" *ngIf="!waitingForResults && searchString">{{searchResult.length}} Results</div>
+
+             <section *ngIf="searchResult.length == 0 || filterExpanded" style="padding:10px; clear: both; margin-top: 10px;">
+                <mat-checkbox *ngFor="let extension of extenstionsOptionsList" [checked]="extension.selected" [value]="extension.name" (change)="extensionFilterChanged(extension,$event)" class="extension-checkbox">{{ extension.name }}</mat-checkbox>
+             </section>
+            <!--
+             <section *ngIf="searchResult.length == 0 || filterExpanded" style="padding:10px; clear: both; margin-top: 10px;">
+                <mat-checkbox *ngFor="let media of mediaOptionsList" [checked]="media.selected" [value]="media.type"  class="extension-checkbox">{{ media.label }}</mat-checkbox>
+             </section>-->
+       </div>
+
+       <mat-spinner *ngIf="waitingForResults" class="spinner" [diameter]="50"></mat-spinner>
+       <app-search-result-list [results]="searchResult" [group]="group"></app-search-result-list>
+       <div class="search-result-label" *ngIf="!waitingForResults && searchString">{{searchResult.length}} Results</div>
+   </div>
 </div>

@@ -7,6 +7,12 @@
         width: 80%;
         margin: 1em auto;
     }
+
+    @include xm-phone-portrait{
+         width: 80%;
+         margin: 1em auto;
+    }
+
     width: 95%;
 
   }
@@ -30,6 +36,8 @@
 
   .track-info {
 
+
+
     @include xl-phone-portrait{
         .mat-card-image{
           //margin: 0 -16px 0px -16px;
@@ -47,10 +55,7 @@
       color: white;
       padding: 0.4em;
       padding: 5px;
-      margin-left: -16px;
-      margin-right: -16px;
       opacity: 70%;
-
 
       @include  xm-phone-portrait{
         margin-top: -3em;
@@ -86,11 +91,14 @@
 
   .controls {
 
-   // margin-top: 0.5em;
+    @include desktop{
+       margin-top: 2.3em;
+    }
+   //
     text-align: center;
     font-size: 20px;
 
-     margin: 1em;
+     margin-top: 1.1em;
 
     .previous-track-button {
       margin: 0px 15px;
