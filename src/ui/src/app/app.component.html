@@ -1,5 +1,25 @@
-<div class="viewport" style="display: flex">
-    <ng-container *ngFor="let group of groups">
-        <app-player [group]="group" ></app-player>
+<mat-toolbar>
+  <span>HydraPlay</span>
+  <span class="fill-space"></span>
+</mat-toolbar>
+<div class="viewport">
+
+    <!-- Desktop -->
+    <div *ngIf="groups.length == 0" class="no-clients">No client connected</div>
+    <ng-container  *ngIf="!isMobileDevice" >
+        <app-player  *ngFor="let group of groups" [group]="group" ></app-player>
     </ng-container>
+
+    <!-- Mobile -->
+    <ng-container *ngIf="isMobileDevice">
+        <swiper [config]="swiperConfig" class="player-carousel">
+            <ng-template swiperSlide *ngFor="let group of groups">
+                 <app-player class="app-player-mobile" [group]="group" ></app-player>
+            </ng-template>
+        </swiper>
+
+            <div class="player-pagination"></div>
+
+    </ng-container>
+
 </div>

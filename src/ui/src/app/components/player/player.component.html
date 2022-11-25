@@ -4,37 +4,39 @@
         <mat-icon *ngIf="getNumberOfActiveClients() > 1" mat-card-avatar>speaker_group</mat-icon>
         <mat-card-title><span>{{connectedClientList}}</span></mat-card-title>
         <mat-card-subtitle><span>{{group.stream_id}}</span></mat-card-subtitle>
+        <mat-divider class="mat-header-devider"></mat-divider>
     </mat-card-header>
-    <div>
-        <app-player-control *ngIf="currentSelectedAction == 'player-control'" [group]="group"></app-player-control>
-        <app-zone-control *ngIf="currentSelectedAction == 'zone-control'" [group]="group"></app-zone-control>
-        <app-playlist-control *ngIf="currentSelectedAction == 'playlist-control'" [group]="group"></app-playlist-control>
-        <app-media-control  *ngIf="currentSelectedAction == 'media-control'" [group]="group"></app-media-control>
-        <app-volume-control *ngIf="currentSelectedAction == 'volume-control'" [group]="group"></app-volume-control>
-
-    </div>
-    <mat-divider></mat-divider>
-    <mat-card-actions class="footer space-around" align="end" color="Primary">
-        <div class="action" [ngClass]="{'active': currentSelectedAction === 'player-control'}" matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="selectAction('player-control')">
-            <mat-icon >play_circle_filled</mat-icon>
-            <div>Player</div>
-        </div>
-        <div class="action" [ngClass]="{'active': currentSelectedAction === 'zone-control'}" matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="selectAction('zone-control')">
-            <mat-icon  >cast</mat-icon>
-            <div>Zones</div>
-        </div>
-        <div class="action" [ngClass]="{'active': currentSelectedAction === 'playlist-control'}"  matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="selectAction('playlist-control')">
-            <mat-icon>library_music</mat-icon>
-            <div>Playlist</div>
-        </div>
-        <div class="action" [ngClass]="{'active': currentSelectedAction === 'media-control'}"  matRipple [matRippleRadius]="30"  (click)="selectAction('media-control')" [matRippleCentered]="true" [matRippleUnbounded]="true">
-            <mat-icon>search</mat-icon>
-            <div>Media</div>
-        </div>
-        <div *ngIf="getNumberOfActiveClients() > 1" class="action" [ngClass]="{'active': currentSelectedAction === 'volume-control'}" (click)="selectAction('volume-control')" matRipple [matRippleRadius]="30"
-                      [matRippleCentered]="true" [matRippleUnbounded]="true">
-            <mat-icon>tune</mat-icon>
-            <div>Tune</div>
-        </div>
-    </mat-card-actions>
+    <mat-card-content>
+        <app-player-control *ngIf="currentSelectedAction == 'player-control'" [group]="group" class="player-content"></app-player-control>
+        <app-zone-control *ngIf="currentSelectedAction == 'zone-control'" [group]="group" class="player-content"></app-zone-control>
+        <app-playlist-control *ngIf="currentSelectedAction == 'playlist-control'" [group]="group" class="player-content"></app-playlist-control>
+        <app-media-control style="position: relative; display: block; height: 100%;"  *ngIf="currentSelectedAction == 'media-control'" [group]="group" class="player-content"></app-media-control>
+        <app-volume-control *ngIf="currentSelectedAction == 'volume-control'" [group]="group" class="player-content"></app-volume-control>
+    </mat-card-content>
+    <mat-card-footer>
+        <mat-divider></mat-divider>
+        <mat-card-actions class="footer space-around" color="Primary">
+            <div class="action" [ngClass]="{'active': currentSelectedAction === 'player-control'}" matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="selectAction('player-control')">
+                <mat-icon >play_circle_filled</mat-icon>
+                <div>Player</div>
+            </div>
+            <div class="action" [ngClass]="{'active': currentSelectedAction === 'zone-control'}" matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="selectAction('zone-control')">
+                <mat-icon  >cast</mat-icon>
+                <div>Zones</div>
+            </div>
+            <div class="action" [ngClass]="{'active': currentSelectedAction === 'playlist-control'}"  matRipple [matRippleRadius]="30" [matRippleCentered]="true" [matRippleUnbounded]="true" (click)="selectAction('playlist-control')">
+                <mat-icon>library_music</mat-icon>
+                <div>Playlist</div>
+            </div>
+            <div class="action" [ngClass]="{'active': currentSelectedAction === 'media-control'}"  matRipple [matRippleRadius]="30"  (click)="selectAction('media-control')" [matRippleCentered]="true" [matRippleUnbounded]="true">
+                <mat-icon>search</mat-icon>
+                <div>Media</div>
+            </div>
+            <div *ngIf="getNumberOfActiveClients() > 1" class="action" [ngClass]="{'active': currentSelectedAction === 'volume-control'}" (click)="selectAction('volume-control')" matRipple [matRippleRadius]="30"
+                          [matRippleCentered]="true" [matRippleUnbounded]="true">
+                <mat-icon>tune</mat-icon>
+                <div>Tune</div>
+            </div>
+        </mat-card-actions>
+    </mat-card-footer>
 </mat-card>

@@ -21,10 +21,10 @@ default_extension = .m3u8
 
 [audio]
 {% if source_type == "fifo" %}
-output = audioresample ! audio/x-raw,rate=48000,channels=2,format=S16LE ! audioconvert ! wavenc ! filesink location=/tmp/stream_{{ stream_id }}.fifo
+output = audioresample ! audio/x-raw,rate=48000,channels=2,format=S16LE ! audioconvert ! filesink location=/tmp/stream_{{ stream_id }}.fifo
 {% endif %}
 {% if source_type == "tcp" %}
-output = audioresample ! audioconvert ! audio/x-raw,rate=48000,channels=2,format=S16LE ! wavenc ! tcpclientsink host=127.0.0.1 port={{ tcp_port |int + stream_id |int }}
+output = audioresample ! audioconvert ! audio/x-raw,rate=48000,channels=2,format=S16LE ! tcpclientsink host=127.0.0.1 port={{ tcp_port |int + stream_id |int }}
 {% endif %}
 
 #[mpd]

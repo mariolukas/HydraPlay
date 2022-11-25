@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {MopidyPoolService} from "../../../services/mopidy.service";
-import {getSortHeaderNotContainedWithinSortError} from "@angular/material/sort/sort-errors";
 
 @Component({
   selector: 'app-tracklist',

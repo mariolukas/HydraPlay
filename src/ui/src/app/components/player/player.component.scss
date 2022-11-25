@@ -1,32 +1,83 @@
-.mat-tab-body-content { overflow: unset;}
+@import "mixins";
+
+
+.mat-card{
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 16px;
+  padding-top:16px
+
+}
+
+.mat-header-devider {
+  position: absolute;
+  top: 5em;
+  margin-left: -16px;
+  width: 100%;
+}
+
+.mat-card-footer{
+  @include desktop{
+    bottom: 0.4em;
+  };
+
+  bottom: 10px;
+  position: absolute;
+  width: 100%;
+  margin-left: 0px;
+}
+
+.mat-tab-body-content {
+  overflow: unset;
+}
 
 .center-vertically{
-    display:flex;
     align-items: center;
 }
 
 .zone{
-  width: 305px;
-  height: 600px;
+  // position: relative;
+  height: inherit;
+  flex-direction: column;
+  display: flex;
+  align-content: center;
+  flex-wrap: nowrap;
+  margin-left: -16px;
+  margin-right: -16px;
+
+
+  @include desktop {
+    width: 310px;
+    height: 665px;
+  }
   margin:10px 5px;
 
   mat-card-header{
-    margin-bottom:15px;
+    margin-bottom:0.5em;
+    margin-left: 16px;
+  }
+
+
+  .player-content{
+      width: 100%;
+  }
+
+  mat-card-content{
+    display: flex;
+    flex: 1;
+    margin-bottom: 4em;
   }
 
   mat-card-title{
-    width: 250px;
+    width: 280px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .action-carousel{
-    height: 480px;
-
+  mat-card-actions{
+    margin-bottom: 0px;
   }
-
-
 
   .zone-volume-sliders{
     margin-top:20px;
@@ -42,16 +93,16 @@
   }
 
   .client-list{
-    width:307px;
+
     height:400px;
 
     mat-list-option{
       div{
-        display:flex;
+
         justify-content:space-between;
         align-items:center;
         div{
-          display:flex;
+
           align-items:center;
           div{
             width: 210px;
@@ -70,7 +121,9 @@
 
   .footer {
     display: flex;
+    margin-left: 0px;
   }
+
 
   .footer .action{
     text-align: center;
@@ -89,7 +142,6 @@
     }
   }
 
-
   .footer.space-around {
     justify-content: space-around;
   }
@@ -97,7 +149,6 @@
   .footer.space-between {
     justify-content: space-between;
   }
-
 
 }
 
@@ -111,13 +162,9 @@ mat-tab-group {
 }
 
 .playlist{
-     height: 480px;
+    height: 480px;
     bottom: 65px;
     background: #424242;
     z-index: 100;
     overflow: hidden;
-
-    mat-list{
-      width: 305px;
-    }
 }

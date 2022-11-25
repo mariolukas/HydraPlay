@@ -1,4 +1,24 @@
-@import '~animate.css/animate.min.css';
+@import 'animate.css/animate.min.css';
+@import 'swiper/scss';
+@import 'swiper/css/bundle';
+
+.swiper-wrapper{
+  height: 90%;
+}
+
+.swiper-slide {
+    flex-shrink: 0;
+    width: 100%;
+    height: auto;
+    position: relative;
+    transition-property: transform;
+}
+
+:root {
+    --swiper-theme-color: #7b1fa2;
+   --swiper-pagination-bullet-size: 12px;
+}
+
 .material-icons{
     font-family: 'Material Icons' !important;
 }

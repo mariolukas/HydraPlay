@@ -39,6 +39,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { MatSelectModule } from '@angular/material/select';
+import { SwiperModule } from 'swiper/angular';
+import { LayoutModule } from '@angular/cdk/layout';
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
@@ -82,7 +85,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatCheckboxModule,
     DragDropModule,
     MatProgressBarModule,
-    MatSelectModule
+    MatSelectModule,
+    SwiperModule,
+    LayoutModule,
+    MatToolbarModule
   ],
   exports: [],
   providers: [

@@ -67,7 +67,7 @@ COPY src/hydraplay.sh /app/hydraplay.sh
 RUN export SNAPCAST_ARCH=$TARGETARCH \
  && if [ "$TARGETARCH" = "arm" ]; then SNAPCAST_ARCH=${TARGETARCH}hf; fi \
  && apt-get update \
- && apt-get install libavahi-client3 libavahi-common3 libatomic1 \
+ && apt-get install -y libavahi-client3 libavahi-common3 libatomic1 \
  && wget https://github.com/badaix/snapcast/releases/download/v${SNAPCASTVERSION}/snapserver_${SNAPCASTVERSION}-1_${SNAPCAST_ARCH}.deb \
  && dpkg -i --force-all snapserver_${SNAPCASTVERSION}-1_${SNAPCAST_ARCH}.deb \
  && apt-get -f install -y\
@@ -88,7 +88,7 @@ COPY --from=0 /hydraplay /app/hydraplay
 
 EXPOSE 1705
 EXPOSE 1704
-EXPOSE 6680-6699
+EXPOSE 6670-6699
 EXPOSE 8080
 EXPOSE 80
 EXPOSE 443

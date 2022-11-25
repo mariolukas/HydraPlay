@@ -1,14 +1,22 @@
 @use '@angular/material' as mat;
+@import "mixins";
 
 .media-control{
-   height: 480px;
+   height: 100%;
+   justify-content: space-between;
+
+   .mat-form-field{
+      display: block;
+   }
 
    .source-filter{
       z-index: 1000;
-      position: absolute;
-      width: 306px;
+      //width: 306px;
       background: #424242;
       @include mat.elevation(2);
+      position: absolute;
+      width: 100%;
+      top: 4.5em;
    }
 
    .source-filter hide{
@@ -20,8 +28,7 @@
    }
 
    .search-list{
-      height: 340px;
-      overflow: auto;
+        overflow: auto;
    }
 
    .search-result-label{
@@ -32,7 +39,7 @@
 
    .search-form{
       margin-top: 10px;
-      width: 307px;
+
       overflow-y:hidden;
    }
 

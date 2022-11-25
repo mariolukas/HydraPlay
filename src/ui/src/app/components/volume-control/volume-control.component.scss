@@ -1,8 +1,25 @@
+@import "mixins";
 .tune-volumes{
     height: 480px;
 
     .volume-slider-list{
-      height: 360px;
+     overflow: auto;
+
+      @include xs-phone-portrait {
+        height: 45vh;
+      }
+
+      @include xm-phone-portrait{
+        height: 48vh;
+      }
+
+      @include xl-phone-portrait{
+        height: 55vh;
+      }
+
+      @include desktop{
+        height: 54vh;
+  }
 
     }
 

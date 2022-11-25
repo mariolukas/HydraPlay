@@ -1,4 +1,3 @@
-<mat-divider></mat-divider>
 <div class="media-control">
   <div class="search-input-field">
     <mat-form-field appearance="fill" class="search-form">
@@ -15,6 +14,7 @@
                 <mat-icon *ngIf="filterExpanded" matPrefix>expand_less</mat-icon>
              </div>
          </div>
+
          <section *ngIf="searchResult.length == 0 || filterExpanded" style="padding:10px; clear: both; margin-top: 10px;">
             <mat-checkbox *ngFor="let extension of extenstionsOptionsList" [checked]="extension.selected" [value]="extension.name" (change)="extensionFilterChanged(extension,$event)" class="extension-checkbox">{{ extension.name }}</mat-checkbox>
          </section>
@@ -22,7 +22,8 @@
          <section *ngIf="searchResult.length == 0 || filterExpanded" style="padding:10px; clear: both; margin-top: 10px;">
             <mat-checkbox *ngFor="let media of mediaOptionsList" [checked]="media.selected" [value]="media.type"  class="extension-checkbox">{{ media.label }}</mat-checkbox>
          </section>-->
-     </div>
+   </div>
+
    <mat-spinner *ngIf="waitingForResults" class="spinner" [diameter]="50"></mat-spinner>
    <app-search-result-list [results]="searchResult" [group]="group"></app-search-result-list>
    <div class="search-result-label" *ngIf="!waitingForResults && searchString">{{searchResult.length}} Results</div>

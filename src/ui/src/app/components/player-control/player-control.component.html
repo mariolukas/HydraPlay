@@ -1,17 +1,20 @@
 <div class="player-control" >
     <div class="track-info">
-        <img mat-card-image src="{{currentState.coverUri}}" alt="Album Cover">
-        <div class="title">
-                <h4>{{ currentState.artist }}</h4>
-                <h5>{{ currentState.title }}</h5>
-                <!--<h5>{{ currentState.album }}</h5>-->
+        <div>
+            <img mat-card-image src="{{currentState.coverUri}}" alt="Album Cover" class="cover-art  mat-elevation-z1">
+        </div>
+        <div class="title mat-elevation-z1">
+            <h4>{{ currentState.artist }}</h4>
+            <h5>{{ currentState.title }}</h5>
+            <!--<h5>{{ currentState.album }}</h5>-->
+            <!--
             <div class="seekbar-wrapper">
                 <div *ngIf="currentState.length > 0" class="seekbar-time">{{currentTrackPosition}}</div>
                 <mat-progress-bar (click)="seek($event)" class="seekbar" [mode]="positionBarMode" [value]="currentTimePosition"></mat-progress-bar>
                 <div *ngIf="currentState.length > 0" class="seekbar-time">{{timeFromMilliSeconds(currentState.length)}}</div>
             </div>
+            -->
         </div>
-
     </div>
 
     <div class="controls">
@@ -46,7 +49,7 @@
             <mat-icon class="mute" matRipple [matRippleRadius]="25" [matRippleCentered]="true"
                       [matRippleUnbounded]="true" (click)="setVolume(group, 0)">volume_mute
             </mat-icon>
-            <mat-slider (input)="setGroupVolume(group, $event)" [(ngModel)]="groupVolumeSliderValue"
+            <mat-slider (input)="setGroupVolume(group, $event)"  (touchstart)="touchEventHandler($event)" [(ngModel)]="groupVolumeSliderValue"
                         color="primary"
                         [max]="100"
                         [min]="0"

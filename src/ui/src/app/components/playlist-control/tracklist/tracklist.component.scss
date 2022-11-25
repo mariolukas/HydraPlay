@@ -1,3 +1,5 @@
+@import "mixins";
+
 .dialog-card{
   margin-top: 50px;
 }
@@ -13,8 +15,24 @@
 }
 
 .track-list{
-  max-height:355px;
   overflow: auto;
+
+  @include xs-phone-portrait {
+    height: 45vh;
+  }
+
+  @include xm-phone-portrait{
+    height: 48vh;
+  }
+
+  @include xl-phone-portrait{
+    height: 55vh;
+  }
+
+  @include desktop{
+    height: 54vh;
+  }
+
 }
 
 .save-track-list{
@@ -22,7 +40,6 @@
 }
 
 .track-list-wrapper{
-  min-height: 410px;
   overflow: hidden;
 }
 

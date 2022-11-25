@@ -1,0 +1,47 @@
+@mixin xs-phone-portrait {
+  @media only screen and (min-height: 600px) and (max-height: 739px){
+      @content
+  }
+}
+
+@mixin xm-phone-portrait {
+  @media only screen and (min-height: 740px) and (max-height: 799px){
+      @content
+  }
+}
+
+@mixin xl-phone-portrait {
+    @media only screen and (min-height: 800px) and (max-height: 930px){
+      @content
+  }
+}
+
+@mixin phone-portrait {
+  @media only screen and (min-width: 376px) and (max-width: 479px){
+      @content
+  }
+}
+
+@mixin phone-landscape {
+  @media only screen and (min-width: 480px) and (max-width: 767px){
+      @content
+  }
+}
+
+@mixin tablets-portrait {
+  @media only screen and (min-width: 768px) and (max-width: 991px){
+      @content
+  }
+}
+
+@mixin desktop {
+  @media only screen and (min-width: 480px) {
+      @content
+  }
+}
+
+@mixin break($width) {
+    @media screen and (max-width: $width) {
+      @content
+    }
+}

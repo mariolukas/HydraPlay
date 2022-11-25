@@ -1,9 +1,22 @@
+@import "mixins";
+
 .player-control {
 
+  .cover-art{
+    @include xs-phone-portrait{
+        width: 80%;
+        margin: 1em auto;
+    }
 
+    @include xm-phone-portrait{
+         width: 80%;
+         margin: 1em auto;
+    }
 
+    width: 95%;
 
-  height: 480px;
+  }
+
   .seekbar-wrapper{
     display: flex;
   }
@@ -23,23 +36,36 @@
 
   .track-info {
 
-    .title {
-      text-align: center;
-      position: relative;
-      bottom: 88px;
-      background-color: #383838c7;
-      overflow: overlay;
-      /* border-radius: 20px; */
-      color: white;
-      padding: 0.4em;
-      margin: -16px;
-      width: 327px;
-      padding: 5px;
+    @include xl-phone-portrait{
+        .mat-card-image{
+          //margin: 0 -16px 0px -16px;
+          margin: 0 auto;
+        }
     }
 
-    img {
-      width: 337px !important;
-      display: unset;
+    .mat-card-image{
+      margin: 0 auto;
+    }
+
+    .title {
+      text-align: center;
+      background-color: #575656;
+      color: white;
+      padding: 0.4em;
+      padding: 5px;
+      opacity: 70%;
+
+      @include  xm-phone-portrait{
+        margin-top: -3em;
+        position: relative;
+        opacity: 100%;
+      }
+
+      @include xs-phone-portrait{
+        margin-top: -6em;
+        position: relative;
+      }
+
     }
 
     h4 {
@@ -47,8 +73,8 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      width: 270px;
-      margin-left: 20px;
+      margin-left: 1em;
+      margin-top:0.3em;
     }
 
     h5 {
@@ -56,16 +82,21 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      width: 270px;
-      margin-left: 20px;
+      margin-top: 0.3em;
+      margin-left: 1em;
     }
   }
 
   .controls {
+
+    @include desktop{
+       margin-top: 2.3em;
+    }
+   //
     text-align: center;
-    margin-top: -70px;
-    height: 140px;
     font-size: 20px;
+
+     margin-top: 1.1em;
 
     .previous-track-button {
       margin: 0px 15px;
@@ -90,7 +121,7 @@
     }
 
     .volume {
-      margin-top: 15px;
+    //  margin-top: 15px;
 
       mat-icon {
         top: 8px;

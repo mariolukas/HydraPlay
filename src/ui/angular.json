@@ -35,6 +35,12 @@
               "./node_modules/animate.css/animate.min.css",
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/sass",
+                "./node_modules"
+              ]
+            },
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js"
             ]
