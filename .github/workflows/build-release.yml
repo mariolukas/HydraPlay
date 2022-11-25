@@ -15,7 +15,8 @@ jobs:
     steps:
       - name: Get latest tag
         id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF:10}
+        #run: echo ::set-output name=tag::${GITHUB_REF:10}
+        run: echo tag=${GITHUB_REF:10} >> $GITHUB_OUTPUT
       - name: checkout hydraplay
         uses: actions/checkout@v2
       - name: Cache node modules
