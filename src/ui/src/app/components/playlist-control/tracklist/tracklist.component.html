@@ -2,7 +2,22 @@
     <mat-list *ngIf="!trackListDialogIsOpen"  class="track-list" cdkDropList (cdkDropListDropped)="dropTrackListItem($event)">
         <app-tracklist-item *ngFor="let hTrack of tracks" [group]="group" [hTrack]="hTrack"></app-tracklist-item>
     </mat-list>
-    <div *ngIf="trackListDialogIsOpen" class="track-list">
+
+    <div *ngIf="tracks.length > 0 && !trackListDialogIsOpen" matRipple [matRippleDisabled]="true" class="track-list-actions">
+        <div class="track-list-action">
+        </div>
+        <div class="track-list-action">
+             <button (mousedown)="$event.stopPropagation()" (click)="openTrackListDialog()" mat-icon-button>
+                 <mat-icon>save_as</mat-icon>
+             </button>
+        </div>
+        <div class="track-list-action">
+             <button (mousedown)="$event.stopPropagation()" (click)="clearTrackList()" mat-icon-button>
+                 <mat-icon>delete</mat-icon>
+             </button>
+        </div>
+    </div>
+        <div *ngIf="trackListDialogIsOpen" class="track-list">
         <div class="dialog-card">
             <mat-card>
               <mat-card-title style="text-align: center">Save as Playlist</mat-card-title>
@@ -19,20 +34,5 @@
               </mat-card-actions>
             </mat-card>
         </div>
-    </div>
-    <div *ngIf="tracks.length > 0 && !trackListDialogIsOpen" matRipple [matRippleDisabled]="true" class="track-list-actions">
-        <div class="track-list-action">
-        </div>
-        <div class="track-list-action">
-             <button (mousedown)="$event.stopPropagation()" (click)="openTrackListDialog()" mat-icon-button>
-                 <mat-icon>save_as</mat-icon>
-             </button>
-        </div>
-        <div class="track-list-action">
-             <button (mousedown)="$event.stopPropagation()" (click)="clearTrackList()" mat-icon-button>
-                 <mat-icon>delete</mat-icon>
-             </button>
-        </div>
-
     </div>
 </div>

@@ -1,7 +1,48 @@
-.zone-control{
+@import "mixins";
 
-    /*border: 1px solid red;*/
+
+.zone-control{
+   height: 100%;
+
+    .group-list{
+        overflow: auto;
+
+        @include xs-phone-portrait {
+          height: 45vh;
+        }
+
+        @include xm-phone-portrait{
+          height: 48vh;
+        }
+
+        @include xl-phone-portrait{
+          height: 55vh;
+        }
+
+        @include desktop{
+          height: 54vh;
+        }
+    }
+
     .client-list {
+
+        overflow: auto;
+
+        @include xs-phone-portrait {
+          height: 45vh;
+        }
+
+        @include xm-phone-portrait{
+          height: 48vh;
+        }
+
+        @include xl-phone-portrait{
+          height: 55vh;
+        }
+
+        @include desktop{
+          height: 54vh;
+        }
 
       mat-list-option{
         div{

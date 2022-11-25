@@ -1,4 +1,3 @@
-<mat-divider></mat-divider>
 <div class="tune-volumes">
     <mat-tab-group mat-align-tabs="start">
             <mat-tab>
@@ -15,7 +14,7 @@
                             <mat-icon class="volume-mute" matRipple [matRippleRadius]="25"
                                       [matRippleCentered]="true" [matRippleUnbounded]="true">volume_mute
                             </mat-icon>
-                            <mat-slider (input)="updateClientVolume(client.id, $event)"
+                            <mat-slider (touchstart)="touchEventHandler($event)" (input)="updateClientVolume(client.id, $event)"
                                         [(ngModel)]="client.config.volume.percent" color="primary" [max]="100"
                                         [min]="0" [step]="1"></mat-slider>
                             <mat-icon class="volume-up" matRipple [matRippleRadius]="25" [matRippleCentered]="true"

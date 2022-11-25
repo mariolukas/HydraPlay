@@ -1,7 +1,24 @@
+@import "mixins";
+
 .search-list{
-  height:320px;
+
   overflow: auto;
-  margin-top: 30px;
+  margin-top: 1em;
+  @include xs-phone-portrait {
+    height: 44vh;
+  }
+
+  @include xm-phone-portrait{
+    height: 47vh;
+  }
+
+  @include xl-phone-portrait{
+    height: 54vh;
+  }
+
+  @include desktop{
+    height: 53vh;
+  }
 }
 
 

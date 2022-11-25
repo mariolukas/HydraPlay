@@ -1,4 +1,3 @@
-<mat-divider></mat-divider>
 <div class="zone-control">
     <mat-tab-group #groupTabs mat-align-tabs="start">
         <mat-tab >
@@ -6,8 +5,8 @@
                 <mat-icon>cast</mat-icon>
                  <span [matBadgeHidden]="streams?.length == 0" matBadge="{{streams?.length}}" matBadgeOverlap="true" matBadgeColor="accent">Streams</span>
             </ng-template>
-            <mat-list *ngFor="let stream of streams">
-                <app-stream-item [stream]="stream" [group]="group"></app-stream-item>
+            <mat-list class="group-list" >
+                <app-stream-item *ngFor="let stream of streams" [stream]="stream" [group]="group"></app-stream-item>
             </mat-list>
         </mat-tab>
         <mat-tab>

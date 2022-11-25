@@ -16,6 +16,11 @@ export class VolumeControlComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public touchEventHandler(event:any){
+        event.stopImmediatePropagation();
+  }
+
+
   public updateClientVolume(id, event){
       this.snapcastService.setVolume(id, event.value, false);
   }

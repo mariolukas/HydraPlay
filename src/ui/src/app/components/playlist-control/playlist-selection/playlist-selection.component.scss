@@ -1,4 +1,22 @@
+@import "mixins";
+
 .playlist-selection {
-  height:360px;
-  overflow: overlay;
+  overflow: auto;
+
+  @include xs-phone-portrait {
+    height: 45vh;
+  }
+
+  @include xm-phone-portrait{
+    height: 48vh;
+  }
+
+  @include xl-phone-portrait{
+    height: 55vh;
+  }
+
+  @include desktop{
+    height: 54vh;
+  }
+
 }
