@@ -16,7 +16,6 @@
     "@angular/common": "^14.2.12",
     "@angular/compiler": "^14.2.12",
     "@angular/core": "^14.2.12",
-    "@angular/flex-layout": "^13.0.0-beta.38",
     "@angular/forms": "^14.2.12",
     "@angular/material": "14.2.7",
     "@angular/platform-browser": "^14.2.12",
@@ -24,8 +23,7 @@
     "@angular/router": "^14.2.12",
     "ajv": "8.6.3",
     "animate.css": "^4.1.1",
-    "core-js": "^2.6.10",
-    "crypto": "^1.0.1",
+    "core-js": "^3.26.1",
     "hide-virtual-keyboard": "^1.0.1",
     "http": "0.0.0",
     "https": "^1.0.0",
@@ -39,7 +37,8 @@
     "stream": "0.0.2",
     "tls": "0.0.1",
     "tslib": "^1.10.0",
-    "zone.js": "^0.12.0"
+    "zone.js": "^0.12.0",
+    "swiper": "^8.4.4"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^13.1.0",
@@ -51,7 +50,6 @@
     "@types/jasmine": "~3.10.2",
     "@types/jasminewd2": "^2.0.10",
     "@types/node": "^16.11.6",
-    "codelyzer": "^0.0.28",
     "jasmine-core": "^3.10.1",
     "jasmine-spec-reporter": "^7.0.0",
     "karma": "^6.3.4",
