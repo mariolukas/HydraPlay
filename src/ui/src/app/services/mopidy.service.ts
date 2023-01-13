@@ -21,11 +21,12 @@ export interface IStreamState {
 export class MopidyPlayer {
   public mopidy$: Mopidy;
   private id: string;
+  private index: number;
   private notificationService:NotificationService;
   private mopidyPort: string;
   private mopidyIP: string;
   public extensions: [];
-  private protocol: string;
+  private wsProtocol: string;
   public currentTrackList:any;
   public playlists:any;
   public isConnected: boolean;
@@ -37,11 +38,15 @@ export class MopidyPlayer {
 
   constructor(instance: any, hydraplay_config:any, notificationService:NotificationService) {
 
-    this.setWebmopidyProtocol();
+      this.wsProtocol = 'ws://';
+    if (window.location.protocol === 'https:') {
+        this.wsProtocol = 'wss://';
+    }
     this.id = instance.stream_id;
     this.mopidyPort = instance.port;
     this.mopidyIP = instance.ip;
     this.extensions = instance.extensions;
+    this.index = instance.id;
 
     this.notificationService = notificationService;
 
@@ -51,8 +56,12 @@ export class MopidyPlayer {
 
     const url = new URL(window.location.href);
 
+    let wsUrl = `${this.wsProtocol}${url.hostname}:${this.mopidyPort}/mopidy/ws`;
+
     // TODO: check if reverse proxy is enabled in config
-    let wsUrl = `ws://${url.hostname}:${this.mopidyPort}/mopidy/ws`;
+    if (hydraplay_config['ws_uri_routing']) {
+        wsUrl = `${this.wsProtocol}${url.hostname}/ws/stream/${this.index}`;
+    }
 
     this.mopidy$ = new Mopidy({
         webSocketUrl: wsUrl,
@@ -122,14 +131,6 @@ export class MopidyPlayer {
 
   public getExtensions():[]{
       return this.extensions;
-  }
-
-  private setWebmopidyProtocol() {
-      if (location.protocol !== 'https:') {
-          this.protocol = 'ws';
-      } else {
-          this.protocol = 'wss';
-      }
   }
 
   public saveTrackListAsPlayList(name: string){
