@@ -70,6 +70,7 @@ export class SnapcastService {
 
   private getNewWebSocket() {
     return webSocket({
+      // TODO: check if reverse_proxy is enabled...
       url: `ws://${this.snapcastHost}:${this.snapcastPort}/jsonrpc`,
       closeObserver: {
        next: () => {

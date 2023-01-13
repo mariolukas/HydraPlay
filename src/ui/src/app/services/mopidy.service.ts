@@ -35,7 +35,7 @@ export class MopidyPlayer {
 
   public currentPlayerState:IStreamState;
 
-  constructor(instance: any, notificationService:NotificationService) {
+  constructor(instance: any, hydraplay_config:any, notificationService:NotificationService) {
 
     this.setWebmopidyProtocol();
     this.id = instance.stream_id;
@@ -49,8 +49,9 @@ export class MopidyPlayer {
     this.updatePlayerState$ = new BehaviorSubject<IStreamState>(this.currentPlayerState);
     this.updateTrackList$ = new BehaviorSubject<any>(this.currentTrackList);
 
-
     const url = new URL(window.location.href);
+
+    // TODO: check if reverse proxy is enabled in config
     let wsUrl = `ws://${url.hostname}:${this.mopidyPort}/mopidy/ws`;
 
     this.mopidy$ = new Mopidy({
@@ -388,9 +389,11 @@ export class MopidyPoolService {
       const hydraplayHost = url.hostname;
       const hdraplayProtocol = "http";
 
-      this.http.get<any>(hdraplayProtocol + "://" + hydraplayHost + ":" + hydraplayPort + "/api/mopidy/settings").subscribe(settings => {
-        settings.forEach(instance => {
-            let mopidyPlayer = new MopidyPlayer( instance, this.notificationService );
+      this.http.get<any>(hdraplayProtocol + "://" + hydraplayHost + ":" + hydraplayPort + "/api/settings").subscribe(settings => {
+
+        settings['mopidy_instances'].forEach(instance => {
+            // TODO: inject reverse proxy information...
+            let mopidyPlayer = new MopidyPlayer( instance, settings['hydraplay'], this.notificationService );
             this.mopidies.push(mopidyPlayer);
             this.settings = settings;
         });
