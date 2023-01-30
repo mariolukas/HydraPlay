@@ -1,4 +1,5 @@
 FROM debian:bullseye-slim as hydraplay
+ARG TARGETARCH
 
 #======================================= MOPIDY INSTALLATION ===================================================#
 RUN apt-get update && \
@@ -6,6 +7,7 @@ RUN apt-get update && \
     wget \
     curl \
     gcc  \
+    git \
     gnupg \
     ca-certificates \
     python3 \
@@ -17,30 +19,48 @@ RUN apt-get update && \
     gstreamer1.0-libav \
     gstreamer1.0-plugins-ugly \
     gstreamer1.0-tools \
+    libgirepository1.0-dev \
  && mkdir -p /usr/local/share/keyrings \
  && wget -q -O /usr/local/share/keyrings/mopidy-archive-keyring.gpg https://apt.mopidy.com/mopidy.gpg \
  && wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/buster.list \
  && apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         mopidy \
-        mopidy-spotify \
         mopidy-tunein \
         mopidy-soundcloud \
+ && python3 -m pip install --upgrade pip \
  && python3 -m pip install setuptools \
  && python3 -m pip install https://github.com/natumbri/mopidy-youtube/archive/develop.zip \
  && python3 -m pip install --upgrade youtube-dl \
  && python3 -m pip install Mopidy-Bandcamp \
  && python3 -m pip install Mopidy-Local \
  && python3 -m pip install jinja2 tornado \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache \
  && apt-get remove -y \
-    curl \
-    gcc \
- && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
+    gcc
+
+#======================================= Mopidy Spotify Workaround ================================================#
+
+# Install mopidy-spotify-gstspotify (Hack, not released yet!)
+# (https://github.com/kingosticks/mopidy-spotify/tree/gstspotifysrc-hack)
+
+#COPY docker/deb/*.deb /.
+#RUN dpkg -i gst-plugin-spotify_0.9.8_amd64.deb
+
+RUN export GST_ARCH=$TARGETARCH \
+  && if [ "$TARGETARCH" = "arm" ]; then GST_ARCH=${TARGETARCH}hf; fi \
+  && curl -sLO https://github.com/mariolukas/gst-plugins-rs-builder/releases/download/2023-01-26/gst-plugin-spotify_0.9.8_${GST_ARCH}.deb \
+  && dpkg -i gst-plugin-spotify_0.9.8_${GST_ARCH}.deb
+RUN git clone --depth 1 -b gstspotifysrc-hack https://github.com/kingosticks/mopidy-spotify.git mopidy-spotify \
+ && cd mopidy-spotify \
+ && python3 setup.py install \
+ && cd .. \
+ && rm -rf mopidy-spotify
 
 #======================================= SNAPCAST INSTALLATION ===================================================#
 
 ARG SNAPCASTVERSION=0.26.0
-ARG TARGETARCH
+
 
 COPY docker/entrypoint.sh /entrypoint.sh
 COPY src/hydraplay.sh /app/hydraplay.sh
@@ -64,7 +84,12 @@ RUN export SNAPCAST_ARCH=$TARGETARCH \
  && chmod a+x /entrypoint.sh \
  && apt-get remove -y  \
     wget \
+    curl \
+    git \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
+
+
+
 
 #======================================= General Docker configs ===================================================#
 

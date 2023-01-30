@@ -58,8 +58,7 @@ export class MopidyPlayer {
 
     let wsUrl = `${this.wsProtocol}${url.hostname}:${this.mopidyPort}/mopidy/ws`;
 
-    // TODO: check if reverse proxy is enabled in config
-    if (hydraplay_config['ws_uri_routing']) {
+    if (hydraplay_config['ws_uri_proxy']) {
         wsUrl = `${this.wsProtocol}${url.hostname}/ws/stream/${this.index}`;
     }
 
@@ -393,7 +392,6 @@ export class MopidyPoolService {
       this.http.get<any>(hdraplayProtocol + "://" + hydraplayHost + ":" + hydraplayPort + "/api/settings").subscribe(settings => {
 
         settings['mopidy_instances'].forEach(instance => {
-            // TODO: inject reverse proxy information...
             let mopidyPlayer = new MopidyPlayer( instance, settings['hydraplay'], this.notificationService );
             this.mopidies.push(mopidyPlayer);
             this.settings = settings;

@@ -29,6 +29,7 @@ services:
       - 1780:1780
       - 1704:1704
       - 1705:1705
+      - 4070:4070
       - 6680-6690:6680-6690
     volumes:
        # mount src folder for development

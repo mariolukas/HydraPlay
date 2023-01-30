@@ -82,8 +82,8 @@ export class SnapcastService {
 
     this.socket$ = this.getNewWebSocket(hydra_settings);
     const messages = this.socket$.pipe(cfg.reconnect ? this.reconnect : o => o,
-       tap({
-         error: error => console.log(error),
+       tap(error => {
+           console.log(error)
        }), catchError(_ => EMPTY))
     this.messagesSubject$.next(messages);
 
@@ -94,7 +94,7 @@ export class SnapcastService {
   private getNewWebSocket(hydra_settings:any) {
     let wsUrl = `${this.wsProtocol}${this.snapcastHost}:${this.snapcastPort}/jsonrpc`;
 
-    if (hydra_settings['hydraplay']['ws_uri_routing']) {
+    if (hydra_settings['hydraplay']['ws_uri_proxy']) {
        wsUrl = `${this.wsProtocol}${this.snapcastHost}/jsonrpc`;
     }
 

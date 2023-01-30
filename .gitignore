@@ -14,3 +14,4 @@ mp3/*
 .github/act/my.secrets
 .DS_Store
 .github/scripts/build-rpi-os/pi-gen
+docker/deb/*
