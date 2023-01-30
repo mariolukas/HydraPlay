@@ -63,7 +63,6 @@ echo "${clear}"
 apt-get update
 apt-get install -y \
         mopidy \
-        mopidy-spotify \
         mopidy-tunein \
         mopidy-soundcloud
 
@@ -93,6 +92,26 @@ apt-get install libavahi-client3 libavahi-common3 libatomic1
 wget https://github.com/badaix/snapcast/releases/download/v${SNAPCASTVERSION}/snapserver_${SNAPCASTVERSION}-1_${SNAPCAST_ARCH}.deb
 dpkg -i --force-all snapserver_${SNAPCASTVERSION}-1_${SNAPCAST_ARCH}.deb
 apt-get -f install -y
+
+# install spotify workaround
+# Install mopidy-spotify-gstspotify (Hack, not released yet!)
+# (https://github.com/kingosticks/mopidy-spotify/tree/gstspotifysrc-hack)
+
+echo "${green}"
+echo "============================================"
+echo ""
+echo "Install Spotify Workaround"
+echo ""
+echo "============================================"
+echo "${clear}"
+
+curl -sLO https://github.com/mariolukas/gst-plugins-rs-builder/releases/download/2023-01-25/gst-plugin-spotify_0.9.8_amd64.deb
+dpkg -i gst-plugin-spotify_0.9.7_amd64.deb
+git clone --depth 1 -b gstspotifysrc-hack https://github.com/kingosticks/mopidy-spotify.git mopidy-spotify
+cd mopidy-spotify
+python3 setup.py install
+cd ..
+rm -rf mopidy-spotify
 
 echo "${green}"
 echo "============================================"

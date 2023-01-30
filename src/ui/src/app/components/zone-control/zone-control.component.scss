@@ -2,7 +2,7 @@
 
 
 .zone-control{
-   height: 100%;
+     height: 100%;
 
     .group-list{
         overflow: auto;
@@ -20,7 +20,7 @@
         }
 
         @include desktop{
-          height: 54vh;
+          height: 49vh;
         }
     }
 
@@ -41,7 +41,7 @@
         }
 
         @include desktop{
-          height: 54vh;
+          height: 49vh;
         }
 
       mat-list-option{

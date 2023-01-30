@@ -1,7 +1,8 @@
 {
 	"hydraplay": {
-	    "port": 8080,
-		"source_type": "tcp"
+		"port": 8080,
+		"source_type": "tcp",
+		"ws_uri_proxy": "false"
 	},
 	"mopidy":{
 		"mpd_base_port": 6600,
@@ -36,7 +37,7 @@
 				"identity": "<your_id_here_see_extension_docs>"
 			},
 			"local": {
-				"enabled": true,
+				"enabled": false,
 				"media_dir": "/media"
 			}
 		}
@@ -45,14 +46,6 @@
 		"server_port": 1704,
 		"remote_port": 1705,
 		"additional_streams":[
-			{
-				"label": "BLUETOOTH",
-				"source_type": "fifo"
-			},
-			{
-				"label": "BLUETOOTH2",
-				"source_type": "fifo"
-			}
 		],
 		"config_path": "/tmp/",
 		"codec": "flac"

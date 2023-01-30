@@ -25,6 +25,7 @@ RUN apt-get update && \
     curl \
     gcc  \
     gnupg \
+    git \
     ca-certificates \
     python3 \
     python3-pip \
@@ -35,6 +36,7 @@ RUN apt-get update && \
     gstreamer1.0-libav \
     gstreamer1.0-plugins-ugly \
     gstreamer1.0-tools \
+    libgirepository1.0-dev \
  && mkdir -p /usr/local/share/keyrings \
  && wget -q -O /usr/local/share/keyrings/mopidy-archive-keyring.gpg https://apt.mopidy.com/mopidy.gpg \
  && wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/buster.list \
@@ -55,6 +57,20 @@ RUN apt-get update && \
     python3-pip \
     python3-setuptools \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
+
+
+#======================================= INSTALL SPOTIFY WORKAROUND ==============================================#
+
+# Install mopidy-spotify-gstspotify (Hack, not released yet!)
+# (https://github.com/kingosticks/mopidy-spotify/tree/gstspotifysrc-hack)
+
+RUN curl -sLO https://github.com/mariolukas/gst-plugins-rs-builder/releases/download/2023-01-25/gst-plugin-spotify_0.9.8_amd64.deb \
+ && dpkg -i gst-plugin-spotify_0.9.7_amd64.deb \
+ && git clone --depth 1 -b gstspotifysrc-hack https://github.com/kingosticks/mopidy-spotify.git mopidy-spotify \
+ && cd mopidy-spotify \
+ && python3 setup.py install \
+ && cd .. \
+ && rm -rf mopidy-spotify
 
 #======================================= SNAPCAST INSTALLATION ===================================================#
 
@@ -80,6 +96,7 @@ RUN export SNAPCAST_ARCH=$TARGETARCH \
  && chmod a+x /entrypoint.sh \
  && apt-get remove -y  \
     wget \
+    git \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
 
 COPY --from=0 /hydraplay /app/hydraplay

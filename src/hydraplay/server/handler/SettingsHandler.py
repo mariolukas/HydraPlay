@@ -3,7 +3,7 @@ import logging
 import json
 from hydraplay.server.handler.BaseHandler import BaseHandler
 
-class MopidySettingsHandler(BaseHandler):
+class SettingsHandler(BaseHandler):
     def initialize(self, *args, **kwargs):
         self.logger = logging.getLogger(__name__)
         self.config = kwargs.get('config')
@@ -16,6 +16,9 @@ class MopidySettingsHandler(BaseHandler):
         return extensions
 
     def get(self):
+
+        settings = {}
+
         mopidy_instances = []
         for instance in range(self.config.content['mopidy']['instances']):
             port = int(self.config.content['mopidy']['web_base_port']) + instance
@@ -26,5 +29,8 @@ class MopidySettingsHandler(BaseHandler):
             mopidy_instance['extensions'] = self.get_list_of_extensions()
             mopidy_instances.append(mopidy_instance)
 
-        self.write(json.dumps(mopidy_instances))
+        settings['mopidy_instances'] = mopidy_instances
+        settings['hydraplay'] = self.config.content['hydraplay']
+
+        self.write(json.dumps(settings))
 

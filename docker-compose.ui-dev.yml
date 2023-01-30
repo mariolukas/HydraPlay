@@ -2,6 +2,14 @@
 ## ui can be run by using ng build --watch for development
 version: "3.5"
 services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    volumes:
+            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+            - "80:80"
+            - "443:443"
   hydraplay:
     # use platform linux/amd64 if you are running on apple siclicon ( ! requires rosetta ! )
     platform: linux/amd64
@@ -21,6 +29,7 @@ services:
       - 1780:1780
       - 1704:1704
       - 1705:1705
+      - 4070:4070
       - 6680-6690:6680-6690
     volumes:
        # mount src folder for development

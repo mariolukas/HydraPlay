@@ -21,11 +21,12 @@ export interface IStreamState {
 export class MopidyPlayer {
   public mopidy$: Mopidy;
   private id: string;
+  private index: number;
   private notificationService:NotificationService;
   private mopidyPort: string;
   private mopidyIP: string;
   public extensions: [];
-  private protocol: string;
+  private wsProtocol: string;
   public currentTrackList:any;
   public playlists:any;
   public isConnected: boolean;
@@ -35,13 +36,17 @@ export class MopidyPlayer {
 
   public currentPlayerState:IStreamState;
 
-  constructor(instance: any, notificationService:NotificationService) {
+  constructor(instance: any, hydraplay_config:any, notificationService:NotificationService) {
 
-    this.setWebmopidyProtocol();
+      this.wsProtocol = 'ws://';
+    if (window.location.protocol === 'https:') {
+        this.wsProtocol = 'wss://';
+    }
     this.id = instance.stream_id;
     this.mopidyPort = instance.port;
     this.mopidyIP = instance.ip;
     this.extensions = instance.extensions;
+    this.index = instance.id;
 
     this.notificationService = notificationService;
 
@@ -49,9 +54,13 @@ export class MopidyPlayer {
     this.updatePlayerState$ = new BehaviorSubject<IStreamState>(this.currentPlayerState);
     this.updateTrackList$ = new BehaviorSubject<any>(this.currentTrackList);
 
-
     const url = new URL(window.location.href);
-    let wsUrl = `ws://${url.hostname}:${this.mopidyPort}/mopidy/ws`;
+
+    let wsUrl = `${this.wsProtocol}${url.hostname}:${this.mopidyPort}/mopidy/ws`;
+
+    if (hydraplay_config['ws_uri_proxy']) {
+        wsUrl = `${this.wsProtocol}${url.hostname}/ws/stream/${this.index}`;
+    }
 
     this.mopidy$ = new Mopidy({
         webSocketUrl: wsUrl,
@@ -121,14 +130,6 @@ export class MopidyPlayer {
 
   public getExtensions():[]{
       return this.extensions;
-  }
-
-  private setWebmopidyProtocol() {
-      if (location.protocol !== 'https:') {
-          this.protocol = 'ws';
-      } else {
-          this.protocol = 'wss';
-      }
   }
 
   public saveTrackListAsPlayList(name: string){
@@ -388,9 +389,10 @@ export class MopidyPoolService {
       const hydraplayHost = url.hostname;
       const hdraplayProtocol = "http";
 
-      this.http.get<any>(hdraplayProtocol + "://" + hydraplayHost + ":" + hydraplayPort + "/api/mopidy/settings").subscribe(settings => {
-        settings.forEach(instance => {
-            let mopidyPlayer = new MopidyPlayer( instance, this.notificationService );
+      this.http.get<any>(hdraplayProtocol + "://" + hydraplayHost + ":" + hydraplayPort + "/api/settings").subscribe(settings => {
+
+        settings['mopidy_instances'].forEach(instance => {
+            let mopidyPlayer = new MopidyPlayer( instance, settings['hydraplay'], this.notificationService );
             this.mopidies.push(mopidyPlayer);
             this.settings = settings;
         });
