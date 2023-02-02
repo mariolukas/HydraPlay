@@ -1,10 +1,8 @@
 name: build docker image
 
 on:
-  workflow_run:
-    workflows: ["build hydraplay release file"]
-    types:
-      - completed
+  repository_dispatch:
+    types: [build-docker-image]
 jobs:
   docker:
     runs-on: ubuntu-latest

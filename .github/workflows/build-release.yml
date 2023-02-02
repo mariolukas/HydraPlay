@@ -74,3 +74,7 @@ jobs:
           asset_name: hydraplay-${{ steps.vars.outputs.tag }}.zip
           asset_content_type: application/zip
 
+      - name: Trigger Docker image build workflow
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          event-type: build-docker-image
