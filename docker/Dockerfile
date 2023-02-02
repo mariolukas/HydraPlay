@@ -1,4 +1,5 @@
 FROM node:16-alpine as build-frontend
+ARG TARGETARCH
 
 RUN mkdir -p /ui
 
@@ -17,6 +18,7 @@ RUN ng build
 
 
 FROM debian:bullseye-slim as hydraplay
+ARG TARGETARCH
 
 #======================================= MOPIDY INSTALLATION ===================================================#
 RUN apt-get update && \
@@ -46,16 +48,15 @@ RUN apt-get update && \
         mopidy-spotify \
         mopidy-tunein \
         mopidy-soundcloud \
+ && python3 -m pip install setuptools \
  && python3 -m pip install https://github.com/natumbri/mopidy-youtube/archive/develop.zip \
  && python3 -m pip install --upgrade youtube-dl \
  && python3 -m pip install Mopidy-Bandcamp \
  && python3 -m pip install Mopidy-Local \
  && python3 -m pip install jinja2 tornado \
  && apt-get remove -y \
-    curl \
     gcc \
     python3-pip \
-    python3-setuptools \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
 
 
@@ -64,16 +65,11 @@ RUN apt-get update && \
 # Install mopidy-spotify-gstspotify (Hack, not released yet!)
 # (https://github.com/kingosticks/mopidy-spotify/tree/gstspotifysrc-hack)
 
-# Install mopidy-spotify-gstspotify (Hack, not released yet!)
-# (https://github.com/kingosticks/mopidy-spotify/tree/gstspotifysrc-hack)
-
-#COPY docker/deb/*.deb /.
-#RUN dpkg -i gst-plugin-spotify_0.9.8_amd64.deb
-
 RUN export GST_ARCH=$TARGETARCH \
   && if [ "$TARGETARCH" = "arm" ]; then GST_ARCH=${TARGETARCH}hf; fi \
   && curl -sLO https://github.com/mariolukas/gst-plugins-rs-builder/releases/download/2023-01-26/gst-plugin-spotify_0.9.8_${GST_ARCH}.deb \
   && dpkg -i gst-plugin-spotify_0.9.8_${GST_ARCH}.deb
+
 RUN git clone --depth 1 -b gstspotifysrc-hack https://github.com/kingosticks/mopidy-spotify.git mopidy-spotify \
  && cd mopidy-spotify \
  && python3 setup.py install \
@@ -105,6 +101,7 @@ RUN export SNAPCAST_ARCH=$TARGETARCH \
  && apt-get remove -y  \
     wget \
     git \
+    curl \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
 
 COPY --from=0 /hydraplay /app/hydraplay
