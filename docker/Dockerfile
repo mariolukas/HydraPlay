@@ -1,22 +1,3 @@
-FROM node:16-alpine as build-frontend
-ARG TARGETARCH
-
-RUN mkdir -p /ui
-
-WORKDIR /ui
-
-COPY src/ui/package.json /ui
-COPY src/ui/package-lock.json /ui
-COPY src/hydraplay /hydraplay
-RUN npm install -g @angular/cli -g --silent
-
-RUN npm ci
-
-COPY src/ui /ui
-
-RUN ng build
-
-
 FROM debian:bullseye-slim as hydraplay
 ARG TARGETARCH
 
@@ -28,6 +9,8 @@ RUN apt-get update && \
     gcc  \
     gnupg \
     git \
+    unzip \
+    jq \
     ca-certificates \
     python3 \
     python3-pip \
@@ -53,12 +36,7 @@ RUN apt-get update && \
  && python3 -m pip install --upgrade youtube-dl \
  && python3 -m pip install Mopidy-Bandcamp \
  && python3 -m pip install Mopidy-Local \
- && python3 -m pip install jinja2 tornado \
- && apt-get remove -y \
-    gcc \
-    python3-pip \
- && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
-
+ && python3 -m pip install jinja2 tornado
 
 #======================================= INSTALL SPOTIFY WORKAROUND ==============================================#
 
@@ -76,6 +54,16 @@ RUN git clone --depth 1 -b gstspotifysrc-hack https://github.com/kingosticks/mop
  && cd .. \
  && rm -rf mopidy-spotify
 
+#======================================= HYDRAPLAY INSTALLATION ==================================================#
+
+RUN export LATEST_RELEASE_VER=$(curl -sL https://api.github.com/repos/mariolukas/HydraPlay/releases/latest | jq -r ".tag_name") \
+ && export LATEST_RELEASE_ZIP=$(curl -sL https://api.github.com/repos/mariolukas/HydraPlay/releases/latest | jq -r ".assets[].browser_download_url") \
+ && wget ${LATEST_RELEASE_ZIP} \
+ && mkdir -p /tmp/hydraplay \
+ && mkdir -p /app \
+ && unzip hydraplay-${LATEST_RELEASE_VER}.zip "src/*" -d /tmp/hydraplay/ \
+ && cp -R /tmp/hydraplay/src/* /app/.
+
 #======================================= SNAPCAST INSTALLATION ===================================================#
 
 ARG SNAPCASTVERSION=0.26.0
@@ -91,7 +79,6 @@ RUN export SNAPCAST_ARCH=$TARGETARCH \
  && wget https://github.com/badaix/snapcast/releases/download/v${SNAPCASTVERSION}/snapserver_${SNAPCASTVERSION}-1_${SNAPCAST_ARCH}.deb \
  && dpkg -i --force-all snapserver_${SNAPCASTVERSION}-1_${SNAPCAST_ARCH}.deb \
  && apt-get -f install -y\
- && mkdir -p /app \
  && mkdir -p /media \
  && mkdir -p /root/.config/snapcast/ \
  &&	touch /tmp/hydra.config.json \
@@ -102,9 +89,11 @@ RUN export SNAPCAST_ARCH=$TARGETARCH \
     wget \
     git \
     curl \
+    jq \
+    unzip \
+    gcc \
+    python3-pip \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache
-
-COPY --from=0 /hydraplay /app/hydraplay
 
 #======================================= General Docker configs ===================================================#
 

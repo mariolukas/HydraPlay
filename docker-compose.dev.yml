@@ -17,7 +17,7 @@ services:
     #image: mariolukas/hydraplay:latest
     build:
       context: .
-      dockerfile: docker/Dockerfile.ui.dev
+      dockerfile: docker/Dockerfile
       target: hydraplay
       args:
         SNAPCASTVERSION: 0.26.0
@@ -33,8 +33,8 @@ services:
       - 6680-6690:6680-6690
     volumes:
        # mount src folder for development
-       - ./src/:/app/
+       - ./src/:/test/
        - ./hydra.private.json:/tmp/hydra.config.json
        - ./pipes/:/tmp/additional_streams
        - ./mp3:/media
-    entrypoint: ["python3", "-u", "/app/hydraplay.sh", "--config", "/tmp/hydra.config.json", "--loglevel", "debug"]
+    entrypoint: ["python3", "-u", "/test/hydraplay.sh", "--config", "/tmp/hydra.config.json", "--loglevel", "debug"]

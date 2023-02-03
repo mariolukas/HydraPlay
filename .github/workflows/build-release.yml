@@ -52,7 +52,7 @@ jobs:
           rm snapweb-0.2.0.zip
           rm -R snapweb-0.2.0
       - name: zip dist
-        run: zip -r hydraplay-${{ steps.vars.outputs.tag }}.zip . -x "src/ui/*" ".git/*" ".github/*" ".gitignore" "docker-compose.inst-dev.yml" "docker-compose.ui-dev.yml"
+        run: zip -r hydraplay-${{ steps.vars.outputs.tag }}.zip . -x "doc/*" "snapweb/*" "src/ui/*" ".git/*" "docker/*" "src/extras/*" ".github/*" ".gitignore" "docker-compose.inst-dev.yml" "docker-compose.ui-dev.yml"
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -78,3 +78,4 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           event-type: build-docker-image
+          client-payload: '{"tag": "${{ steps.vars.outputs.tag }}"}'

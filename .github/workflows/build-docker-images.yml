@@ -11,7 +11,7 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.event.client_payload.tag }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -35,4 +35,4 @@ jobs:
           platforms: linux/amd64,linux/armhf
           file: docker/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/hydraplay:${{ github.ref_name }},${{ secrets.DOCKERHUB_USERNAME }}/hydraplay:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/hydraplay:${{ github.event.client_payload.tag }},${{ secrets.DOCKERHUB_USERNAME }}/hydraplay:latest
