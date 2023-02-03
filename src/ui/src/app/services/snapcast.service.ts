@@ -95,7 +95,7 @@ export class SnapcastService {
     let wsUrl = `${this.wsProtocol}${this.snapcastHost}:${this.snapcastPort}/jsonrpc`;
 
     if (hydra_settings['hydraplay']['ws_uri_proxy']) {
-       wsUrl = `${this.wsProtocol}${this.snapcastHost}/jsonrpc`;
+       wsUrl = `${this.wsProtocol}${this.snapcastHost}/control/jsonrpc`;
     }
 
     return webSocket({

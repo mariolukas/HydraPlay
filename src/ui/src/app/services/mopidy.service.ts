@@ -59,7 +59,7 @@ export class MopidyPlayer {
     let wsUrl = `${this.wsProtocol}${url.hostname}:${this.mopidyPort}/mopidy/ws`;
 
     if (hydraplay_config['ws_uri_proxy']) {
-        wsUrl = `${this.wsProtocol}${url.hostname}/ws/stream/${this.index}`;
+        wsUrl = `${this.wsProtocol}${url.hostname}/stream/${this.index}/mopidy/ws/`;
     }
 
     this.mopidy$ = new Mopidy({
