@@ -645,7 +645,18 @@ function deleteClient(id) {
     }
 }
 window.onload = function () {
-    snapcontrol = new SnapControl(config.baseUrl);
+
+    fetch("/api/settings")
+    .then((response) => response.json())
+    .then((json) => {
+        if(json['hydraplay']['ws_uri_proxy']){
+            config.baseUrl = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.hostname + '/control'
+        };
+
+        snapcontrol = new SnapControl(config.baseUrl);
+    })
+
+
 };
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
