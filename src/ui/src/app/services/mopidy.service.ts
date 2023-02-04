@@ -387,7 +387,7 @@ export class MopidyPoolService {
       const url = new URL(window.location.href);
       const hydraplayPort = url.port;
       const hydraplayHost = url.hostname;
-      const hdraplayProtocol = "http";
+      const hdraplayProtocol = url.protocol;
 
       this.http.get<any>(hdraplayProtocol + "://" + hydraplayHost + ":" + hydraplayPort + "/api/settings").subscribe(settings => {
 

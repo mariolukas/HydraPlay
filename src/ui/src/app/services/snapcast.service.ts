@@ -66,7 +66,7 @@ export class SnapcastService {
     const url = new URL(window.location.href);
     const hydraplayPort = url.port;
     const hydraplayHost = url.hostname;
-    const hdraplayProtocol = "http";
+    const hdraplayProtocol = url.protocol;
 
     return  this.http.get<any>(hdraplayProtocol + "://" + hydraplayHost + ":" + hydraplayPort + "/api/settings").pipe(map(response=>response));
   }
