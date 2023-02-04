@@ -389,7 +389,7 @@ export class MopidyPoolService {
       const hydraplayHost = url.hostname;
       const hdraplayProtocol = url.protocol;
 
-      this.http.get<any>(hdraplayProtocol + "://" + hydraplayHost + ":" + hydraplayPort + "/api/settings").subscribe(settings => {
+      this.http.get<any>(hdraplayProtocol + "//" + hydraplayHost + ":" + hydraplayPort + "/api/settings").subscribe(settings => {
 
         settings['mopidy_instances'].forEach(instance => {
             let mopidyPlayer = new MopidyPlayer( instance, settings['hydraplay'], this.notificationService );

@@ -68,7 +68,7 @@ export class SnapcastService {
     const hydraplayHost = url.hostname;
     const hdraplayProtocol = url.protocol;
 
-    return  this.http.get<any>(hdraplayProtocol + "://" + hydraplayHost + ":" + hydraplayPort + "/api/settings").pipe(map(response=>response));
+    return  this.http.get<any>(hdraplayProtocol + "//" + hydraplayHost + ":" + hydraplayPort + "/api/settings").pipe(map(response=>response));
   }
 
   public async connect(cfg: { reconnect: boolean } = { reconnect: false }) {
