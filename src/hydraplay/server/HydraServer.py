@@ -73,4 +73,4 @@ class HydraServer:
             (r"/api/settings", SettingsHandler, {"config": self.config}),
             (r"/client/(.*)", StaticFileHandler, {"path": self.static_files+"/snapweb", "default_filename": "index.html"}),
             (r"/(.*)", StaticFileHandler, {"path": self.static_files+"/player", "default_filename": "index.html"}),
-        ], cookie_secret="__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__")
+        ], cookie_secret=self.config.content['hydraplay']['cookie_secret'])

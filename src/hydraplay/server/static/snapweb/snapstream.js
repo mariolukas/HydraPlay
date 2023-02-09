@@ -197,7 +197,7 @@ class HelloMessage extends JsonMessage {
     }
     mac = "";
     hostname = "";
-    version = "0.1.0";
+    version = "0.0.0";
     clientName = "Snapweb";
     os = "";
     arch = "web";
@@ -734,6 +734,9 @@ class SnapStream {
         }
         return true;
     }
+    static getClientId() {
+        return getPersistentValue("uniqueId", uuidv4());
+    }
     connect() {
         this.streamsocket = new WebSocket(this.baseUrl + '/stream');
         this.streamsocket.binaryType = "arraybuffer";
@@ -745,7 +748,9 @@ class SnapStream {
             hello.arch = "web";
             hello.os = navigator.platform;
             hello.hostname = "Snapweb client";
-            hello.uniqueId = getPersistentValue("uniqueId", uuidv4());
+            hello.uniqueId = SnapStream.getClientId();
+            const versionElem = document.getElementsByTagName("meta").namedItem("version");
+            hello.version = versionElem ? versionElem.content : "0.0.0";
             this.sendMessage(hello);
             this.syncTime();
             this.syncHandle = window.setInterval(() => this.syncTime(), 1000);
