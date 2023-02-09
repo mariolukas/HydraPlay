@@ -68,7 +68,7 @@ RUN export LATEST_RELEASE_VER=$(curl -sL https://api.github.com/repos/mariolukas
 
 #======================================= SNAPCAST INSTALLATION ===================================================#
 
-ARG SNAPCASTVERSION=0.26.0
+ARG SNAPCASTVERSION=0.27.0
 ARG TARGETARCH
 
 COPY docker/entrypoint.sh /entrypoint.sh

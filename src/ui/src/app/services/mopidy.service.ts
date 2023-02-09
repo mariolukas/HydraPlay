@@ -38,7 +38,7 @@ export class MopidyPlayer {
 
   constructor(instance: any, hydraplay_config:any, notificationService:NotificationService) {
 
-      this.wsProtocol = 'ws://';
+    this.wsProtocol = 'ws://';
     if (window.location.protocol === 'https:') {
         this.wsProtocol = 'wss://';
     }
@@ -58,8 +58,8 @@ export class MopidyPlayer {
 
     let wsUrl = `${this.wsProtocol}${url.hostname}:${this.mopidyPort}/mopidy/ws`;
 
-    if (hydraplay_config['ws_uri_proxy']) {
-        wsUrl = `${this.wsProtocol}${url.hostname}/stream/${this.index}/mopidy/ws`;
+    if (hydraplay_config['use_ws_proxy']) {
+        wsUrl = `${this.wsProtocol}${url.hostname}/socket/stream/${this.index}/mopidy/ws`;
     }
 
     this.mopidy$ = new Mopidy({
@@ -69,6 +69,8 @@ export class MopidyPlayer {
     this.mopidy$.on('state', (state) => {
         console.log(`[Mopidy_${this.id}][state] ${state}`);
         switch (state) {
+            case 'websocket:open':
+                break;
             case 'state:online':
                 this.isConnected = true;
                 this.setCurrentTrackState();

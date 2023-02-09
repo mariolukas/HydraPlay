@@ -1,6 +1,7 @@
 import threading
 import subprocess
 import logging
+import re
 
 class Executor(threading.Thread):
 
@@ -22,14 +23,43 @@ class Executor(threading.Thread):
                                             universal_newlines=True,
                                             )
             for stdout_line in iter(self.process.stdout.readline, ""):
-                self.logger.debug(stdout_line.strip())
+                line = stdout_line.strip()
+
+                if ('Mopidy' in self.label):
+                    # mopidy log filter, removes redundant log information
+                    filtered_line = re.sub(r'(INFO|DEBUG|ERROR)(\s+)\d+-\d+-\d+\s\d+:\d+:\d+,\d+', '', line)
+
+                    # mopidy log filter
+                    if "INFO" in line:
+                        self.logger.info(filtered_line)
+                    elif "ERROR" in line:
+                        self.logger.error(filtered_line)
+                    elif "DEBUG" in line:
+                        self.logger.debug(filtered_line)
+                    else:
+                        self.logger.debug(line)
+
+
+                elif ('Snapcast' in self.label):
+                    #snapcast log filter, removes redundant log information
+                    filtered_line = re.sub(r'\d+-\d+-\d+\s\d+-\d+\d+-\d+.\d+\ (\[(Notice|Debug|Error|Info)\])', '', line)
+
+                    if "Info" in line or "Notice" in line:
+                        self.logger.info(filtered_line)
+                    if "Error" in line:
+                        self.logger.error(filtered_line)
+                    if "Debug" in line:
+                        self.logger.debug(filtered_line)
+
+                else:
+                    self.logger.debug(line)
+
             self.process.stdout.close()
             return_code = self.process.wait()
 
             self.logger.info("Process {0} started.".format(self.label))
         except Exception as e:
-            self.logger.error(e)
-            self.logger.error("Process {0} not started, executable {1} not found".format(self.label, self.command))
+            self.logger.error("Error while running Executer: {0}".format(e))
 
     def stop(self):
         try:
