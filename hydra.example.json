@@ -2,7 +2,7 @@
 	"hydraplay": {
 		"port": 8080,
 		"source_type": "tcp",
-		"ws_uri_proxy": "false"
+		"use_ws_proxy": "false"
 	},
 	"mopidy":{
 		"mpd_base_port": 6600,
@@ -38,7 +38,7 @@
 			},
 			"local": {
 				"enabled": false,
-				"media_dir": "/media"
+				"media_dir": "/media/"
 			}
 		}
 	},

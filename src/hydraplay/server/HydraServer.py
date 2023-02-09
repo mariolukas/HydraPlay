@@ -1,6 +1,7 @@
 from hydraplay.server.handler.StaticFileHandler import StaticFileHandler
 from hydraplay.server.handler.SettingsHandler import SettingsHandler
 from hydraplay.server.handler.MopidyExtensionHandler import MopidyExtensionHandler
+from hydraplay.server.handler.WebsocketProxyHandler import WebsocketProxyHandler
 from hydraplay.server.SnapCastService import SnapCastService
 from hydraplay.server.MopidyPoolService import MopidyPoolService
 from hydraplay.config import Config
@@ -8,12 +9,14 @@ from pathlib import Path
 import tornado
 import logging
 import time
+import threading
 
 import asyncio
 import tornado.ioloop
 import tornado.web
 import tornado.httpserver
 from tornado.platform.asyncio import AnyThreadEventLoopPolicy
+
 
 class HydraServer:
 
@@ -22,6 +25,7 @@ class HydraServer:
         self.webserver = None
         self.snapcast_service = None
         self.exit_on_error = False
+        self.mopidy_service_started = threading.Event()
 
         try:
             self.config = Config(configFile)
@@ -34,7 +38,7 @@ class HydraServer:
             self.logger.debug(self.static_files)
             self.server_port = self.config.content['hydraplay']['port']
 
-            self.mopidy_sercice = MopidyPoolService(self.config.content)
+            self.mopidy_sercice = MopidyPoolService(self.config.content, self.mopidy_service_started)
             self.snapcast_service = SnapCastService(self.config.content)
         except:
             self.exit_on_error = True
@@ -44,9 +48,9 @@ class HydraServer:
         if not self.exit_on_error:
             self.logger.info("Hydraplay Server started.")
             self.mopidy_sercice.start()
-            time.sleep(2)
-            self.snapcast_service.start()
+            self.mopidy_service_started.wait()
 
+            self.snapcast_service.start()
             self.logger.debug("Server listening on port {0}".format(self.server_port))
             self.webserver = self.routes()
             self.webserver.listen(self.server_port)
@@ -64,8 +68,9 @@ class HydraServer:
 
     def routes(self):
         return tornado.web.Application([
-            (r"/api/mopidy/local/scan", MopidyExtensionHandler),
+            (r'/socket/(.*)', WebsocketProxyHandler),
+            (r"/api/media/scan", MopidyExtensionHandler),
             (r"/api/settings", SettingsHandler, {"config": self.config}),
             (r"/client/(.*)", StaticFileHandler, {"path": self.static_files+"/snapweb", "default_filename": "index.html"}),
             (r"/(.*)", StaticFileHandler, {"path": self.static_files+"/player", "default_filename": "index.html"}),
-        ])
+        ], cookie_secret="__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__")

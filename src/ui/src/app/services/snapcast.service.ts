@@ -71,21 +71,22 @@ export class SnapcastService {
     return  this.http.get<any>(hdraplayProtocol + "//" + hydraplayHost + ":" + hydraplayPort + "/api/settings").pipe(map(response=>response));
   }
 
-  public async connect(cfg: { reconnect: boolean } = { reconnect: false }) {
-    console.log("Connecting to Snapcast Server ... ")
+  public async connect(cfg: { reconnect: boolean } = { reconnect: true }) {
 
     if (!this.socket$ || this.socket$.closed) {
-    this.messages$.subscribe(message => this.handleIncomingSnapcastEvent(message))
+      console.log("Connecting to Snapcast Server ... ")
 
-    let $hydra_settings = this.getHydraplaySettings();
-    let hydra_settings = await lastValueFrom($hydra_settings);
+      this.messages$.subscribe(message => this.handleIncomingSnapcastEvent(message))
 
-    this.socket$ = this.getNewWebSocket(hydra_settings);
-    const messages = this.socket$.pipe(cfg.reconnect ? this.reconnect : o => o,
-       tap(error => {
-           console.log(error)
-       }), catchError(_ => EMPTY))
-    this.messagesSubject$.next(messages);
+      let $hydra_settings = this.getHydraplaySettings();
+      let hydra_settings = await lastValueFrom($hydra_settings);
+
+      this.socket$ = this.getNewWebSocket(hydra_settings);
+      const messages = this.socket$.pipe(cfg.reconnect ? this.reconnect : o => o,
+         tap(error => {
+             console.log(error)
+         }), catchError(_ => EMPTY))
+      this.messagesSubject$.next(messages);
 
     }
     this.getSnapCastServerState();
@@ -94,8 +95,8 @@ export class SnapcastService {
   private getNewWebSocket(hydra_settings:any) {
     let wsUrl = `${this.wsProtocol}${this.snapcastHost}:${this.snapcastPort}/jsonrpc`;
 
-    if (hydra_settings['hydraplay']['ws_uri_proxy']) {
-       wsUrl = `${this.wsProtocol}${this.snapcastHost}/control/jsonrpc`;
+    if (hydra_settings['hydraplay']['use_ws_proxy']) {
+       wsUrl = `${this.wsProtocol}${this.snapcastHost}/socket/control/jsonrpc`;
     }
 
     return webSocket({
@@ -132,7 +133,6 @@ export class SnapcastService {
             break;
           case "Client.OnDisconnect":
             this.notificationService.info(`${message.params.client.host.name} connection lost.`)
-            this.reconnectTimeout = setInterval(this.connect, 1000);
             this.getSnapCastServerState();
             break;
           case "Client.OnConnect":

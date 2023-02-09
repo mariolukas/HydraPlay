@@ -6,10 +6,11 @@ from hydraplay.server.Executor import Executor
 from jinja2 import Environment, FileSystemLoader
 
 class MopidyPoolService(threading.Thread):
-    def __init__(self, config):
+    def __init__(self, config, state):
         threading.Thread.__init__(self)
         self.logger = logging.getLogger(__name__)
         self.config = config
+        self.state = state
         self.executor_pool = []
         self.shutdown_flag = threading.Event()
 
@@ -26,6 +27,8 @@ class MopidyPoolService(threading.Thread):
             self.executor_pool.append(Executor("Mopidy_{0}".format(instance), command))
             self.generate_mopidy_config(instance)
             self.executor_pool[instance].start()
+
+        self.state.set()
 
         while not self.shutdown_flag.is_set():
             time.sleep(0.3)

@@ -649,8 +649,8 @@ window.onload = function () {
     fetch("/api/settings")
     .then((response) => response.json())
     .then((json) => {
-        if(json['hydraplay']['ws_uri_proxy']){
-            config.baseUrl = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.hostname + '/control'
+        if(json['hydraplay']['use_ws_proxy']){
+            config.baseUrl = (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.hostname + '/socket/control'
         };
 
         snapcontrol = new SnapControl(config.baseUrl);

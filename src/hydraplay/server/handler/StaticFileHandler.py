@@ -35,6 +35,7 @@ class StaticFileHandler(BaseHandler):
         self.get(path, include_body=False)
 
     def get(self, path, include_body=True):
+
         if os.path.sep != "/":
             path = path.replace("/", os.path.sep)
         abspath = os.path.abspath(os.path.join(self.root, path))
