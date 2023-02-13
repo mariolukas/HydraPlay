@@ -3,20 +3,20 @@ HydraPlay is an easy to use multiroom audio player. HydraPlay provides an integr
 [Mopidy](https://mopidy.com/) instances and one [Snapcast](https://github.com/badaix/snapcast) server. It generates
 all the complex configurations under the hood. Only one configuration file is needed to define what the user needs.
 
-The server part is written in Python and provides a webserver for the frontend delivery. Besides that the server 
-generates all configurations and cares about starting Mopidies and Snapcast. 
+The server part is written in Python and provides a webserver for the frontend delivery. Besides that the server
+generates all configurations and cares about starting Mopidies and Snapcast.
 
 The Frontend is written in TypeScript with the usage of Angular. It connects to the Mopidy and Snapcast web API's to
-combine all the fancy functions in one user interface. 
+combine all the fancy functions in one user interface.
 
-HydraPlay was inspired by a project i have found on [Youtube](https://www.youtube.com/watch?v=Lmr58F8gSs8&t=100s) 
+HydraPlay was inspired by a project i have found on [Youtube](https://www.youtube.com/watch?v=Lmr58F8gSs8&t=100s)
 by Ryan Detzel.
 
 *This project is still under development, some things might be unstable*
 
 
 ## Screenshots
-The scnreenshots below show two connected players and a configuration with two (default value) Mopidy instances. 
+The scnreenshots below show two connected players and a configuration with two (default value) Mopidy instances.
 <center>
 
 ### Player controls<br>
@@ -46,11 +46,11 @@ The following steps require Docker and Docker Compose to be installed on your sy
 
 ### 1. Configure Hydraplay
 
-Make a copy of the file `hydra.example.json` and rename it to `hydra.private.json`. This file contains all needed configurations for the setup. 
+Make a copy of the file `hydra.example.json` and rename it to `hydra.private.json`. This file contains all needed configurations for the setup.
 
-Open the file in an editor and make your changes. If you want to enable Spotify you need a client_id and client_secret. Just follow the instructions of the [Mopidy Spotify extension](https://mopidy.com/ext/spotify/). Add the cliendId, client secret and your Spotify login credentials to the config. Enable Spotify and  save all changes.
+Open the file in an editor and make your changes.
 
-### 2. Start the Docker container 
+### 2. Start the Docker container
 
 Now you are able to start the server with:
 
@@ -65,7 +65,7 @@ docker-compose up
 Connect a SnapClient to the server.
 
 #### Integrated Webclient (Snapweb)
-The fastest way is by using the integrated webclient. Open a browser and go to 
+The fastest way is by using the integrated webclient. Open a browser and go to
 
 ```
 http://<your_server_ip>:<port_in_configuration>/client/
@@ -153,8 +153,8 @@ TODO
 ## Development
 
 ### Running a dev container locally
-If you want to do some development on the ui you can use a local docker dev 
-image for keeping things easy. The dev image is almost the same as the production image but it does not contain a pre-compiled version of the ui. Therefore the image build process is much faster. Just run 
+If you want to do some development on the ui you can use a local docker dev
+image for keeping things easy. The dev image is almost the same as the production image but it does not contain a pre-compiled version of the ui. Therefore the image build process is much faster. Just run
 
 ```docker-compose -f docker-compose.dev.yml build```
 
@@ -162,7 +162,7 @@ image for keeping things easy. The dev image is almost the same as the productio
 
 
 Afterwards you can fire up the development environment
-by 
+by
 
 ```docker-compose -f docker-compse.dev.yml up```
 
@@ -170,7 +170,7 @@ Now you can proceed whit "Build the Angular Frontend"
 
 ### Build the Angular Frontend
 [nodejs](https://nodejs.org/en/download/) is required before you can proceed.
-After you've installed nodejs you can build the ui by using: 
+After you've installed nodejs you can build the ui by using:
 
 ```
 cd src/ui
@@ -180,20 +180,20 @@ ng build
 ```
 
 You can run ```ng build``` with the additional argument ```--watch``` for live
-re-compiling while you are working on your code. 
+re-compiling while you are working on your code.
 
 The build folder is located at ```/src/hydraplay/server/static/player```
 
 
 
-### Building the production image. 
+### Building the production image.
 You can build a production image instead downloading by using:
 
 docker build -f docker/Dockerfile -t mariolukas/hydraplay --build-arg SNAPCASTVERSION=0.26.0 .
 
 :warning: **Using this on a Mac with Apple silicon requires [Rosetta](https://docs.docker.com/desktop/mac/apple-silicon/), additionally you need to enable ```platform: linux/amd64``` in the docker-compose.yml file.**
 
-## Details 
+## Details
 You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-source-multiroom-audio/) which i wrote a couple of years ago when i started the project. A lot of things changed since the first setup. But it will give you and idea on how it works under the hood.
 ( the blog post describes the very first prototype! )
 
@@ -206,12 +206,12 @@ You can find a [blog  post.](https://www.mariolukas.de/2019/07/hydraplay-open-so
 - [ ] add debian package config and make file
 - [ ] add build script for raspberry pi image
 - [ ] add more documentation ( for Raspberry Pi, MacOS with m1, run without docker, configuration etc. )
-- [x] provide ready to use pre-build docker images 
+- [x] provide ready to use pre-build docker images
 
 ### Credits
 This project would not have been possible without all the work on [Snapcast](https://github.com/badaix/snapcast) and [Mopidy](https://mopidy.com/)! Special thanks to Ryan Detzel for the inspiration.
 
-### Community and Support 
+### Community and Support
 
 [Join](https://discord.gg/xs9CKfbpuY) us at Discord (https://discord.gg/xs9CKfbpuY).
 
